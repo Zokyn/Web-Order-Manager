@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="nav-list">
+    <nav class="nav-list" tabindex="1">
+        <h1>Tom do Mar</h1>
         <a 
             class="nav-item" 
             href="index.html">
@@ -31,7 +32,7 @@
     </nav>
     <main>
         <section id="home">
-            <h1>Semana Santa!</h1>
+            <h2>Semana Santa!</h2>
             <p>
                 Confira nossos descontos para você encomendar a sua ceia da semana santa. 
             </p>
@@ -40,9 +41,9 @@
             </div>
         </section>
         <section id="products">
-            <h1>
+            <h2>
                 Produtos
-            </h1>
+            </h2>
             <p>
                 De uma olhada nos nossos deliciosos 
             </p>
@@ -83,9 +84,9 @@
             </ul>
         </section>
         <section id="about">
-            <h1>
+            <h2>
                 Sobre Nós
-            </h1>
+            </h2>
             <div class="about-text">
                 <p>
                     A nossa história começou movida pelo amor — e seguiu impulsionada pela coragem e pelo sonho de construir algo verdadeiro. Patrícia e Antônio Marcos, um casal que nasceu na mesma cidade e que a vida levou para caminhos diferentes, reencontraram-se com a certeza de que queriam ficar juntos. Para isso, Patrícia tomou uma das decisões mais importantes da sua vida: pediu exoneração do seu trabalho em outro estado e voltou para suas raízes, mesmo sem perspectivas de emprego.
@@ -108,18 +109,30 @@
         </section>
     </main>
     <footer id="contact">
-        <h1>Contato</h1>
-        <ul class="contact-list">
-            <li class="contact-item">
-                Telefone: +55 73 9 88440267 (Patricia)
-            </li>
-            <li class="contact-item">
-                Telefone: +55 00 9 00000000 (Antônio)
-            </li>
-            <li class="contact-item">
-                Email: thyssa@hotmail.com
-            </li>
-        </ul>
+        <h2>Contato</h2>
+
+        <nav aria-label="links-secundários">
+            <ul class="contact-list" tabindex="2">
+                <li class="contact-item" >
+                    <a 
+                        href="tel:+5573988440267">
+                        Telefone: +55 73 9 88440267 (Patricia)
+                    </a> 
+                </li>
+                <li class="contact-item">
+                    <a href="tel+5500900000000">
+                        Telefone: +55 00 9 00000000 (Antônio)
+                    </a>
+                </li>
+                <li class="contact-item">
+                    <a href="mailto:thyssa@hotmail.com">
+                        Email: thyssa@hotmail.com
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <p>&copy; 2025 Tom do Mar. Todos os direitos reservado</p>
+
     </footer>
 </body>
 </html>

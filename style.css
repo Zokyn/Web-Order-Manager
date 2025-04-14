@@ -16,31 +16,37 @@ body {
 /* ------------ Nav e Footer ------------ */
 nav, footer {
     background-color: var(--brown);
-    color: white;
 }
 footer {
     padding: 1em 3em;
 }
+nav>*, footer>* {
+    color: white;
+}
 .nav-list, .contact-list {
     display: flex;
     flex-flow: row nowrap;
-    align-self: center;
+    align-items: center;
     justify-content: space-between;
     list-style: none;
 }
-nav>a.nav-item{
+nav>a.nav-item, li.contact-item *{
     text-decoration: none;
+    color: white;
 }
 nav>.nav-item, .contact-item {
     padding: 1em 2em;
     font-weight: 600;
     cursor: pointer;
     color: inherit;
+    text-align: center;
 }
-nav>.nav-item:hover {
+nav>.nav-item:hover, li.contact-item>a:hover{
+    color: var(--yellow-sand);
+    transition: all ease-in 0.25s;
+}
+nav>.nav-item:hover { 
     background-color: #49494950;
-    color: #b2c5a7;
-
 }
 /* ------------ Main Content ------------ */
 main {
