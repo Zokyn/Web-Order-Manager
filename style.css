@@ -14,31 +14,40 @@ body {
     background-color: var(--yellow-sand);
 }
 /* ------------ Nav e Footer ------------ */
-nav, footer {
+header, footer {
     background-color: var(--brown);
 }
 footer {
     padding: 1em 3em;
 }
-nav>*, footer>* {
+header>*, footer>* {
     color: white;
 }
-.nav-list, .contact-list {
+header { 
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
+    align-content: stretch;
     justify-content: space-between;
+}
+h1.brand { 
+    font-size: 1.5rem;
+}
+h1.brand, .nav-list, .contact-list {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: stretch;
+    align-items: center;
     list-style: none;
 }
-nav>a.nav-item, li.contact-item *{
+
+header a, nav>a.nav-item, li.contact-item *{
     text-decoration: none;
     color: white;
 }
-nav>.nav-item, .contact-item {
+nav>.nav-item, li.contact-item {
     padding: 1em 2em;
     font-weight: 600;
     cursor: pointer;
-    color: inherit;
     text-align: center;
 }
 nav>.nav-item:hover, li.contact-item>a:hover{
