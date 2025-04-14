@@ -1,19 +1,36 @@
+:root {
+    --brown: #361e18;
+    --light-brown: #6e431d;
+    --ochre: #cc7722;
+    --chestnut: #742802;
+    --yellow-sand: #e9ba63;
+}
+
 * {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+body { 
+    background-color: var(--yellow-sand);
+}
 nav, footer {
+    background-color: var(--brown);
+    color: white;
+}
+footer {
+    padding: 1em 3em;
+}
+.nav-list, .contact-list {
     display: flex;
     flex-flow: row nowrap;
     align-self: center;
     justify-content: space-between;
-    background-color: fuchsia;
-    color: white;
+    list-style: none;
 }
 nav>a.nav-item{
     text-decoration: none;
 }
-nav>.nav-item {
+nav>.nav-item, .contact-item {
     padding: 1em 2em;
     font-weight: 600;
     cursor: pointer;
