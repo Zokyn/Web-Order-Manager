@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+nav, footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-self: center;
+    justify-content: space-between;
+    background-color: fuchsia;
+    color: white;
+}
+nav>a.nav-item{
+    text-decoration: none;
+}
+nav>.nav-item {
+    padding: 1em 2em;
+    font-weight: 600;
+    cursor: pointer;
+    color: inherit;
+}
+nav>.nav-item:hover {
+    background-color: #49494950;
+    color: #b2c5a7;
+
+}
