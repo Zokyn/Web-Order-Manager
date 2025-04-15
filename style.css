@@ -107,8 +107,8 @@ ul.products-list {
     display: flex;
     flex-flow: row wrap;
     list-style-type: none;
-    align-items: last baseline;
     justify-items: stretch;
+    align-items: stretch;
 }
 /* ------------ Products Item ------------ */
 ul.products-list>li {
@@ -118,7 +118,7 @@ ul.products-list>li {
     grid-template-areas: 
         "image image image"
         "title title title"
-        ". option1 option2"
+        ". option option"
         ". value button";
     padding: 1em;
     border: solid transparent 3px;
@@ -147,7 +147,14 @@ ul.products-list>li>h3{
     text-align: center;
     user-select: none;
 }
-ul.products-list>li>label, ul.products-list>li>input {
+ul.products-list>li>ul {
+    grid-area: option;
+    list-style-type: none;
+    padding: 0;
+    align-items: center
+}
+ul.products-list>li>label, 
+ul.products-list>li>input {
     cursor: pointer;
 }
 ul.products-list>li>label {
@@ -161,7 +168,7 @@ ul.products-list>li>label {
     background-color: var(--ochre);
     margin-right: 0.3em;
 }
-ul.products-list>li>input {
+ul.products-list>li>input[type="checkbox"] {
     grid-area: button;
     appearance: none;
     align-self: center;
@@ -185,7 +192,7 @@ ul.products-list>li:hover label {
     color: #742802be;
     background-color: var(--yellow-sand);
 }
-ul.products-list>li:hover input::after {
+ul.products-list>li:hover input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
     color: var(--yellow-sand);
@@ -195,11 +202,11 @@ ul.products-list>li:hover input::after {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-ul.products-list>li:hover input {
+ul.products-list>li:hover input[type="checkbox"] {
     height: 32px;
     border: solid var(--yellow-sand) 3px;
 }
-ul.products-list>li input:active  {
+ul.products-list>li input[type="checkbox"]:active  {
     height: 32px;
     border: solid var(--ochre) 3px;
     background-color: var(--chestnut);
@@ -221,12 +228,12 @@ ul.products-list>li.selected label {
     background-color: transparent;
     color: var(--chestnut);
 }
-ul.products-list>li.selected input {
+ul.products-list>li.selected input[type="checkbox"] {
     background-color: var(--chestnut);
     border-color: var(--chestnut);
     position: relative;
 }
-ul.products-list>li.selected input::after {
+ul.products-list>li.selected input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
     color: var(--yellow-sand);
