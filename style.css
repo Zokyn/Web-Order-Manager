@@ -127,6 +127,7 @@ ul.products-list>li {
     color: var(--chestnut);
     flex-grow: 1;
     cursor: pointer;
+    row-gap: 1em;
 }
 
 ul.products-list>li>figure {
@@ -177,6 +178,11 @@ ul.products-list>li>input[type="checkbox"] {
     border-radius: 0.5em;
     position: relative;
 }
+ul.products-list>li label.sub-option-label{
+    font-weight: 600;
+    font-size: 1.2em;
+    color: var(--brown);
+}
 ul.products-list>li:hover  {
     background-color: #e9ba63bb;
     transition: all ease-in-out 0.5s;
@@ -207,9 +213,13 @@ ul.products-list>li.unable input[type="checkbox"]::after {
     position: absolute;
     color: grey;
     font-size: 1.2em;
-    top: 50%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+ul.products-list>li.unable input[type="checkbox"] {
+    background-color: white;
+    border: solid grey 3px;
 }
 ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
     height: 32px;
@@ -221,12 +231,8 @@ ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
     background-color: var(--chestnut);
 }
 ul.products-list>li.unable label.select-item-label {
-    color: var(--brown);
+    color: white;
     background-color: grey;
-}
-ul.products-list>li.unable input[type="checkbox"] {
-    background-color: grey;
-    border: solid grey 3px;
 }
 ul.products-list>li.selected {
     background-color: #e9ba635d;
