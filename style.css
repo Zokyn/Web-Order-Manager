@@ -100,7 +100,7 @@ p#copyright-text {
     text-align: center;
 }
 /* ------------ Products ------------ */
-/* ------------ Container ------------ */
+/* ------------ Products Container ------------ */
 ul.products-list {
     gap: 0.5em;
     padding: 0;
@@ -110,7 +110,7 @@ ul.products-list {
     align-items: last baseline;
     justify-items: stretch;
 }
-/* ------------ Item ------------ */
+/* ------------ Products Item ------------ */
 ul.products-list>li {
     display: grid; 
     grid-template-columns: auto 1fr 32px;
@@ -126,6 +126,7 @@ ul.products-list>li {
     background-color: white;
     color: var(--chestnut);
     flex-grow: 1;
+    cursor: pointer;
 }
 
 ul.products-list>li>figure {
@@ -145,7 +146,6 @@ ul.products-list>li>h3{
     font-size: 2rem;
     text-align: center;
     user-select: none;
-    cursor: default;
 }
 ul.products-list>li>label, ul.products-list>li>input {
     cursor: pointer;
@@ -171,14 +171,18 @@ ul.products-list>li>input {
     position: relative;
 }
 ul.products-list>li:hover  {
-    border: solid var(--ochre) 3px;
+    background-color: #e9ba63bb;
+    transition: all ease-in-out 0.5s;
 }
 ul.products-list>li>figure>img:hover {
     transform: scale(1.125);
     transition: transform ease-in-out 0.3s;
 }
+ul.products-list>li:hover h3 {
+    color: #ffffffa2;
+}
 ul.products-list>li:hover label {
-    color: var(--chestnut);
+    color: #742802be;
     background-color: var(--yellow-sand);
 }
 ul.products-list>li:hover input::after {

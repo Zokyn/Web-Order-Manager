@@ -5,13 +5,13 @@ function checkAddItem(checkbox) {
 document.addEventListener("DOMContentLoaded", () => { 
     // Pega todos os checkboxes que pretendo colocar a função
     const checkboxesElements = document.querySelectorAll('.select-item-check');
-
     const itemPicturesElements = document.querySelectorAll('.select-item-picture');
+    const itemContainerElements = document.querySelectorAll('.products-list li');
 
     // Transforma esse objeto de checkboxes em um array
     const checkboxesList = Array.from(checkboxesElements);
-
     const itemPicturesList = Array.from(itemPicturesElements);
+    const itemContainerList = Array.from(itemContainerElements);
 
     // Visita cada checkbox e adiciona um eventlistener da função
     checkboxesList.forEach(checkbox => {
@@ -31,6 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
         picture.addEventListener('click', function () {
             // Vai até o element ovô (li) e ativa ou desativa class "selected"
             this.parentElement.parentElement.classList.toggle('selected');
+        })
+    })
+
+    itemContainerList.forEach(container => {
+
+        container.addEventListener('click', function () {
+            this.classList.toggle('selected');
         })
     })
 });
