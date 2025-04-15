@@ -196,12 +196,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         const activeItem = items[currentIndex]; 
-        const trackWidth = carouselTrack.offsetWidth;
         const containerWidth = carouselContainer.offsetWidth
         const itemWidth = activeItem.offsetWidth;
         const gap = parseInt(getComputedStyle(carouselTrack).gap) || 32;
 
-        const offset = (trackWidth / 2) - (itemWidth / 2) - (currentIndex * (itemWidth + gap)/(containerWidth/itemWidth));
+        const offset = (containerWidth/2) - (itemWidth/2) -(currentIndex * (itemWidth + gap));
 
         carouselTrack.style.transform = `translateX(${offset}px)`;
     }
