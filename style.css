@@ -157,7 +157,7 @@ ul.products-list>li>label,
 ul.products-list>li>input {
     cursor: pointer;
 }
-ul.products-list>li>label {
+ul.products-list>li>label.select-item-label {
     border-radius: 0.25em;
     color: white; 
     grid-area: value;
@@ -188,7 +188,7 @@ ul.products-list>li>figure>img:hover {
 ul.products-list>li:hover h3 {
     color: #ffffffa2;
 }
-ul.products-list>li:hover label {
+ul.products-list>li:hover label.select-item-label {
     color: #742802be;
     background-color: var(--yellow-sand);
 }
@@ -202,16 +202,27 @@ ul.products-list>li:hover input[type="checkbox"]::after {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-ul.products-list>li:hover input[type="checkbox"] {
+ul.products-list>li.unable input[type="checkbox"]::after {
+    content: "🗙";
+    position: absolute;
+    color: var(--brown);
+    font-size: 1.2em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
     height: 32px;
     border: solid var(--yellow-sand) 3px;
 }
-ul.products-list>li input[type="checkbox"]:active  {
+ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
     height: 32px;
     border: solid var(--ochre) 3px;
     background-color: var(--chestnut);
 }
-
+ul.products-list>li.unable input[type="checkbox"] {
+    border: solid var(--brown) 3px;
+}
 ul.products-list>li.selected {
     background-color: #e9ba635d;
     box-shadow: 0px 8px 19px 8px #361e18bf;
@@ -224,7 +235,7 @@ ul.products-list>li.selected img {
 ul.products-list>li.selected h3 {
     color: var(--yellow-sand);
 }
-ul.products-list>li.selected label {
+ul.products-list>li.selected label.select-item-label {
     background-color: transparent;
     color: var(--chestnut);
 }

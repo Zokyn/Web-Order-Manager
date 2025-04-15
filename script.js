@@ -1,17 +1,41 @@
-function checkAddItem(checkbox) {
-
-}
-
 document.addEventListener("DOMContentLoaded", () => { 
     // Pega todos os checkboxes que pretendo colocar a função
     const checkboxesElements = document.querySelectorAll('.select-item-check');
     const itemPicturesElements = document.querySelectorAll('.select-item-picture');
-    const itemContainerElements = document.querySelectorAll('.products-list li');
+    const itemContainerElements = document.querySelectorAll('.products-list>li');
+
+    const itemSubOptionElements = document.querySelectorAll('.select-item.sub-options input[type="radio"]')
 
     // Transforma esse objeto de checkboxes em um array
     const checkboxesList = Array.from(checkboxesElements);
     const itemPicturesList = Array.from(itemPicturesElements);
     const itemContainerList = Array.from(itemContainerElements);
+
+    const itemSubOptionsList = Array.from(itemSubOptionElements);
+
+
+    itemContainerList.forEach(container => {
+        container.classList.add('product-item')
+        const hasSelectedRadio = container.querySelector('.sub-option input[type="radio"]:checked')
+        if (!hasSelectedRadio) {
+            container.classList.add('unable');
+            container.querySelector('.select-item-check').disabled = true;
+        }
+        container.addEventListener('click', function () {
+            if (!this.classList.contains("unable"))
+                this.classList.toggle('selected');
+        })
+    })
+
+    // Visita cada image do item e adiciona um eventlistener da função
+    itemPicturesList.forEach(picture => {
+        // Adiciona o evento listener para quando clicarem na image
+        picture.addEventListener('click', function () {
+            // Vai até o element ovô (li) e ativa ou desativa class "selected"
+            if (!this.parentElement.parentElement.classList.contains("unable"))
+                this.parentElement.parentElement.classList.toggle('selected');
+        })
+    })
 
     // Visita cada checkbox e adiciona um eventlistener da função
     checkboxesList.forEach(checkbox => {
@@ -25,19 +49,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.parentElement.classList.remove('selected');
         })
     })
-    // Visita cada image do item e adiciona um eventlistener da função
-    itemPicturesList.forEach(picture => {
-        // Adiciona o evento listener para quando clicarem na image
-        picture.addEventListener('click', function () {
-            // Vai até o element ovô (li) e ativa ou desativa class "selected"
-            this.parentElement.parentElement.classList.toggle('selected');
-        })
-    })
 
-    itemContainerList.forEach(container => {
+    itemSubOptionsList.forEach(subItem => {
+        subItem.addEventListener('change', function () {
+            const itemContainer = this.closest('.product-item');
+            console.log(itemContainer)
 
-        container.addEventListener('click', function () {
-            this.classList.toggle('selected');
+            const itemCheckbox = itemContainer.querySelector('.select-item-check');
+            console.log(itemCheckbox)
+
+            const selectedPrice = this.dataset.price;
+            itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
+
+            itemCheckbox.disabled = false;
+
+            itemContainer.classList.add('selected');
+            itemContainer.classList.remove('unable');
         })
     })
 });
