@@ -269,10 +269,105 @@ ul.products-list>li.selected:hover img {
     transform: scale(1);
     transition: transform ease-in-out 0.3s;
     border: solid transparent 0.5em;
- /*    box-shadow: 0px 8px 19px 8px #361e18bf; */
 }
-/* ul.products-list>li input:checked  {
-    height: 32px;
-    border: solid var(--ochre) 3px;
+/* ------------ Carousel ------------ */
+.index-carousel {
+    max-width: 1050px;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+.slides-container {
+    display: flex;
+    transition: transform 0.5 ease;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3em;
+}
+.slide {
+    flex-grow: 1;
+    flex-shrink: 0;
+   /*  max-width: 100%; */
+    padding: 0 1em;
+    box-sizing: border-box;
+}
+/* Product Item (inside slide) */
+div.product-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    position: relative;
+    width: 100%;
+}
+div.product-item>figure>img.select-item-picture {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 0.25em;
+}
+div.product-item>label.select-item-label {
+    display: inline-block;
     background-color: var(--ochre);
-} */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+div.product-item>input.select-item-check { 
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+}
+/* Carousel Controls */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 10;
+}
+button.prev {
+    left: 10px;
+}
+button.next {
+    right: 10px;
+}
+.dots-container {
+    text-align: center;
+    padding: 10px 0;
+}
+.dots-container>.dot {
+    display: inline-block;
+    width: .75em;
+    height: .75em;
+    margin: 0 5px;
+    background-color: #bbb;
+    border: 50%;
+    cursor: pointer;
+}
+.dots-container>.dot.active {
+    background-color: var(--ochre);
+}
+
+/* Product Item States */
+div.product-item.unable {
+    opacity: 0.7;
+}
+
+div.product-item.unable .select-item-check {
+    cursor: not-allowed;
+}
+
+.product-item.selected {
+    box-shadow: 0 0 0 2px var(--brown);
+}
