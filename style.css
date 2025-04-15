@@ -7,6 +7,10 @@
 
     --header-nav-height: 56px;
     --footer-nav-height: 156px;
+
+    --carousel-max-width: 800px;
+    --carousel-track-gap: 32px;
+    --carousel-card-width: 300px;
 }
 
 * {
@@ -271,60 +275,43 @@ ul.products-list>li.selected:hover img {
     border: solid transparent 0.5em;
 }
 /* ------------ Carousel ------------ */
-.index-carousel {
-    max-width: 1050px;
+.carousel-container {
     position: relative;
-    margin: auto;
+    width: 100%;
+    max-width: var(--carousel-max-width);
+    margin: 0 auto;
+    padding: 5em 0;
     overflow: hidden;
-    padding: 20px 0;
 }
-.slides-container {
+.carousel-track {
     display: flex;
+    gap: var(--carousel-track-gap);
     transition: transform 0.5 ease;
-    align-items: center;
-    justify-content: space-around;
-    gap: 3em;
+    /* padding: 0 calc(50% - var(--carousel-card-width) - var(--carousel-track-gap)); */
 }
-.slide {
-    flex-grow: 1;
-    flex-shrink: 0;
-   /*  max-width: 100%; */
-    padding: 0 1em;
-    box-sizing: border-box;
-}
-/* Product Item (inside slide) */
 div.product-item {
-    background-color: white;
-    border-radius: 8px;
-    padding: 1em;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-    position: relative;
-    width: 100%;
-}
-div.product-item>figure>img.select-item-picture {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 0.25em;
-}
-div.product-item>label.select-item-label {
-    display: inline-block;
+    flex: 0 0 var(--carousel-card-width);
+    /* height: calc(var(--carousel-card-width) * 1.5); */
     background-color: var(--ochre);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    margin-top: 10px;
+    border-radius: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
 }
-div.product-item>input.select-item-check { 
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 20px;
-    height: 20px;
+div.product-item.active {
+    /* transform: scale(1.2); */
+    z-index: 2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+div.product-item.prev, .product-item.next {
+    opacity: 0.8;
+    transform: scale(0.8);
+}
+div.product-item:not(.active):not(.prev):not(.next) {
+    display: none;
 }
 /* Carousel Controls */
-.prev, .next {
+button.prev, button.next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

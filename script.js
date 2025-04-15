@@ -68,28 +68,26 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
     /* --- Carousel --- */
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
+/*     let currentSlide = 0;
+    const slides = document.querySelectorAll('.card');
     const dotsContainer = document.querySelector('.dots-container');
-    const slidesContainer = document.querySelector('.slides-container');
+    const slidesContainer = document.querySelector('.carousel-track');
 
-    // Para cada Slide encontrado na pagina cria um dot
+    // Para cada Card encontrado na pagina cria um dot
     slides.forEach((_, index) => {
-        if(index%3 == 0) {
-            // Dot nada mais é que um span com className dot
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
+        // Dot nada mais é que um span com className dot
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
 
-            // Se ele for o primeiro da lista, o coloca como ativo
-            if (index === 0)
-                dot.classList.add('active');
+        // Se ele for o primeiro da lista, o coloca como ativo
+        if (index === 0)
+            dot.classList.add('active');
 
-            // Adiciona eventListener para ao clicar e para o slide
-            dot.addEventListener('click', () => goToSlide(index));
+        // Adiciona eventListener para ao clicar e para o card
+        dot.addEventListener('click', () => goToSlide(index));
 
-            // Adiciona-o ao container de dots (dotsContainer)
-            dotsContainer.appendChild(dot);
-        }
+        // Adiciona-o ao container de dots (dotsContainer)
+        dotsContainer.appendChild(dot);
 
     })
 
@@ -97,11 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(dots)
     function goToSlide(index) {
         // Se o index for 
-        if (index >= slides.length/3) // maior que o numero de slides
-            index = 0 // então o index do slide deve reiniciar indo a 0
+        if (index >= slides.length) // maior que o numero de slides
+            index = 0 // então o index do card deve reiniciar indo a 0
         // Se o index for
         if (index < 0) // menor do que zero 
-            index = slides.length - 1; // então index deve ir para o último slide
+            index = slides.length - 1; // então index deve ir para o último card
         
         slidesContainer.style.transform = `translateX(-${index * 100}%)`;
 
@@ -126,13 +124,87 @@ document.addEventListener("DOMContentLoaded", () => {
         goToSlide(currentSlide + 1);
     }, 5000);
 
-    document.querySelector('index-carousel').addEventListener('mouseenter', () => {
+    document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
         clearInterval(autoplay);
     });
 
-    document.querySelector('index-carousel').addEventListener('mouseleave', () => {
+    document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
         autoplay = setInterval(() => {
             goToSlide(currentSlide + 1);
         }, 5000)
-    })
+    }) 
+*/
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselContainer = document.querySelector('.carousel-container');
+    const carouselTrack = document.querySelector('.carousel-track'); 
+
+    const produtos = [
+        { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/200x300" },
+        { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/200x300" },
+        { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/200x300" },
+        { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/200x300" },
+        { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/200x300" },
+        { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/200x300" }
+    ];
+
+    produtos.forEach((produto, index) => {
+        const card = document.createElement('div'); 
+
+        card.className = 'product-item';
+
+        card.innerHTML = `
+            <figure>
+                <img src="${produto.img}" alt="${produto.nome}">
+            </figure>
+            <h3>${produto.nome}</h3>
+            <label class="price">${produto.preco}</label>
+        `;
+
+        card.dataset.index = index; 
+        carouselTrack.appendChild(card);
+    })
+
+    let currentIndex = 0; 
+    const items = document.querySelectorAll('.product-item');
+    const totalItems = items.length;
+
+    updateCarousel(); 
+
+    document.querySelector('button.prev').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        updateCarousel();
+    })
+
+    document.querySelector('button.next').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalItems; 
+        updateCarousel();
+    })
+
+    function updateCarousel() {
+        items.forEach((item, index) => {
+            item.classList.remove('active', 'prev', 'next');
+            
+            if (index === currentIndex) {
+                item.classList.add('active');
+            } else if (index === (currentIndex - 1)) {
+                item.classList.add('prev');
+            } else if (index === (currentIndex + 1)) {
+                item.classList.add('next');
+            } 
+        });
+
+        const activeItem = items[currentIndex]; 
+        const trackWidth = carouselTrack.offsetWidth;
+        const containerWidth = carouselContainer.offsetWidth
+        const itemWidth = activeItem.offsetWidth;
+        const gap = parseInt(getComputedStyle(carouselTrack).gap) || 32;
+
+        const offset = (trackWidth / 2) - (itemWidth / 2) - (currentIndex * (itemWidth + gap)/(containerWidth/itemWidth));
+
+        carouselTrack.style.transform = `translateX(${offset}px)`;
+    }
+
+    window.addEventListener('resize', updateCarousel);
+})
