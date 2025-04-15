@@ -284,6 +284,7 @@ ul.products-list>li.selected:hover img {
     overflow: hidden;
 }
 .carousel-track {
+    width: max-content;
     display: flex;
     gap: var(--carousel-track-gap);
     transition: transform 0.5 ease;
@@ -303,12 +304,12 @@ div.product-item.active {
     z-index: 2;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-div.product-item.prev, .product-item.next {
-    opacity: 0.8;
+div.product-item.prev, div.product-item.next {
+    opacity: 0.6;
     transform: scale(0.8);
 }
 div.product-item:not(.active):not(.prev):not(.next) {
-    display: none;
+    visibility: hidden;
 }
 /* Carousel Controls */
 button.prev, button.next {
