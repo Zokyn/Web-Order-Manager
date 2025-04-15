@@ -205,7 +205,7 @@ ul.products-list>li:hover input[type="checkbox"]::after {
 ul.products-list>li.unable input[type="checkbox"]::after {
     content: "🗙";
     position: absolute;
-    color: var(--brown);
+    color: grey;
     font-size: 1.2em;
     top: 50%;
     left: 50%;
@@ -220,8 +220,13 @@ ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
     border: solid var(--ochre) 3px;
     background-color: var(--chestnut);
 }
+ul.products-list>li.unable label.select-item-label {
+    color: var(--brown);
+    background-color: grey;
+}
 ul.products-list>li.unable input[type="checkbox"] {
-    border: solid var(--brown) 3px;
+    background-color: grey;
+    border: solid grey 3px;
 }
 ul.products-list>li.selected {
     background-color: #e9ba635d;

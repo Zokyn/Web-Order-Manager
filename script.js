@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     itemContainerList.forEach(container => {
         container.classList.add('product-item')
-        const hasSelectedRadio = container.querySelector('.sub-option input[type="radio"]:checked')
-        if (!hasSelectedRadio) {
+        const hasSelectedRadio = container.querySelector('.sub-options input[type="radio"]')
+        if (hasSelectedRadio && !hasSelectedRadio.checked) {
             container.classList.add('unable');
             container.querySelector('.select-item-check').disabled = true;
         }
