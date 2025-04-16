@@ -93,7 +93,7 @@ section {
     margin: 0.5em;
     padding: 0.75em 2em 3em;
     color: white;
-    background-color: var(--chestnut);
+    background: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
     border-radius: 16px;
 }
 .about-text p {
@@ -275,13 +275,19 @@ ul.products-list>li.selected:hover img {
     border: solid transparent 0.5em;
 }
 /* ------------ Carousel ------------ */
+section#home {
+    padding: 3em 0 0;
+}
+#home>.hero-content {
+    text-align: center;
+    font-size: 2rem;
+}
 .carousel-container {
     position: relative;
     width: 100%;
     /* max-width: var(--carousel-max-width); */
     padding: 5em 0;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.363);
     border-radius: 8px;
 }
 ul.carousel-track {
@@ -291,6 +297,9 @@ ul.carousel-track {
     gap: var(--carousel-track-gap);
     margin: 3em 0;
     transition: transform 0.5 ease;
+    padding-inline-start: 0;
+    border-radius: 16px;
+    background-color: #74280255 /* chestnut with low opacity */;
 }
 ul.carousel-track>.product-item {
     position: relative;
@@ -321,31 +330,33 @@ ul.carousel-track>.product-item>label {
 }
 ul.carousel-track>.product-item.active {
     z-index: 2;
-    /* transform: scale(1.2); */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
 }
 ul.carousel-track>.product-item.prev, 
-ul.carousel-track>.product-item.next {
-    opacity: 0.6;
-    /* transform: scale(0.8); */
+ul.carousel-track>.product-item.next,
+ul.carousel-track>.product-item.inactive {
+    opacity: 0.8;
+    transform: scale(0.8);
     /* transition: transform 0.6s ease-out; */
-
-}
-ul.carousel-track>.product-item:not(.active):not(.prev):not(.next) {
-    visibility: hidden;
 }
 /* Carousel Controls */
 button.prev, button.next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
     border: none;
     padding: 15px;
     cursor: pointer;
     border-radius: 4px;
     z-index: 10;
+    color: white;
+    background-color: #742802d0;
+    transition: all ease-in 0.125s;
+}
+button.prev:hover, button.next:hover {
+    color: #cc7722b2;
+    background-color: #e9ba63d3;
 }
 button.prev {
     left: 10px;

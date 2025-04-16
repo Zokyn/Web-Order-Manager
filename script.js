@@ -53,12 +53,8 @@ function forwardCarousel(items, dots, container, track) {
     updateCarousel(items, dots, container, track)
 }
 function updateCarousel(items, dots, container, track) {
-    const activeScale = 1.2;
-    const othersScale = 0.8;
-
     items.forEach((item, index) => {
-        item.classList.remove('active', 'prev', 'next');
-        item.style.transform = `scale(${othersScale})`
+        item.classList.remove('active', 'prev', 'next', 'inactive');
 
         if (index === currentIndex) {
             item.classList.add('active');
@@ -66,7 +62,9 @@ function updateCarousel(items, dots, container, track) {
             item.classList.add('prev');
         } else if (index === (currentIndex + 1)) {
             item.classList.add('next');
-        } 
+        } else { 
+            item.classList.add('inactive');
+        }
     });
 
     dots.forEach((dot, index) => {
@@ -82,11 +80,10 @@ function updateCarousel(items, dots, container, track) {
     const containerWidth = container.offsetWidth
     const itemWidth = activeItem.offsetWidth;
     
-    activeItem.style.transform = `scale(${activeScale})`;
-    console.log(containerWidth)
+    
     const gap = parseInt(getComputedStyle(track).gap) || 32;
 
-    const offset = (containerWidth/2) - (itemWidth*activeScale/2) -(currentIndex * (itemWidth + gap));
+    const offset = (containerWidth/2) - (itemWidth/2) -((itemWidth + gap)*currentIndex);
 
     track.style.transform = `translateX(${offset}px)`;
 }
