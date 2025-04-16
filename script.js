@@ -137,20 +137,27 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
+    // Adiciona eventListener para cada subitem(radio)
     itemSubOptionsList.forEach(subItem => {
+        // Caso um dos radio button seja selecionado
         subItem.addEventListener('change', function () {
+            // Busca o item pai do subitem
             const itemContainer = this.closest('.product-item');
-            console.log(itemContainer)
 
+            // Busca o checkbox do item pai
             const itemCheckbox = itemContainer.querySelector('.select-item-check');
-            console.log(itemCheckbox)
 
+            // Atribui o preço ao a label do item pai
             const selectedPrice = this.dataset.price;
             itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
 
+            // Permite seleção no checkbox
             itemCheckbox.disabled = false;
 
+            // Atribui ele como selecionado
             itemContainer.classList.add('selected');
+
+            // Remove class de 'unable'
             itemContainer.classList.remove('unable');
         })
     })
@@ -158,59 +165,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* --- Carousel --- */
 document.addEventListener('DOMContentLoaded', function() {
+    // Componentes do Carousel 
     const carouselContainer = document.querySelector('.carousel-container');
     const carouselTrack = document.querySelector('.carousel-track'); 
     const dotsContainer = document.querySelector('.dots-container');
 
-    createProductsCards(carouselTrack)
+    // Cria os itens (card) dentro do Carousel a partir dos produtos
+    createProductsCards(carouselTrack) 
 
+    // Seleciona todas os cartões do carousel 
     const cards = document.querySelectorAll('.product-item');
 
+    // Para cada cartão do carousel 
     cards.forEach((_, index) => {
-        
+        // Cria um elemento de dot
         const dot = document.createElement('span');
-        dot.classList.add('dot');
+        dot.classList.add('dot'); // e atribui a classe
 
+        // Define o primeiro dot como ativo
         if (index === 0)
             dot.classList.add('active');
-
+        
+        // Adiciona o eventListener para atualizar o carousel a cada dot
         dot.addEventListener('click', () => dotUpdateCarousel(cards, carouselContainer, carouselTrack, index));
         
+        // Insere ele no container de dots
         dotsContainer.appendChild(dot);
     })
 
+    // Seleciona todos os dots
     const dots = document.querySelectorAll('.dot');
 
     function dotUpdateCarousel(items, container, track, dotIndex) {
+        // Remove a class 'active' ao dot ativo
         dots[currentIndex].classList.remove('active');
 
+        // Atualiza o dot selecionado para ser ativo
         dots[dotIndex].classList.add('active');
 
+        // Atualiza o index do cartão atual 
         currentIndex = dotIndex;
-    
+        
+        // Atualiza carrossel
         updateCarousel(items, dots, container, track)
     }
 
+    // Atualiza Carousel depois de instanciar todos seus componentes
     updateCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex); 
 
+    // Atribui eventListener ao botão de retroceder
     document.querySelector('button.prev').addEventListener('click', () => backwardCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex))
 
+    // Atribui eventListener ao botão de avançar 
     document.querySelector('button.next').addEventListener('click', () => forwardCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex))
 
+    // Atualiza o Carousel caso a janela mude de tamanho 
     window.addEventListener('resize', updateCarousel);
-
-    /*     
-    let autoplay = setInterval(() => {
-        goToSlide(currentSlide + 1);
-    }, 5000);
-
-    document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
-        clearInterval(autoplay);
-    });
-
-    document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
-        autoplay = setInterval(() => {
-            goToSlide(currentSlide + 1);
-        }, 5000)
-    })  */
 })
