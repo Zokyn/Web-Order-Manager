@@ -290,7 +290,7 @@ ul.products-list>li.selected:hover img {
     transition: transform 0.5 ease;
     /* padding: 0 calc(50% - var(--carousel-card-width) - var(--carousel-track-gap)); */
 }
-div.product-item {
+.carousel-track>.product-item {
     flex: 0 0 var(--carousel-card-width);
     /* height: calc(var(--carousel-card-width) * 1.5); */
     background-color: var(--ochre);
@@ -299,16 +299,17 @@ div.product-item {
     transition: transform 0.3s ease, opacity 0.3s ease;
     position: relative;
 }
-div.product-item.active {
+.carousel-track>.product-item.active {
     /* transform: scale(1.2); */
     z-index: 2;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-div.product-item.prev, div.product-item.next {
+.carousel-track>.product-item.prev, 
+.carousel-track>.product-item.next {
     opacity: 0.6;
     transform: scale(0.8);
 }
-div.product-item:not(.active):not(.prev):not(.next) {
+.carousel-track>.product-item:not(.active):not(.prev):not(.next) {
     visibility: hidden;
 }
 /* Carousel Controls */

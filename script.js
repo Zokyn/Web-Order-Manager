@@ -1,3 +1,81 @@
+/* Carousel Index */
+let currentIndex = 0; 
+/* Lista de Produtos (fake database) */
+const produtos = [
+    { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/200x300" },
+    { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/200x300" },
+    { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/200x300" },
+    { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/200x300" },
+    { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/200x300" },
+    { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/200x300" }
+];
+
+function createProductsCards(track) {
+    produtos.forEach((produto, index) => {
+        const card = document.createElement('li'); 
+
+        card.className = 'product-item';
+
+        card.innerHTML = `
+            <figure>
+                <img src="${produto.img}" alt="${produto.nome}">
+            </figure>
+            <h3>${produto.nome}</h3>
+            <label class="price">${produto.preco}</label>
+        `;
+
+        card.dataset.index = index; 
+        card.dataset.name = produto.nome;
+        card.dataset.price = produto.preco;
+
+        track.appendChild(card);
+    })
+}
+
+function backwardCarousel(items, container, track) {
+    const totalItems = items.length;
+    /* novoIndex = (indexAtual - 1 + total) % total
+    * Isso garante que o novoIndex nunca vai ser menor que 0
+    * pois sempre é somado o total de items e caso o valor da
+    * seja igual o total, não há resto na divisão. Retorna 0  
+    */
+    currentIndex = (currentIndex - 1 + totalItems) % totalItems
+    updateCarousel(items, container, track, currentIndex)
+}
+
+function forwardCarousel(items, container, track) {
+    const totalItems = items.length;
+    /* novoIndex =  (indexAtual + 1) % total
+     * Se `novoIndex` == totalItems, retorna 0 
+     * Em outras palavras se novoIndex for divisível ele retorna 0  */
+    currentIndex = (currentIndex + 1) % totalItems;
+    updateCarousel(items, container, track, currentIndex)
+}
+
+function updateCarousel(items, container, track) {
+
+    items.forEach((item, index) => {
+        item.classList.remove('active', 'prev', 'next');
+        
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else if (index === (currentIndex - 1)) {
+            item.classList.add('prev');
+        } else if (index === (currentIndex + 1)) {
+            item.classList.add('next');
+        } 
+    });
+
+    const activeItem = items[currentIndex]; 
+    const containerWidth = container.offsetWidth
+    const itemWidth = activeItem.offsetWidth;
+    const gap = parseInt(getComputedStyle(track).gap) || 32;
+
+    const offset = (containerWidth/2) - (itemWidth/2) -(currentIndex * (itemWidth + gap));
+
+    track.style.transform = `translateX(${offset}px)`;
+}
+
 document.addEventListener("DOMContentLoaded", () => { 
     // Pega todos os checkboxes que pretendo colocar a função
     const checkboxesElements = document.querySelectorAll('.select-item-check');
@@ -136,74 +214,20 @@ document.addEventListener("DOMContentLoaded", () => {
 */
 });
 
+
 document.addEventListener('DOMContentLoaded', function() {
     const carouselContainer = document.querySelector('.carousel-container');
     const carouselTrack = document.querySelector('.carousel-track'); 
 
-    const produtos = [
-        { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/200x300" },
-        { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/200x300" },
-        { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/200x300" },
-        { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/200x300" },
-        { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/200x300" },
-        { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/200x300" }
-    ];
+    createProductsCards(carouselTrack)
 
-    produtos.forEach((produto, index) => {
-        const card = document.createElement('div'); 
-
-        card.className = 'product-item';
-
-        card.innerHTML = `
-            <figure>
-                <img src="${produto.img}" alt="${produto.nome}">
-            </figure>
-            <h3>${produto.nome}</h3>
-            <label class="price">${produto.preco}</label>
-        `;
-
-        card.dataset.index = index; 
-        carouselTrack.appendChild(card);
-    })
-
-    let currentIndex = 0; 
     const items = document.querySelectorAll('.product-item');
-    const totalItems = items.length;
 
-    updateCarousel(); 
+    updateCarousel(items, carouselContainer, carouselTrack, currentIndex); 
 
-    document.querySelector('button.prev').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateCarousel();
-    })
+    document.querySelector('button.prev').addEventListener('click', () => backwardCarousel(items, carouselContainer, carouselTrack, currentIndex))
 
-    document.querySelector('button.next').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % totalItems; 
-        updateCarousel();
-    })
-
-    function updateCarousel() {
-        items.forEach((item, index) => {
-            item.classList.remove('active', 'prev', 'next');
-            
-            if (index === currentIndex) {
-                item.classList.add('active');
-            } else if (index === (currentIndex - 1)) {
-                item.classList.add('prev');
-            } else if (index === (currentIndex + 1)) {
-                item.classList.add('next');
-            } 
-        });
-
-        const activeItem = items[currentIndex]; 
-        const containerWidth = carouselContainer.offsetWidth
-        const itemWidth = activeItem.offsetWidth;
-        const gap = parseInt(getComputedStyle(carouselTrack).gap) || 32;
-
-        const offset = (containerWidth/2) - (itemWidth/2) -(currentIndex * (itemWidth + gap));
-
-        carouselTrack.style.transform = `translateX(${offset}px)`;
-    }
+    document.querySelector('button.next').addEventListener('click', () => forwardCarousel(items, carouselContainer, carouselTrack, currentIndex))
 
     window.addEventListener('resize', updateCarousel);
 })
