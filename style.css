@@ -10,7 +10,7 @@
 
     --carousel-max-width: 800px;
     --carousel-track-gap: 32px;
-    --carousel-card-width: 300px;
+    --carousel-card-width: 240px;
 }
 
 * {
@@ -278,38 +278,60 @@ ul.products-list>li.selected:hover img {
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: var(--carousel-max-width);
-    margin: 0 auto;
+    /* max-width: var(--carousel-max-width); */
     padding: 5em 0;
     overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.363);
+    border-radius: 8px;
 }
-.carousel-track {
+ul.carousel-track {
+    list-style-type: none;
     width: max-content;
     display: flex;
     gap: var(--carousel-track-gap);
+    margin: 3em 0;
     transition: transform 0.5 ease;
-    /* padding: 0 calc(50% - var(--carousel-card-width) - var(--carousel-track-gap)); */
 }
-.carousel-track>.product-item {
-    flex: 0 0 var(--carousel-card-width);
-    /* height: calc(var(--carousel-card-width) * 1.5); */
-    background-color: var(--ochre);
-    border-radius: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+ul.carousel-track>.product-item {
     position: relative;
+    flex: 0 0 var(--carousel-card-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    background-color: var(--ochre);
+    padding-bottom: 1em;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.8s ease-in-out, opacity 0.3s ease;
 }
-.carousel-track>.product-item.active {
-    /* transform: scale(1.2); */
+ul.carousel-track>.product-item>figure,
+ul.carousel-track>.product-item>figure>img {
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+}
+ul.carousel-track>.product-item>h3 {
+    padding: 4px 0;
+}
+ul.carousel-track>.product-item>label {
+    color: var(--ochre);
+    font-weight: 600;
+    background-color: white;
+    padding: 4px 1em;
+    border-radius: 4px;
+}
+ul.carousel-track>.product-item.active {
     z-index: 2;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* transform: scale(1.2); */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
-.carousel-track>.product-item.prev, 
-.carousel-track>.product-item.next {
+ul.carousel-track>.product-item.prev, 
+ul.carousel-track>.product-item.next {
     opacity: 0.6;
-    transform: scale(0.8);
+    /* transform: scale(0.8); */
+    /* transition: transform 0.6s ease-out; */
+
 }
-.carousel-track>.product-item:not(.active):not(.prev):not(.next) {
+ul.carousel-track>.product-item:not(.active):not(.prev):not(.next) {
     visibility: hidden;
 }
 /* Carousel Controls */

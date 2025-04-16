@@ -2,12 +2,12 @@
 let currentIndex = 0; 
 /* Lista de Produtos (fake database) */
 const produtos = [
-    { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/200x300" },
-    { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/200x300" },
-    { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/200x300" },
-    { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/200x300" },
-    { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/200x300" },
-    { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/200x300" }
+    { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/240x240" },
+    { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/240x240" },
+    { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/240x240" },
+    { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/240x240" },
+    { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/240x240" },
+    { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/240x240" }
 ];
 
 function createProductsCards(track) {
@@ -53,10 +53,13 @@ function forwardCarousel(items, dots, container, track) {
     updateCarousel(items, dots, container, track)
 }
 function updateCarousel(items, dots, container, track) {
+    const activeScale = 1.2;
+    const othersScale = 0.8;
 
     items.forEach((item, index) => {
         item.classList.remove('active', 'prev', 'next');
-        
+        item.style.transform = `scale(${othersScale})`
+
         if (index === currentIndex) {
             item.classList.add('active');
         } else if (index === (currentIndex - 1)) {
@@ -75,11 +78,15 @@ function updateCarousel(items, dots, container, track) {
     })
 
     const activeItem = items[currentIndex]; 
+
     const containerWidth = container.offsetWidth
     const itemWidth = activeItem.offsetWidth;
+    
+    activeItem.style.transform = `scale(${activeScale})`;
+    console.log(containerWidth)
     const gap = parseInt(getComputedStyle(track).gap) || 32;
 
-    const offset = (containerWidth/2) - (itemWidth/2) -(currentIndex * (itemWidth + gap));
+    const offset = (containerWidth/2) - (itemWidth*activeScale/2) -(currentIndex * (itemWidth + gap));
 
     track.style.transform = `translateX(${offset}px)`;
 }
@@ -220,5 +227,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('button.next').addEventListener('click', () => forwardCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex))
 
     // Atualiza o Carousel caso a janela mude de tamanho 
-    window.addEventListener('resize', updateCarousel);
+    window.addEventListener('resize', () => updateCarousel(cards, dots, carouselContainer, carouselTrack));
 })
