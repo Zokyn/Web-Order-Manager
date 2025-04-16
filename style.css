@@ -12,7 +12,6 @@
     --carousel-track-gap: 32px;
     --carousel-card-width: 240px;
 }
-
 * {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,28 +24,30 @@ header, footer {
     z-index: 100;
     background-color: var(--brown);
 }
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: var(--header-nav-height);
-}
 footer {
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
     position: absolute;
     width: 100%;
-    height: var(--footer-nav-height);
 }
-header>*, footer>* {
-    color: white;
-}
+
 header { 
     display: flex;
     flex-flow: row nowrap;
     align-content: stretch;
     justify-content: space-between;
+    height: var(--header-nav-height);
+}
+header>*, footer>* {
+    color: white;
+}
+header a, nav>a.nav-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+header a, nav>a.nav-item, li.contact-item *{
+    text-decoration: none;
+    color: white;
 }
 h1.brand { 
     font-size: 1.5rem;
@@ -62,10 +63,7 @@ h1.brand, .nav-list, .contact-list {
 .contact-list {
     justify-content: center;
 }
-header a, nav>a.nav-item, li.contact-item *{
-    text-decoration: none;
-    color: white;
-}
+
 nav>.nav-item, li.contact-item {
     padding: 1em 2em;
     font-weight: 600;
@@ -79,11 +77,24 @@ nav>.nav-item:hover, li.contact-item>a:hover{
 nav>.nav-item:hover { 
     background-color: #49494950;
 }
+button.menu-button {
+    display: none;
+    width: 56px;
+    border: none;
+    background-color: transparent;
+}
+button.menu-button i {
+    font-size: 32px;
+}
+button.menu-button:hover,
+button.menu-button i:hover {
+    background-color: rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.815);
+}
+
 /* ------------ Main Content ------------ */
 main {
-    margin: 1em 3em;
-    margin-top: calc(var(--header-nav-height) + 1em);
-    margin-bottom: calc(var(--footer-nav-height) + 2em);
+
     text-align: justify;
 }
 h1,h2,h3 {
@@ -97,12 +108,202 @@ section {
     border-radius: 16px;
 }
 .about-text p {
-    text-indent: 2.5em;
-    margin: 3em;
+    font-size: 1.5em;
+    color: var(--brown);
+    text-indent: 3em;
+    margin: 2em;
 }
 p#copyright-text {
     text-align: center;
 }
+/* ------------ Media Queries ------------ */
+@media (max-width: 467px) {
+    :root {
+        --header-nav-height: 96px;
+    }
+    header {
+        width: 100%;
+        justify-content: center;
+    }
+    h1.brand { 
+        display: none;
+    }
+    nav {
+        font-size: 2em;
+        display: flex;
+        gap: 16px;
+    }
+    nav>.nav-item {
+        padding: 0;
+    }
+    nav>.nav-item:active {
+        background-color: transparent;
+    }
+    nav>.nav-item>span {
+        display: none;
+    }
+    main {
+        margin: 16px;
+    }
+    section {
+        margin: 0;
+    }
+    footer {
+        height: 100vh;
+        flex-direction: column;
+        gap: 32px;
+        bottom: -100;
+    }
+    footer h2{
+        font-size: 2rem;
+        align-self: center;
+    }
+    footer .contact-list {
+        gap: 0;
+        flex-direction: column;
+    }
+    footer p {
+        margin-top: auto;
+        margin-bottom: 16px;
+    }
+}
+@media (min-width: 468px) and (max-width: 613px) {
+    :root {
+        --header-nav-height: 56px;
+    }
+    header {
+        justify-content: center;
+    }
+    h1.brand { 
+        align-items: center;
+    }
+    nav, nav>.nav-item {
+        display: none;
+    }
+    button.menu-button {
+        display: block;
+        position: absolute;
+        right: 8px;
+        height: var(--header-nav-height);
+    }
+    section {
+        padding: 16px;
+    }
+    main {
+        margin: 16px;
+        margin-top: calc(var(--header-nav-height));
+        margin-bottom: calc(var(--footer-nav-height));
+    }
+    section#about {
+        padding: 0 16px 1em;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        height: var(--footer-nav-height);
+    }
+    footer h2 {
+        align-self: center;
+    }
+    footer>nav {
+        display: block;
+    }
+    footer>nav>.contact-list {
+        display: flex;
+        flex-direction: row;
+    }
+}
+@media (min-width: 614px) and (max-width: 811px){
+    h1.brand { 
+        display: none;
+    }
+    header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+    }
+    nav {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    main {
+        margin: 0.5em;
+        margin-top: calc(var(--header-nav-height) + 1em);
+        margin-bottom: calc(var(--footer-nav-height) + 2em);
+    }
+    .about-text p {
+        font-size: 1.2em;
+    }
+    section {
+        margin: 0.5em;
+        padding: 0.75em 2em 3em;
+    }
+    footer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: var(--footer-nav-height);
+    }
+}
+@media (min-width: 812px) and (max-width: 1199px) {
+    :root {
+        --header-nav-height: 56px;
+        --footer-nav-height: 156px;
+    }
+    h1.brand { 
+        font-size: 1.5em;
+    }
+    nav>.nav-item {
+        font-size: 1.25em;
+    }
+    nav>.nav-item i {
+        display: none;
+    }
+    main {
+        margin: 3em;
+        margin-top: calc(var(--header-nav-height) + 1em);
+        margin-bottom: calc(var(--footer-nav-height) + 2em);
+    }
+    .about-text p {
+        font-size: 1.12em;
+    }
+    footer { 
+        align-items: center;
+    }
+    .hero-content {
+        font-size: 1.5rem;
+    }
+}
+@media (min-width: 1200px) {
+    :root {
+        --header-nav-height: 80px;
+    }
+    h1.brand { 
+        font-size: 2rem;
+    }
+    nav>.nav-item {
+        font-size: 1.5rem;
+    }
+    .about-text p {
+        font-size: 1.3em;
+    }
+    footer {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.75em 0 2em;
+    }
+    .hero-content {
+        font-size: 2rem;
+    }
+    section#about { 
+        margin: 200px;
+        margin-top: var(--header-nav-height);
+        margin-bottom: var(--footer-nav-height);
+        padding: 3em;
+    }
+}
+
 /* ------------ Products ------------ */
 /* ------------ Products Container ------------ */
 ul.products-list {
@@ -280,7 +481,6 @@ section#home {
 }
 #home>.hero-content {
     text-align: center;
-    font-size: 2rem;
 }
 .carousel-container {
     position: relative;
