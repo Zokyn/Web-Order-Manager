@@ -357,19 +357,29 @@ button.next {
     text-align: center;
     padding: 10px 0;
 }
-.dots-container>.dot {
+.dot {
     display: inline-block;
     width: .75em;
     height: .75em;
     margin: 0 5px;
-    background-color: #bbb;
-    border: 50%;
+    background-color: #ddd;
+    border: solid transparent 1px;
+    border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0px 0px 25px -2px rgba(0,0,0,0.75);
 }
-.dots-container>.dot.active {
-    background-color: var(--ochre);
+.dot.active {
+    background-color: var(--yellow-sand);
+    cursor: default
 }
-
+.dot.active:hover {
+    background-color: transparent;
+    border: solid var(--yellow-sand) 1px;
+}
+.dot:hover {
+    background-color: #bbbbbb85;
+    transition: background-color 0.2s ease-out;
+}
 /* Product Item States */
 div.product-item.unable {
     opacity: 0.7;
