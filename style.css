@@ -351,12 +351,12 @@ button.prev, button.next {
     border-radius: 4px;
     z-index: 10;
     color: white;
-    background-color: #742802d0;
+    background-color: #361e18d0;
     transition: all ease-in 0.125s;
 }
 button.prev:hover, button.next:hover {
-    color: #cc7722b2;
-    background-color: #e9ba63d3;
+    color: var(--yellow-sand);
+    background-color: #49494950;
 }
 button.prev {
     left: 10px;
