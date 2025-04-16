@@ -32,7 +32,7 @@ function createProductsCards(track) {
     })
 }
 
-function backwardCarousel(items, container, track) {
+function backwardCarousel(items, dots, container, track) {
     const totalItems = items.length;
     /* novoIndex = (indexAtual - 1 + total) % total
     * Isso garante que o novoIndex nunca vai ser menor que 0
@@ -40,19 +40,19 @@ function backwardCarousel(items, container, track) {
     * seja igual o total, não há resto na divisão. Retorna 0  
     */
     currentIndex = (currentIndex - 1 + totalItems) % totalItems
-    updateCarousel(items, container, track, currentIndex)
+    updateCarousel(items, dots, container, track)
 }
 
-function forwardCarousel(items, container, track) {
+function forwardCarousel(items, dots, container, track) {
     const totalItems = items.length;
     /* novoIndex =  (indexAtual + 1) % total
      * Se `novoIndex` == totalItems, retorna 0 
-     * Em outras palavras se novoIndex for divisível ele retorna 0  */
+     * Em outras palavras se novoIndex for divisível ele retorna 0  
+     */
     currentIndex = (currentIndex + 1) % totalItems;
-    updateCarousel(items, container, track, currentIndex)
+    updateCarousel(items, dots, container, track)
 }
-
-function updateCarousel(items, container, track) {
+function updateCarousel(items, dots, container, track) {
 
     items.forEach((item, index) => {
         item.classList.remove('active', 'prev', 'next');
@@ -66,6 +66,14 @@ function updateCarousel(items, container, track) {
         } 
     });
 
+    dots.forEach((dot, index) => {
+        dot.classList.remove('active');
+
+        if (index === currentIndex) {
+            dot.classList.add('active');
+        }
+    })
+
     const activeItem = items[currentIndex]; 
     const containerWidth = container.offsetWidth
     const itemWidth = activeItem.offsetWidth;
@@ -76,6 +84,7 @@ function updateCarousel(items, container, track) {
     track.style.transform = `translateX(${offset}px)`;
 }
 
+/* Enable multi-option item */
 document.addEventListener("DOMContentLoaded", () => { 
     // Pega todos os checkboxes que pretendo colocar a função
     const checkboxesElements = document.querySelectorAll('.select-item-check');
@@ -145,59 +154,52 @@ document.addEventListener("DOMContentLoaded", () => {
             itemContainer.classList.remove('unable');
         })
     })
-    /* --- Carousel --- */
-/*     let currentSlide = 0;
-    const slides = document.querySelectorAll('.card');
-    const dotsContainer = document.querySelector('.dots-container');
-    const slidesContainer = document.querySelector('.carousel-track');
+});
 
-    // Para cada Card encontrado na pagina cria um dot
-    slides.forEach((_, index) => {
-        // Dot nada mais é que um span com className dot
+/* --- Carousel --- */
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselContainer = document.querySelector('.carousel-container');
+    const carouselTrack = document.querySelector('.carousel-track'); 
+    const dotsContainer = document.querySelector('.dots-container');
+
+    createProductsCards(carouselTrack)
+
+    const cards = document.querySelectorAll('.product-item');
+
+    cards.forEach((_, index) => {
+        
         const dot = document.createElement('span');
         dot.classList.add('dot');
 
-        // Se ele for o primeiro da lista, o coloca como ativo
         if (index === 0)
             dot.classList.add('active');
 
-        // Adiciona eventListener para ao clicar e para o card
-        dot.addEventListener('click', () => goToSlide(index));
-
-        // Adiciona-o ao container de dots (dotsContainer)
+        dot.addEventListener('click', () => dotUpdateCarousel(cards, carouselContainer, carouselTrack, index));
+        
         dotsContainer.appendChild(dot);
-
     })
 
     const dots = document.querySelectorAll('.dot');
-    console.log(dots)
-    function goToSlide(index) {
-        // Se o index for 
-        if (index >= slides.length) // maior que o numero de slides
-            index = 0 // então o index do card deve reiniciar indo a 0
-        // Se o index for
-        if (index < 0) // menor do que zero 
-            index = slides.length - 1; // então index deve ir para o último card
-        
-        slidesContainer.style.transform = `translateX(-${index * 100}%)`;
 
-        slides[currentSlide].classList.remove('active');
-        dots[currentSlide].classList.remove('active');
+    function dotUpdateCarousel(items, container, track, dotIndex) {
+        dots[currentIndex].classList.remove('active');
 
-        slides[index].classList.add('active');
-        dots[index].classList.add('active');
+        dots[dotIndex].classList.add('active');
 
-        currentSlide = index;
+        currentIndex = dotIndex;
+    
+        updateCarousel(items, dots, container, track)
     }
 
-    document.querySelector('.prev').addEventListener('click', () => {
-        goToSlide(currentSlide - 1);
-    })
+    updateCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex); 
 
-    document.querySelector('.next').addEventListener('click', () => {
-        goToSlide(currentSlide + 1);
-    })
-    
+    document.querySelector('button.prev').addEventListener('click', () => backwardCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex))
+
+    document.querySelector('button.next').addEventListener('click', () => forwardCarousel(cards, dots, carouselContainer, carouselTrack, currentIndex))
+
+    window.addEventListener('resize', updateCarousel);
+
+    /*     
     let autoplay = setInterval(() => {
         goToSlide(currentSlide + 1);
     }, 5000);
@@ -210,24 +212,5 @@ document.addEventListener("DOMContentLoaded", () => {
         autoplay = setInterval(() => {
             goToSlide(currentSlide + 1);
         }, 5000)
-    }) 
-*/
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const carouselContainer = document.querySelector('.carousel-container');
-    const carouselTrack = document.querySelector('.carousel-track'); 
-
-    createProductsCards(carouselTrack)
-
-    const items = document.querySelectorAll('.product-item');
-
-    updateCarousel(items, carouselContainer, carouselTrack, currentIndex); 
-
-    document.querySelector('button.prev').addEventListener('click', () => backwardCarousel(items, carouselContainer, carouselTrack, currentIndex))
-
-    document.querySelector('button.next').addEventListener('click', () => forwardCarousel(items, carouselContainer, carouselTrack, currentIndex))
-
-    window.addEventListener('resize', updateCarousel);
+    })  */
 })
