@@ -5,6 +5,7 @@
     --ochre: #cc7722;
     --chestnut: #742802;
     --yellow-sand: #e9ba63;
+    --white: #f2f2f2;
 
     /* Header and Footer Height */
     --header-nav-height: 56px;
@@ -14,32 +15,43 @@
     --carousel-max-width: 800px;
     --carousel-track-gap: 32px;
     --carousel-card-width: 240px;
-
-    /* Light Colors Schema */
-    --light-body-bg-color: var(--yellow-sand);
-    --light-section-bg: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
-    --light-nav-bg-color: var(--brown);
-    --light-txt-color: #ffffff;
-    --light-hover-txt-color: var(--yellow-sand);
-    --light-heading-color: var(--chestnut);
-
-    /* Dark Colors Scheme */
-    --dark-body-bg-color: var(--brown);
 }
 * {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body { 
-    background-color: var(--light-body-bg-color);
+    /* Light Colors Schema */
+    --body-bg-color: var(--yellow-sand);
+    --section-bg: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
+    --nav-bg-color: var(--brown);
+    --nav-txt-color: var(--white);
+    --txt-color: var(--ochre);
+    --hover-txt-color: var(--yellow-sand);
+    --heading-color: var(--chestnut);
+    --card-bg-color: var(--ochre);
+    --card-txt-color: var(--white);
 }
 body.dark {
-    background-color: var(--dark-body-bg-color);
+
+    /* Dark Colors Scheme */
+    --body-bg-color: var(--light-brown);
+    --section-bg: linear-gradient(to bottom, var(--light-brown), 25%, var(--chestnut));
+    --nav-txt-color: var(--yellow-sand);
+    --txt-color: var(--yellow-sand);
+    --hover-txt-color: var(--ochre);
+    --heading-color: var(--white);
+    --card-bg-color: var(--brown);
+    --card-txt-color: var(--ochre);
+}
+body {
+    background-color: var(--body-bg-color);
+
 }
 /* ------------ Nav e Footer ------------ */
 header, footer {
     z-index: 100;
-    background-color: var(--light-nav-bg-color);
+    background-color: var(--nav-bg-color);
 }
 footer {
     display: flex;
@@ -55,7 +67,7 @@ header {
     height: var(--header-nav-height);
 }
 header>*, footer>* {
-    color: var(--light-txt-color);
+    color: var(--txt-color);
 }
 header a, nav>a.nav-item {
     white-space: nowrap;
@@ -64,7 +76,7 @@ header a, nav>a.nav-item {
 }
 header a, nav>a.nav-item, li.contact-item *{
     text-decoration: none;
-    color: var(--light-txt-color);
+    color: var(--nav-txt-color);
 }
 h1.brand { 
     font-size: 1.5rem;
@@ -91,7 +103,7 @@ nav>.nav-item:hover,
 li.contact-item>a:hover,
 button.menu-button>i:hover,
 button#change-color-button>i:hover {
-    color: var(--light-hover-txt-color);
+    color: var(--hover-txt-color);
     transition: all ease-in 0.25s;
 }
 nav>.nav-item:hover,
@@ -109,7 +121,7 @@ button#change-color-button {
 }
 button#change-color-button i {
     font-size: 32px;
-    color: var(--light-txt-color);
+    color: var(--nav-txt-color);
 }
 
 button.menu-button {
@@ -138,8 +150,8 @@ h1,h2,h3 {
 section {
     margin: 0.5em;
     padding: 0.75em 2em 3em;
-    color: white;
-    background: var(--light-section-bg);
+    color: var(--txt-color);
+    background: var(--section-bg);
     border-radius: 16px;
 }
 .about-text p {
@@ -195,7 +207,7 @@ ul.products-list>li>figure>img {
 }
 ul.products-list>li>h3{
     grid-area: title;
-    color: var(--light-heading-color);
+    color: var(--heading-color);
     font-size: 2rem;
     text-align: center;
     user-select: none;
@@ -212,7 +224,7 @@ ul.products-list>li>input {
 }
 ul.products-list>li>label.select-item-label {
     border-radius: 0.25em;
-    color: var(--light-txt-color); 
+    color: var(--txt-color); 
     grid-area: value;
     text-align: end;
     padding:  0 0.8em 0;
@@ -253,7 +265,7 @@ ul.products-list>li:hover label.select-item-label {
 ul.products-list>li:hover input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
-    color: var(--light-hover-txt-color);
+    color: var(--hover-txt-color);
     font-weight: bold;
     font-size: 1.2em;
     top: 50%;
@@ -275,7 +287,7 @@ ul.products-list>li.unable input[type="checkbox"] {
 }
 ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
     height: 32px;
-    border: solid var(--light-hover-txt-color) 3px;
+    border: solid var(--hover-txt-color) 3px;
 }
 ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
     height: 32px;
@@ -300,17 +312,17 @@ ul.products-list>li.selected h3 {
 }
 ul.products-list>li.selected label.select-item-label {
     background-color: transparent;
-    color: var(--light-heading-color);
+    color: var(--heading-color);
 }
 ul.products-list>li.selected input[type="checkbox"] {
-    background-color: var(--light-heading-color);
-    border-color: var(--light-heading-color);
+    background-color: var(--heading-color);
+    border-color: var(--heading-color);
     position: relative;
 }
 ul.products-list>li.selected input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
-    color: var(--light-hover-txt-color);
+    color: var(--hover-txt-color);
     font-weight: bold;
     font-size: 1.2em;
     top: 50%;
@@ -355,7 +367,7 @@ ul.carousel-track>.product-item {
     flex-direction: column;
     align-items: center;
     border-radius: 16px;
-    background-color: var(--ochre);
+    background-color: var(--card-bg-color);
     padding-bottom: 1em;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.8s ease-in-out, opacity 0.3s ease;
@@ -366,12 +378,13 @@ ul.carousel-track>.product-item>figure>img {
     border-top-left-radius: inherit;
 }
 ul.carousel-track>.product-item>h3 {
+    color: var(--card-txt-color);
     padding: 4px 0;
 }
 ul.carousel-track>.product-item>label {
-    color: var(--ochre);
+    color: var(--txt-color);
     font-weight: 600;
-    background-color: white;
+    background-color: var(--body-bg-color);
     padding: 4px 1em;
     border-radius: 4px;
 }
@@ -397,7 +410,7 @@ button.prev, button.next {
     cursor: pointer;
     border-radius: 4px;
     z-index: 10;
-    color: white;
+    color: var(--txt-color);
     background-color: #361e18d0;
     transition: all ease-in 0.125s;
 }
@@ -427,12 +440,12 @@ button.next {
     box-shadow: 0px 0px 25px -2px rgba(0,0,0,0.75);
 }
 .dot.active {
-    background-color: var(--light-hover-txt-color);
+    background-color: var(--hover-txt-color);
     cursor: default
 }
 .dot.active:hover {
     background-color: transparent;
-    border: solid var(--light-hover-txt-color) 1px;
+    border: solid var(--hover-txt-color) 1px;
 }
 .dot:hover {
     background-color: #bbbbbb85;

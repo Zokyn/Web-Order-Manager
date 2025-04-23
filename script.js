@@ -1,5 +1,5 @@
 /* Color Scheme */
-let darkMode = false; 
+let isDark = false; 
 /* Carousel Index */
 let currentIndex = 0; 
 /* Lista de Produtos (fake database) */
@@ -90,8 +90,9 @@ function updateCarousel(items, dots, container, track) {
 }
 function changeColorScheme() {
     document.body.classList.toggle('dark');
-    darkMode = !darkMode;
-    console.log('Dark Mode: ', darkMode)
+    isDark = !isDark;
+
+    localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 /* Enable multi-option item */
 document.addEventListener("DOMContentLoaded", () => { 
@@ -233,6 +234,9 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 /* Button Change Colors Schema */
 document.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('theme') === 'dark')
+        changeColorScheme();
+
     const changeColorsButton = document.querySelector('#change-color-button');
 
     changeColorsButton.addEventListener('click', () => changeColorScheme());
