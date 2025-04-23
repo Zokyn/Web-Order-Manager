@@ -31,6 +31,7 @@ body {
     --heading-color: var(--chestnut);
     --card-bg-color: var(--ochre);
     --card-txt-color: var(--white);
+    --about-txt-color: var(--brown);
 }
 body.dark {
 
@@ -43,6 +44,7 @@ body.dark {
     --heading-color: var(--white);
     --card-bg-color: var(--brown);
     --card-txt-color: var(--ochre);
+    --about-txt-color: var(--yellow-sand)
 }
 body {
     background-color: var(--body-bg-color);
@@ -67,7 +69,7 @@ header {
     height: var(--header-nav-height);
 }
 header>*, footer>* {
-    color: var(--txt-color);
+    color: var(--nav-txt-color);
 }
 header a, nav>a.nav-item {
     white-space: nowrap;
@@ -154,9 +156,9 @@ section {
     background: var(--section-bg);
     border-radius: 16px;
 }
-.about-text p {
+#about-text p {
     font-size: 1.5em;
-    color: var(--brown);
+    color: var(--about-txt-color);
     text-indent: 3em;
     margin: 2em;
 }
@@ -187,7 +189,7 @@ ul.products-list>li {
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
-    background-color: white;
+    background-color: var(--card-bg-color);
     flex-grow: 1;
     cursor: pointer;
     row-gap: 1em;
@@ -230,7 +232,7 @@ ul.products-list>li>label.select-item-label {
     padding:  0 0.8em 0;
     font-weight: 700;
     font-size: 1.4em;
-    background-color: var(--ochre);
+    background-color: var(--body-bg-color);
     margin-right: 0.3em;
 }
 ul.products-list>li>input[type="checkbox"] {
@@ -245,7 +247,7 @@ ul.products-list>li>input[type="checkbox"] {
 ul.products-list>li label.sub-option-label{
     font-weight: 600;
     font-size: 1.2em;
-    color: var(--brown);
+    color: var(--txt-color);
 }
 ul.products-list>li:hover  {
     background-color: #e9ba63bb;
@@ -259,8 +261,8 @@ ul.products-list>li:hover h3 {
     color: #ffffffa2;
 }
 ul.products-list>li:hover label.select-item-label {
-    color: #742802be;
-    background-color: var(--yellow-sand);
+    /* color: #742802be; */
+    background-color: var(--hover-txt-color);
 }
 ul.products-list>li:hover input[type="checkbox"]::after {
     content: "✓";
@@ -579,7 +581,7 @@ div.product-item.unable .select-item-check {
         margin-top: calc(var(--header-nav-height) + 1em);
         margin-bottom: calc(var(--footer-nav-height) + 2em);
     }
-    .about-text p {
+    #about-text p {
         font-size: 1.2em;
     }
     section {
@@ -612,7 +614,7 @@ div.product-item.unable .select-item-check {
         margin-top: calc(var(--header-nav-height) + 1em);
         margin-bottom: calc(var(--footer-nav-height) + 2em);
     }
-    .about-text p {
+    #about-text p {
         font-size: 1.12em;
     }
     footer { 
@@ -632,7 +634,7 @@ div.product-item.unable .select-item-check {
     nav>.nav-item {
         font-size: 1.5rem;
     }
-    .about-text p {
+    #about-text p {
         font-size: 1.3em;
     }
     footer {
