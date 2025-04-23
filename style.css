@@ -467,6 +467,82 @@ div.product-item.unable .select-item-check {
 .product-item.selected {
     box-shadow: 0 0 0 2px var(--brown);
 }
+
+button#cart-submit-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: solid transparent 1px;
+    background-color: var(--chestnut);
+    color: var(--ochre);
+    cursor: pointer;
+    position: fixed;
+    z-index: 1500;
+    bottom: 124px;
+    right: 32px;
+}
+button#cart-submit-button:hover {
+    background-color: #aa5022;
+    color: #e9ba63;
+    transition: all ease-in 0.5s;
+}
+button#cart-submit-button i {
+    font-size: 32px;
+}
+/* Cart Form */
+section#cart {
+    display: grid;
+    grid-template-columns: 5em 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "header header header"
+        ". form cart";
+    height: 80vh;
+}
+section#cart .header {
+    grid-area: header;
+}
+section#cart>form {
+    grid-area: form;
+    align-self: start;
+    width: 50%;
+    margin: 3em auto;
+    background-color: var(--body-bg-color);
+    border-radius: 8px;
+}
+section#cart>form>fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+section#cart>form>fieldset * {
+    font-size: 20px;
+}
+section#cart>form>fieldset#name-fieldset {
+    width: 30%;
+}
+
+section#cart>form label {
+    font-weight: 600;
+}
+section#cart>form input {
+    border: none;
+    border-radius: 8px;
+    padding: 4px;
+}
+section#cart>form .row-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+section#cart>form .row-buttons-container button {
+    width: auto;
+    color: var(--body-bg-color);
+    background-color: var(--txt-color);
+    border-radius: 16px;
+    border: solid transparent 1px;
+}
 /* ------------ Size Media Queries ------------ */
 @media (max-width: 467px) {
     :root {

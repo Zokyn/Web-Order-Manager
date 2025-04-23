@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/2e9058513c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1 class="brand">
+            <a href="index.html">Tom do Mar</a>
+        </h1>
+        <nav class="nav-list" tabindex="1">
+            <a 
+                class="nav-item" 
+                href="index.html">
+                <i class="fa-solid fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a 
+                class="nav-item" 
+                href="products.html">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Produtos</span>
+            </a>
+            <a 
+                class="nav-item"
+                href="about.html">
+                <i class="fa-solid fa-users"></i>
+                <span>Sobre Nós</span>
+            </a>
+            <a 
+                class="nav-item"
+                href="#contact">
+                <i class="fa-solid fa-phone"></i>
+                <span>Contato</span>
+            </a>
+            <button id="change-color-button" tooltip="Mudar para modo Escuro">
+                <i class="fa-solid fa-lightbulb"></i>
+            </button>
+        </nav>
+        <button class="menu-button">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+    <main>
+        <section id="cart">
+            <div class="header">
+                <h1>Confirmar</h1>
+                <p>
+                    Insira seus dados para que seja possível confirmar a compra.
+                </p>
+            </div>
+            <form class="form-container">
+                <fieldset id="name-fieldset">
+                    <label>Nome</label>
+                    <input 
+                        type="text" 
+                        placeholder="John Doe"
+                        required
+                        />
+                    <div class="error" id="name-error">
+                        Por favor, insira seu nome
+                    </div>
+                </fieldset>    
+                <fieldset id="email-fieldset">
+                    <label>Email</label>
+                    <input 
+                        type="email" 
+                        placeholder="example@hotmail.com"
+                        required
+                        />
+                    <div class="error" id="email-error">
+                        Por favor, insira um e-mail válido
+                    </div>
+                </fieldset> 
+                <fieldset id="tel-fieldset">
+                    <label>Telefone</label>
+                    <input 
+                        type="tel" 
+                        placeholder="(XX) X XXXX-XXXX"
+                        required
+                        />
+                    <div class="error" id="tel-error">
+                        Por favor, insira um telefone válido
+                    </div>
+                </fieldset>
+                <fieldset id="local-fieldset">
+                    <label>Endereço</label>
+                    <input 
+                        type="text"
+                        placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
+                        required
+                        />
+                        <div class="error" id="address-error">
+                            Por favor, insira seu endereço completo
+                        </div>
+                </fieldset>
+                <fieldset class="row-buttons-container">
+                    <button type="reset">
+                        Limpar
+                    </button>
+                    <button type="submit">
+                        Salvar
+                    </button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer id="contact">
+        <h2>Contato</h2>
+
+        <nav aria-label="links-secundários">
+            <ul class="contact-list" tabindex="2">
+                <li class="contact-item" >
+                    <a href="tel:+5573988440267">
+                        +55 71 9 00000000 (Patricia)
+                    </a> 
+                </li>
+                <li class="contact-item">
+                    <a href="tel+5500900000000">
+                        +55 71 9 00000000 (Antônio)
+                    </a>
+                </li>
+                <li class="contact-item">
+                    <a href="mailto:thyssa@hotmail.com">
+                        example@hotmail.com
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <p id="copyright-text">&copy; 2025 Tom do Mar. Todos os direitos reservado</p>
+    </footer>
+</body>
+</html>
