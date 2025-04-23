@@ -89,8 +89,9 @@ function updateCarousel(items, dots, container, track) {
     track.style.transform = `translateX(${offset}px)`;
 }
 function changeColorScheme() {
-    document.classList.toggle('.dark');
+    document.body.classList.toggle('dark');
     darkMode = !darkMode;
+    console.log('Dark Mode: ', darkMode)
 }
 /* Enable multi-option item */
 document.addEventListener("DOMContentLoaded", () => { 
@@ -229,4 +230,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Atualiza o Carousel caso a janela mude de tamanho 
     window.addEventListener('resize', () => updateCarousel(cards, dots, carouselContainer, carouselTrack));
+})
+/* Button Change Colors Schema */
+document.addEventListener('DOMContentLoaded', () => {
+    const changeColorsButton = document.querySelector('#change-color-button');
+
+    changeColorsButton.addEventListener('click', () => changeColorScheme());
 })

@@ -33,6 +33,9 @@
 body { 
     background-color: var(--light-body-bg-color);
 }
+body.dark {
+    background-color: var(--dark-body-bg-color);
+}
 /* ------------ Nav e Footer ------------ */
 header, footer {
     z-index: 100;
@@ -87,16 +90,16 @@ nav>.nav-item, li.contact-item {
 nav>.nav-item:hover, 
 li.contact-item>a:hover,
 button.menu-button>i:hover,
-button.change-color-button>i:hover {
+button#change-color-button>i:hover {
     color: var(--light-hover-txt-color);
     transition: all ease-in 0.25s;
 }
 nav>.nav-item:hover,
 button.menu-button:hover,
-button.change-color-button:hover { 
+button#change-color-button:hover { 
     background-color: #49494950;
 }
-button.change-color-button {
+button#change-color-button {
     cursor: pointer;
     width: 56px;
     height: 56px;
@@ -104,7 +107,7 @@ button.change-color-button {
     border: none;
     background-color: transparent;    
 }
-button.change-color-button i {
+button#change-color-button i {
     font-size: 32px;
     color: var(--light-txt-color);
 }
