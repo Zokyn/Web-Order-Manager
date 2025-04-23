@@ -19,7 +19,7 @@
     --light-body-bg-color: var(--yellow-sand);
     --light-section-bg: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
     --light-nav-bg-color: var(--brown);
-    --light-txt-color: white;
+    --light-txt-color: #ffffff;
     --light-hover-txt-color: var(--yellow-sand);
     --light-heading-color: var(--chestnut);
 
@@ -77,20 +77,38 @@ h1.brand, .nav-list, .contact-list {
 .contact-list {
     justify-content: center;
 }
-
+/* Header Navbar */
 nav>.nav-item, li.contact-item {
     padding: 1em 2em;
     font-weight: 600;
     cursor: pointer;
     text-align: center;
 }
-nav>.nav-item:hover, li.contact-item>a:hover{
+nav>.nav-item:hover, 
+li.contact-item>a:hover,
+button.menu-button>i:hover,
+button.change-color-button>i:hover {
     color: var(--light-hover-txt-color);
     transition: all ease-in 0.25s;
 }
-nav>.nav-item:hover { 
+nav>.nav-item:hover,
+button.menu-button:hover,
+button.change-color-button:hover { 
     background-color: #49494950;
 }
+button.change-color-button {
+    cursor: pointer;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;    
+}
+button.change-color-button i {
+    font-size: 32px;
+    color: var(--light-txt-color);
+}
+
 button.menu-button {
     display: none;
     width: 56px;

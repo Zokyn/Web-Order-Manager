@@ -1,3 +1,5 @@
+/* Color Scheme */
+let darkMode = false; 
 /* Carousel Index */
 let currentIndex = 0; 
 /* Lista de Produtos (fake database) */
@@ -9,7 +11,6 @@ const produtos = [
     { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/240x240" },
     { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/240x240" }
 ];
-
 function createProductsCards(track) {
     produtos.forEach((produto, index) => {
         const card = document.createElement('li'); 
@@ -87,7 +88,10 @@ function updateCarousel(items, dots, container, track) {
 
     track.style.transform = `translateX(${offset}px)`;
 }
-
+function changeColorScheme() {
+    document.classList.toggle('.dark');
+    darkMode = !darkMode;
+}
 /* Enable multi-option item */
 document.addEventListener("DOMContentLoaded", () => { 
     // Pega todos os checkboxes que pretendo colocar a função
