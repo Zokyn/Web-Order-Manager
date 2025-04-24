@@ -2,8 +2,8 @@
 let isDark = false; 
 /* Carousel Index */
 let currentIndex = 0; 
-/* Lista de Produtos (fake database) */
-const produtos = [
+/* Lista de destaques (fake database) */
+const destaques = [
     { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/240x240" },
     { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/240x240" },
     { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/240x240" },
@@ -12,7 +12,7 @@ const produtos = [
     { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/240x240" }
 ];
 function createProductsCards(track) {
-    produtos.forEach((produto, index) => {
+    destaques.forEach((produto, index) => {
         const card = document.createElement('li'); 
 
         card.className = 'product-item';
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const carouselTrack = document.querySelector('.carousel-track'); 
     const dotsContainer = document.querySelector('.dots-container');
 
-    // Cria os itens (card) dentro do Carousel a partir dos produtos
+    // Cria os itens (card) dentro do Carousel a partir dos destaques
     createProductsCards(carouselTrack) 
 
     // Seleciona todas os cartões do carousel 
