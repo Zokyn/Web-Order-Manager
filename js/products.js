@@ -32,10 +32,17 @@ class Product {
             }); 
         }
         return price;
-        /* return this.hasVariations ? null : Number(this.basePrice).toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits:  2
-        }); */
+    }
+
+    get slug() {
+        // Usando regex para encontra qualquer tipo de espaço vazio
+        /* 
+            Regex
+            / * /g  escape de regex
+            \s      qualquer espaço vazio
+            \s+     um ou mais qualquer espaço vazio
+        */
+        return this.name.trim().replace(/\s+/g, "-").toLowerCase();
     }
 
     createHTMLElement() {
@@ -58,7 +65,7 @@ class Product {
                 <li>
                     <input 
                         type="radio"
-                        name="${this.name}-subitem"
+                        name="${this.slug}-subitem"
                         data-price="${this.price[0]}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[0].name}
@@ -86,6 +93,7 @@ class Product {
 
         li.innerHTML += `
         <input 
+            name="${this.slug}-item"
             class="select-item-check"
             type="checkbox" />
         `

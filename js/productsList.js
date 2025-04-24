@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const itemCheckbox = itemContainer.querySelector('.select-item-check');
 
             // Atribui o preço ao a label do item pai
-            console.log(this.dataset.price)
             const selectedPrice = this.dataset.price;
             itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
 
