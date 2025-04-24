@@ -58,8 +58,8 @@ class Product {
                 <li>
                     <input 
                         type="radio"
-                        name="subitem"
-                        data-price="${this.price[0]} />
+                        name="${this.name}-subitem"
+                        data-price="${this.price[0]}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[0].name}
                         <span>R$${this.price[0]}</span>
@@ -68,14 +68,15 @@ class Product {
                             <li>
                     <input 
                         type="radio"
-                        name="subitem"
-                        data-price="${this.price[1]} />
+                        name="${this.name}-subitem"
+                        data-price="${this.price[1]}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[1].name}
                         <span>R$${this.price[1]}</span>
                     </label>
                 </li>
             </ul>
+            <label class="select-item-label">R$${this.price[0]}</label>
             `
         } else {
             li.innerHTML += `
