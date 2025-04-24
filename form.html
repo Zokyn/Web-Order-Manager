@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tom do Mar - Formulário</title>
+    <script src="/js/form.js"></script>
     <script src="/js/script.js"></script>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/2e9058513c.js" crossorigin="anonymous"></script>
@@ -57,47 +58,55 @@
             <form class="form-container">
                 <fieldset id="name-fieldset">
                     <label>Nome</label>
-                    <input 
-                        type="text" 
-                        placeholder="John Doe"
-                        required
-                        />
-                    <div class="error" id="name-error">
-                        Por favor, insira seu nome
+                    <div class="fieldset-section">
+                        <input 
+                            type="text" 
+                            placeholder="John Doe"
+                            required
+                            />
+                        <p class="error" id="name-error">
+                            Por favor, insira seu nome
+                        </p>
                     </div>
                 </fieldset>    
                 <fieldset id="email-fieldset">
                     <label>Email</label>
-                    <input 
-                        type="email" 
-                        placeholder="example@hotmail.com"
-                        required
-                        />
-                    <div class="error" id="email-error">
-                        Por favor, insira um e-mail válido
+                    <div class="fieldset-section">
+                        <input 
+                            type="email" 
+                            placeholder="example@hotmail.com"
+                            required
+                            />
+                        <p class="error" id="email-error">
+                            Por favor, insira um e-mail válido
+                        </p>
                     </div>
                 </fieldset> 
                 <fieldset id="tel-fieldset">
                     <label>Telefone</label>
-                    <input 
-                        type="tel" 
-                        placeholder="(XX) X XXXX-XXXX"
-                        required
-                        />
-                    <div class="error" id="tel-error">
-                        Por favor, insira um telefone válido
+                    <div class="fieldset-section">
+                        <input 
+                            type="tel" 
+                            placeholder="(XX) X XXXX-XXXX"
+                            required
+                            />
+                        <p class="error" id="tel-error">
+                            Por favor, insira um telefone válido
+                        </p>
                     </div>
                 </fieldset>
                 <fieldset id="local-fieldset">
                     <label>Endereço</label>
-                    <input 
-                        type="text"
-                        placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
-                        required
-                        />
-                        <div class="error" id="address-error">
-                            Por favor, insira seu endereço completo
-                        </div>
+                    <div class="fieldset-section">
+                        <input 
+                            type="text"
+                            placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
+                            required
+                            />
+                            <p class="error" id="address-error">
+                                Por favor, insira seu endereço completo
+                            </p>
+                    </div>
                 </fieldset>
                 <fieldset class="row-buttons-container">
                     <button type="reset">

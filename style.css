@@ -33,6 +33,7 @@ body {
     --card-txt-color: var(--white);
     --item-bg-color: var(--white);
     --about-txt-color: var(--brown);
+    --form-label-color: var(--white);
 }
 body.dark {
 
@@ -497,7 +498,6 @@ section#cart {
     grid-template-areas: 
         "header header header"
         ". form cart";
-    height: 80vh;
 }
 section#cart .header {
     grid-area: header;
@@ -510,38 +510,50 @@ section#cart>form {
     background-color: var(--body-bg-color);
     border-radius: 8px;
 }
-section#cart>form>fieldset {
+form.form-container { 
+    padding: 4em 2em;
+}
+form.form-container>fieldset {
     border: none;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1em;
 }
-section#cart>form>fieldset * {
+form.form-container>fieldset>div {
+    background-color: var(--light-brown);
+    border-radius: 8px;
+    padding: 0.5em;
+}
+form.form-container>fieldset * {
     font-size: 20px;
 }
-section#cart>form>fieldset#name-fieldset {
-    width: 30%;
-}
 
-section#cart>form label {
+form.form-container label {
+    color: var(--form-label-color);
     font-weight: 600;
 }
-section#cart>form input {
+form.form-container input {
     border: none;
     border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
     padding: 4px;
 }
-section#cart>form .row-buttons-container {
+form.form-container>fieldset.row-buttons-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-section#cart>form .row-buttons-container button {
+form.form-container .row-buttons-container button {
     width: auto;
     color: var(--body-bg-color);
     background-color: var(--txt-color);
     border-radius: 16px;
     border: solid transparent 1px;
+}
+.hidden {
+    display: none;
 }
 /* ------------ Size Media Queries ------------ */
 @media (max-width: 467px) {
