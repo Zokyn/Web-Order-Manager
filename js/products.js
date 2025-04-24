@@ -13,10 +13,29 @@ class Product {
     }
 
     get price() {
-        return this.hasVariations ? null : Number(this.basePrice).toLocaleString('pt-BR', {
+        let price;
+        if (this.hasVariations) {
+            price = [
+                Number(this.variations[0].price).toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits:  2
+                }),
+                Number(this.variations[1].price).toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits:  2
+                }),
+            ]
+        } else {
+            price = Number(this.basePrice).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits:  2
+            }); 
+        }
+        return price;
+        /* return this.hasVariations ? null : Number(this.basePrice).toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits:  2
-        });
+        }); */
     }
 
     createHTMLElement() {
@@ -34,7 +53,30 @@ class Product {
         `
 
         if (this.hasVariations) {
-
+            li.innerHTML += `
+            <ul class="select-item sub-options">
+                <li>
+                    <input 
+                        type="radio"
+                        name="subitem"
+                        data-price="${this.price[0]} />
+                    <label class="select-item sub-option-label">
+                        ${this.variations[0].name}
+                        <span>R$${this.price[0]}</span>
+                    </label>
+                </li>
+                            <li>
+                    <input 
+                        type="radio"
+                        name="subitem"
+                        data-price="${this.price[1]} />
+                    <label class="select-item sub-option-label">
+                        ${this.variations[1].name}
+                        <span>R$${this.price[1]}</span>
+                    </label>
+                </li>
+            </ul>
+            `
         } else {
             li.innerHTML += `
             <label class="select-item-label">R$${this.price}</label>
