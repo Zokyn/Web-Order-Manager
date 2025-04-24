@@ -1,7 +1,7 @@
 class Product {
-    constructor({name, price, variations = []}) {
+    constructor({name, basePrice, variations = []}) {
         this.name = name; 
-        this.basePrice = price;
+        this.basePrice = basePrice;
         this.variations = variations.map(variation => ({
             name: variation.name,
             price: variation.price
@@ -13,7 +13,41 @@ class Product {
     }
 
     get price() {
-        return this.hasVariations ? null : this.price;
+        return this.hasVariations ? null : Number(this.basePrice).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits:  2
+        });
+    }
+
+    createHTMLElement() {
+        const li = document.createElement('li')
+
+        li.className = 'product-item';
+
+        li.innerHTML = `
+        <figure>
+            <img
+                class="select-item-picture" 
+                src="https://placehold.co/240x240"/>
+        </figure>
+        <h3>${this.name}</h3>
+        `
+
+        if (this.hasVariations) {
+
+        } else {
+            li.innerHTML += `
+            <label class="select-item-label">R$${this.price}</label>
+            `
+        }
+
+        li.innerHTML += `
+        <input 
+            class="select-item-check"
+            type="checkbox" />
+        `
+
+        return li;
     }
 }
 
