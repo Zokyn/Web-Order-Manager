@@ -3,31 +3,24 @@ let isDark = false;
 /* Carousel Index */
 let currentIndex = 0; 
 /* Lista de destaques (fake database) */
-const destaques = [
-    { nome: "Agulhinha", preco: "R$80,00", img: "https://placehold.co/240x240" },
-    { nome: "Patinha de Caranguejo", preco: "R$105,00", img: "https://placehold.co/240x240" },
-    { nome: "Camarão", preco: "R$85,00", img: "https://placehold.co/240x240" },
-    { nome: "Camarão Pistola", preco: "R$145,00", img: "https://placehold.co/240x240" },
-    { nome: "Siri", preco: "R$80,00", img: "https://placehold.co/240x240" },
-    { nome: "Aratu", preco: "R$80,00", img: "https://placehold.co/240x240" }
-];
+// import { highlights } from "./highlights";
 function createProductsCards(track) {
-    destaques.forEach((produto, index) => {
+    highlights.forEach((produto, index) => {
         const card = document.createElement('li'); 
 
         card.className = 'product-item';
 
         card.innerHTML = `
             <figure>
-                <img src="${produto.img}" alt="${produto.nome}">
+                <img src="${produto.img}" alt="${produto.name}">
             </figure>
-            <h3>${produto.nome}</h3>
-            <label class="price">${produto.preco}</label>
+            <h3>${produto.name}</h3>
+            <label class="price">${produto.price}</label>
         `;
 
         card.dataset.index = index; 
-        card.dataset.name = produto.nome;
-        card.dataset.price = produto.preco;
+        card.dataset.name = produto.name;
+        card.dataset.price = produto.price;
 
         track.appendChild(card);
     })
