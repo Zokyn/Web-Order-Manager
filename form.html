@@ -49,78 +49,83 @@
     </header>
     <main>
         <section id="cart">
-            <div class="header">
-                <h1>Confirmar</h1>
-                <p>
-                    Insira seus dados para que seja possível confirmar a compra.
-                </p>
-            </div>
-            <form class="form-container">
-                <h2>Cadastro</h2>
-                <fieldset id="name-fieldset">
-                    <label>Nome</label>
-                    <div class="fieldset-section">
-                        <input 
-                            type="text" 
-                            name="name-input"
-                            placeholder="John Doe"
-                            required
-                            />
-                        <p class="error" name="name-error">
-                            Por favor, insira seu nome
-                        </p>
-                    </div>
-                </fieldset>    
-                <fieldset id="email-fieldset">
-                    <label>Email</label>
-                    <div class="fieldset-section">
-                        <input 
-                            type="email" 
-                            name="email-input"
-                            placeholder="example@hotmail.com"
-                            required
-                            />
-                        <p class="error" name="email-error">
-                            Por favor, insira um e-mail válido
-                        </p>
-                    </div>
-                </fieldset> 
-                <fieldset id="phone-fieldset">
-                    <label>Telefone</label>
-                    <div class="fieldset-section">
-                        <input 
-                            type="tel" 
-                            name="phone-input"
-                            placeholder="(XX) X XXXX-XXXX"
-                            required
-                            />
-                        <p class="error" name="phone-error">
-                            Por favor, insira um telefone válido
-                        </p>
-                    </div>
-                </fieldset>
-                <fieldset id="address-fieldset">
-                    <label>Endereço</label>
-                    <div class="fieldset-section">
-                        <input 
-                            type="text"
-                            name="address-input"
-                            placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
-                            required
-                            />
-                            <p class="error" name="address-error">
-                                Por favor, insira seu endereço completo
-                            </p>
-                    </div>
-                </fieldset>
-                <fieldset class="row-buttons-container">
-                    <button type="reset">
-                        Limpar
-                    </button>
-                    <button type="submit">
-                        Salvar
-                    </button>
-                </fieldset>
+            <form>
+                <div class="form-frame">
+                    <header>
+                        <h2>Cadastro</h2>
+                    </header>
+                    <main class="form-container">
+                        <fieldset id="name-fieldset">
+                            <label>Nome</label>
+                            <div class="fieldset-section">
+                                <input 
+                                    type="text" 
+                                    name="name-input"
+                                    placeholder="John Doe"
+                                    required
+                                    />
+                                <p class="error" name="name-error">
+                                    Por favor, insira seu nome
+                                </p>
+                            </div>
+                        </fieldset>    
+                        <fieldset id="email-fieldset">
+                            <label>Email</label>
+                            <div class="fieldset-section">
+                                <input 
+                                    type="email" 
+                                    name="email-input"
+                                    placeholder="example@hotmail.com"
+                                    required
+                                    />
+                                <p class="error" name="email-error">
+                                    Por favor, insira um e-mail válido
+                                </p>
+                            </div>
+                        </fieldset> 
+                        <fieldset id="phone-fieldset">
+                            <label>Telefone</label>
+                            <div class="fieldset-section">
+                                <input 
+                                    type="tel" 
+                                    name="phone-input"
+                                    placeholder="(XX) X XXXX-XXXX"
+                                    required
+                                    />
+                                <p class="error" name="phone-error">
+                                    Por favor, insira um telefone válido
+                                </p>
+                            </div>
+                        </fieldset>
+                        <fieldset id="address-fieldset">
+                            <label>Endereço</label>
+                            <div class="fieldset-section">
+                                <input 
+                                    type="text"
+                                    name="address-input"
+                                    placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
+                                    required
+                                    />
+                                    <p class="error" name="address-error">
+                                        Por favor, insira seu endereço completo
+                                    </p>
+                            </div>
+                        </fieldset>
+    
+                    </main>
+
+                    <aside>
+
+                    </aside>
+                    <footer>
+                        <button type="reset">
+                            Limpar
+                        </button>
+                        <button type="submit">
+                            Salvar
+                        </button>
+                    </footer>
+                </div>
             </form>
         </section>
     </main>

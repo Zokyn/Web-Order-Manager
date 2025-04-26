@@ -7,6 +7,14 @@
     --yellow-sand: #e9ba63;
     --white: #f2f2f2;
 
+
+    --rgb-brown: rgb(54, 30, 24);
+    --rgb-light-brown: rgb(110, 67, 29);
+    --rgb-ochre: rgb(204, 119, 34);
+    --rgb-chestnut: rgb(116, 40, 2);
+    --rgb-yellow-sand: rgb(233, 186, 99);
+    --rgb-white: rgb(242, 242, 242);
+
     /* Header and Footer Height */
     --header-nav-height: 56px;
     --footer-nav-height: 156px;
@@ -51,7 +59,12 @@ body {
     --about-txt-color: var(--brown);
     /* FORM */
     /* FORM - label color */
-    --form-label-color: var(--white);
+    --form-header-background: var(--light-brown);
+    --form-main-background: linear-gradient(to bottom, var(--white) 20%, var(--yellow-sand) );
+    --form-label-color: var(--chestnut);
+    --form-input-background: var(--light-brown);
+    --form-input-color: var(--yellow-sand);
+    --form-error-color: rgb(165, 43, 43);
 }
 body.dark {
 
@@ -60,7 +73,7 @@ body.dark {
     --body-bg-color: var(--light-brown);
 
     /* SECTION - background Color - */
-    --section-bg: linear-gradient(to bottom, var(--light-brown), 25%, var(--chestnut));
+    --section-bg: linear-gradient(to bottom, var(--light-brown),5%, var(--chestnut));
     
     /* NAVBAR */
     /* NAVBAR - background color - */
@@ -87,6 +100,11 @@ body.dark {
     /* FORM */
     /* FORM - label color */
     --form-label-color: var(--ochre);
+    --form-header-background: var(--brown);
+    --form-main-background: var(--light-brown);
+    --form-input-background: var(--yellow-sand);
+    --form-input-color: var(--brown);
+    --form-error-color: rgb(165, 43, 43);
 }
 body {
     background-color: var(--body-bg-color);
@@ -97,28 +115,32 @@ header, footer {
     z-index: 100;
     background-color: var(--nav-bg-color);
 }
-footer {
+body>footer {
     display: flex;
     position: absolute;
+    bottom: -var(--footer-nav-height);
     width: 100%;
 }
 
-header { 
+body>header { 
     display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
     flex-flow: row nowrap;
     align-content: stretch;
     justify-content: space-between;
     height: var(--header-nav-height);
 }
-header>*, footer>* {
+body>header>*, footer>* {
     color: var(--nav-txt-color);
 }
-header a, nav>a.nav-item {
+body>header a, nav>a.nav-item {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-header a, nav>a.nav-item, li.contact-item *{
+body>header a, nav>a.nav-item, li.contact-item *{
     text-decoration: none;
     color: var(--nav-txt-color);
 }
@@ -136,7 +158,7 @@ h1.brand, .nav-list, .contact-list {
 .contact-list {
     justify-content: center;
 }
-/* Header Navbar */
+/* Navbar */
 nav>.nav-item, li.contact-item {
     padding: 1em 2em;
     font-weight: 600;
@@ -192,11 +214,10 @@ h1,h2,h3 {
     margin: 0 1em 0;
 }
 section {
-    margin: 0.5em;
-    padding: 0.75em 2em 3em;
+    margin-top: var(--header-nav-height);
+    padding: 1.25em 2em 3em;
     color: var(--txt-color);
     background: var(--section-bg);
-    border-radius: 16px;
 }
 #about-text p {
     font-size: 1.5em;
@@ -531,93 +552,112 @@ button#cart-submit-button i {
 }
 /* Cart Form */
 section#cart {
-    display: grid;
-    grid-template-columns: 5em 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: 
-        "header header header"
-        ". form cart";
-}
-section#cart .header {
-    grid-area: header;
-}
-section#cart>form {
-    grid-area: form;
-    align-self: start;
-    width: 50%;
-    margin: 3em auto;
-    background-color: var(--body-bg-color);
-    border-radius: 8px;
-}
-form.form-container { 
-    padding: 4em 2em;
-}
-form.form-container>fieldset {
-    border: none;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 1em;
-}
-form.form-container>fieldset>div {
-    background-color: var(--light-brown);
-    border-radius: 8px;
-    padding: 0.5em;
-}
-form.form-container>fieldset * {
-    font-size: 20px;
+    justify-content: center;
 }
 
-form.form-container label {
-    color: var(--form-label-color);
-    font-weight: 600;
+
+form {
+    margin: 3em;
+    margin-bottom: var(--footer-nav-height);
 }
-form.form-container input {
-    border: none;
-    border-radius: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 4px;
+/* FORM */
+form .form-frame {
+    background-color: var(--form-header-background);
+    width: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 30%;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header . ."
+        "form form cart"
+        "footer footer footer";
+    border-radius: 16px;
+    box-shadow: 1px 3px 20px var(--nav-bg-color);
 }
-form.form-container>fieldset.row-buttons-container {
+form .form-frame header {
+    grid-area: header;
+    background-color: transparent;
+    padding: 1.5em 0em 1.5em;
+}
+form .form-frame footer {
+    background-color: transparent;
+    width: auto;
+    position: relative;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
+    padding: 2em 1em;
+    grid-area: footer;
 }
-form.form-container .row-buttons-container button {
-    width: auto;
-    color: var(--body-bg-color);
-    background-color: var(--txt-color);
-    padding: 0.5em;
-    font-weight: 700;
-    border-radius: 24px;
+form main, 
+form aside {
+    background: var(--form-main-background);
+}
+form main {
+    grid-area: form;
+}
+form aside {
+    grid-area: cart;
+}
+
+form main.form-container { 
+    display: flex;
+    flex-flow: column wrap;
+    padding: 1em 2em;
+}
+
+form main.form-container fieldset {
+    padding: 0.5em 1em;
     color: var(--form-label-color);
-    cursor: pointer;
-    border: solid transparent 1px;
+    font-size: 1.3em;
+    font-weight:700 ;
+    padding-bottom: 2em;
+    border: none;
 }
-.hidden {
-    display: none;
+
+form main.form-container input {
+    font-size: 1.3em;
+    font-weight: 600;
+    background-color: var(--form-input-background);
+    color: var(--form-input-color);
+    border-radius: 16px;
+}
+form .form-frame button {
+    padding: 0.5em 2em ;
+    font-size: 1.25rem;
+    background-color: transparent;
+    border: solid transparent 3px;
+    border-radius: 24px;
+}
+form .form-frame button:hover {
+    background-color: rgba(0,0,0, 0.5);
+    transition: all ease-in .12s
 }
 /* Form Reset Button */
-form.form-container .row-buttons-container button[type="reset"] {
+form .form-frame button[type="reset"] {
     background-color: rgb(184, 52, 52);
 }
-form.form-container .row-buttons-container button[type="reset"]:hover {
+form .form-frame button[type="reset"]:hover {
     background-color: rgb(212, 117, 117);
     transition: all ease-in 0.2s;
 }
-form.form-container .row-buttons-container button[type="reset"]:active {
+form .form-frame button[type="reset"]:active {
     color: rgb(212, 207, 207);
     background-color: rgb(83, 38, 38);
     transition: all ease-in 0.2s;
 }
-form.form-container .row-buttons-container button[type="reset"]:disabled {
+form .form-frame button[type="reset"]:disabled {
     color: var(--body-bg-color);
     background-color: var(--brown);
     opacity: 0.5;
     cursor: default;
 }
-/* Form Submit Button */
+
+.hidden {
+    display: none;
+}
 /* ------------ Size Media Queries ------------ */
 @media (max-width: 467px) {
     :root {
@@ -776,6 +816,9 @@ form.form-container .row-buttons-container button[type="reset"]:disabled {
     .hero-content {
         font-size: 1.5rem;
     }
+    form>.form-fram{
+        width: 864px;
+    }
 }
 @media (min-width: 1200px) {
     :root {
@@ -803,5 +846,9 @@ form.form-container .row-buttons-container button[type="reset"]:disabled {
         margin-top: var(--header-nav-height);
         margin-bottom: var(--footer-nav-height);
         padding: 3em;
+    }
+    form>.form-frame{
+        min-width: 864px;
+        max-width: 1200px;
     }
 }
