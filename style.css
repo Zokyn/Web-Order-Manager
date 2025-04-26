@@ -772,6 +772,13 @@ form .form-frame button[type="reset"]:disabled {
         width: 100%;
         justify-content: center;
     }
+    .nav-item {
+        font-size: 1.5em;
+    }
+    .nav-item span {
+        display: none;
+        
+    }
     main {
         margin: 0.5em;
         margin-top: calc(var(--header-nav-height) + 1em);
@@ -779,10 +786,6 @@ form .form-frame button[type="reset"]:disabled {
     }
     #about-text p {
         font-size: 1.2em;
-    }
-    section {
-        margin: 0.5em;
-        padding: 0.75em 2em 3em;
     }
     footer {
         flex-direction: column;
