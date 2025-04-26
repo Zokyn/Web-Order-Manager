@@ -56,15 +56,17 @@
                 </p>
             </div>
             <form class="form-container">
+                <h2>Cadastro</h2>
                 <fieldset id="name-fieldset">
                     <label>Nome</label>
                     <div class="fieldset-section">
                         <input 
                             type="text" 
+                            name="name-input"
                             placeholder="John Doe"
                             required
                             />
-                        <p class="error" id="name-error">
+                        <p class="error" name="name-error">
                             Por favor, insira seu nome
                         </p>
                     </div>
@@ -74,36 +76,39 @@
                     <div class="fieldset-section">
                         <input 
                             type="email" 
+                            name="email-input"
                             placeholder="example@hotmail.com"
                             required
                             />
-                        <p class="error" id="email-error">
+                        <p class="error" name="email-error">
                             Por favor, insira um e-mail válido
                         </p>
                     </div>
                 </fieldset> 
-                <fieldset id="tel-fieldset">
+                <fieldset id="phone-fieldset">
                     <label>Telefone</label>
                     <div class="fieldset-section">
                         <input 
                             type="tel" 
+                            name="phone-input"
                             placeholder="(XX) X XXXX-XXXX"
                             required
                             />
-                        <p class="error" id="tel-error">
+                        <p class="error" name="phone-error">
                             Por favor, insira um telefone válido
                         </p>
                     </div>
                 </fieldset>
-                <fieldset id="local-fieldset">
+                <fieldset id="address-fieldset">
                     <label>Endereço</label>
                     <div class="fieldset-section">
                         <input 
                             type="text"
+                            name="address-input"
                             placeholder="Ex: Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-000" 
                             required
                             />
-                            <p class="error" id="address-error">
+                            <p class="error" name="address-error">
                                 Por favor, insira seu endereço completo
                             </p>
                     </div>

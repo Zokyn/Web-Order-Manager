@@ -21,33 +21,72 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body { 
-    /* Light Colors Schema */
+    /* ------------- Light Colors Schema */
+    /* BODY Background Color */
     --body-bg-color: var(--yellow-sand);
+
+    /* SECTION - background Color - */
     --section-bg: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
+    /* NAVBAR */
+    /* NAVBAR - background color - */
     --nav-bg-color: var(--brown);
     --nav-txt-color: var(--white);
-    --txt-color: var(--ochre);
+    
+    /* text color */
+    --txt-color: var(--ochre);/* and "(:hover)" */
     --hover-txt-color: var(--yellow-sand);
+    
+    /* heading color */
     --heading-color: var(--chestnut);
+
+    /* CARD */
+    /* CARD - background color - */
     --card-bg-color: var(--ochre);
+    /* CARD - text color- */
     --card-txt-color: var(--white);
+    
+    /* PRODUCT - background color */
     --item-bg-color: var(--white);
+    /* ABOUT - text color */
     --about-txt-color: var(--brown);
+    /* FORM */
+    /* FORM - label color */
     --form-label-color: var(--white);
 }
 body.dark {
 
     /* Dark Colors Scheme */
+    /* BODY Background Color */
     --body-bg-color: var(--light-brown);
+
+    /* SECTION - background Color - */
     --section-bg: linear-gradient(to bottom, var(--light-brown), 25%, var(--chestnut));
+    
+    /* NAVBAR */
+    /* NAVBAR - background color - */
     --nav-txt-color: var(--yellow-sand);
+    
+    /* text color */
     --txt-color: var(--yellow-sand);
     --hover-txt-color: var(--ochre);
+    
+    /* heading color */
     --heading-color: var(--white);
+    
+    /* CARD */
+    /* CARD - background color - */
     --card-bg-color: var(--brown);
+    /* CARD - text color- */
     --card-txt-color: var(--ochre);
+    
+    /* PRODUCT - background color */
     --item-bg-color: var(--ochre);
+
+    /* ABOUT - text color */
     --about-txt-color: var(--yellow-sand);
+    /* FORM */
+    /* FORM - label color */
+    --form-label-color: var(--ochre);
 }
 body {
     background-color: var(--body-bg-color);
@@ -549,12 +588,36 @@ form.form-container .row-buttons-container button {
     width: auto;
     color: var(--body-bg-color);
     background-color: var(--txt-color);
-    border-radius: 16px;
+    padding: 0.5em;
+    font-weight: 700;
+    border-radius: 24px;
+    color: var(--form-label-color);
+    cursor: pointer;
     border: solid transparent 1px;
 }
 .hidden {
     display: none;
 }
+/* Form Reset Button */
+form.form-container .row-buttons-container button[type="reset"] {
+    background-color: rgb(184, 52, 52);
+}
+form.form-container .row-buttons-container button[type="reset"]:hover {
+    background-color: rgb(212, 117, 117);
+    transition: all ease-in 0.2s;
+}
+form.form-container .row-buttons-container button[type="reset"]:active {
+    color: rgb(212, 207, 207);
+    background-color: rgb(83, 38, 38);
+    transition: all ease-in 0.2s;
+}
+form.form-container .row-buttons-container button[type="reset"]:disabled {
+    color: var(--body-bg-color);
+    background-color: var(--brown);
+    opacity: 0.5;
+    cursor: default;
+}
+/* Form Submit Button */
 /* ------------ Size Media Queries ------------ */
 @media (max-width: 467px) {
     :root {
