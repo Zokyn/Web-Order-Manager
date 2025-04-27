@@ -7,9 +7,9 @@ class Product {
         this.id = Product.INDEX;
         this.name = name; 
         this.basePrice = basePrice;
-        this.variations = variations.map(variation => ({
+        this.variations = variations.map(variation => new Product({
             name: variation.name,
-            price: variation.price
+            basePrice: variation.price
         }));
     }
 
@@ -21,11 +21,11 @@ class Product {
         let price;
         if (this.hasVariations) {
             price = [
-                Number(this.variations[0].price).toLocaleString('pt-BR', {
+                Number(this.variations[0].basePrice).toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits:  2
                 }),
-                Number(this.variations[1].price).toLocaleString('pt-BR', {
+                Number(this.variations[1].basePrice).toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits:  2 
                 }),
