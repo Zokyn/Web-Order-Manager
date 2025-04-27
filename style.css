@@ -120,8 +120,8 @@ body>header, body>footer {
 }
 body>footer {
     display: flex;
-    position: absolute;
-    bottom: -var(--footer-nav-height);
+    position: relative;
+    bottom: 0;
     width: 100%;
 }
 
@@ -692,6 +692,7 @@ form .form-frame button[type="reset"]:disabled {
     footer {
         height: 100vh;
         flex-direction: column;
+        align-items: center;
         gap: 32px;
         bottom: -100;
     }
@@ -757,20 +758,27 @@ form .form-frame button[type="reset"]:disabled {
         display: flex;
         flex-flow: column;
     }
+
 }
 @media (min-width: 614px) and (max-width: 811px){
+    :root {
+        --header-nav-height: 96px;
+    }
     h1.brand { 
         display: none;
     }
-    header {
+    body>header {
         width: 100%;
-        position: fixed;
-        top: 0;
+
     }
     nav {
         display: flex;
         width: 100%;
+
         justify-content: center;
+    }
+    header nav {
+        position: fixed;
     }
     .nav-item {
         font-size: 1.5em;
@@ -788,8 +796,7 @@ form .form-frame button[type="reset"]:disabled {
         font-size: 1.2em;
     }
     footer {
-        flex-direction: column;
-        align-items: center;
+
         justify-content: center;
         height: var(--footer-nav-height);
     }
@@ -801,10 +808,6 @@ form .form-frame button[type="reset"]:disabled {
         display: flex;
         flex-direction: column;
     }
-}
-
-@media (min-width: 824px) {
-
 }
 @media (min-width: 812px) and (max-width: 1199px) {
     :root {
@@ -853,9 +856,7 @@ form .form-frame button[type="reset"]:disabled {
     form .form-frame main {
         align-content: start;
     }
-    form .form-frame{
-        padding: 0
-    };
+
 }
 @media (min-width: 1200px) {
     :root {

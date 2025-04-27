@@ -1,5 +1,9 @@
 class Product {
+    static index = 0;
+
     constructor({name, basePrice, variations = []}) {
+        Product.index++;
+        this.id = Product.index;
         this.name = name; 
         this.basePrice = basePrice;
         this.variations = variations.map(variation => ({
@@ -16,15 +20,18 @@ class Product {
         let price;
         if (this.hasVariations) {
             price = [
+                /* this.variations[0].price,
+                this.variations[1].price*/
                 Number(this.variations[0].price).toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits:  2
                 }),
                 Number(this.variations[1].price).toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
-                    maximumFractionDigits:  2
+                    maximumFractionDigits:  2 
                 }),
             ]
+            price = price[0];
         } else {
             price = Number(this.basePrice).toLocaleString('pt-BR', {
                 minimumFractionDigits: 2,
@@ -45,10 +52,16 @@ class Product {
         return this.name.trim().replace(/\s+/g, "-").toLowerCase();
     }
 
+    static get totalCount() {
+        return Product.index;
+    }
+
     createHTMLElement() {
         const li = document.createElement('li')
 
-        li.className = 'product-item';
+        li.id = `item-${this.id}`
+        li.name = `item-${this.slug}` 
+        li.className = `product-item item-${this.slug}`;
 
         li.innerHTML = `
         <figure>
@@ -66,24 +79,24 @@ class Product {
                     <input 
                         type="radio"
                         name="${this.slug}-subitem"
-                        data-price="${this.price[0]}" />
+                        data-price="${this.variations[0].price}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[0].name}
-                        <span>R$${this.price[0]}</span>
+                        <span>R$${this.variations[0].price}</span>
                     </label>
                 </li>
                             <li>
                     <input 
                         type="radio"
-                        name="${this.name}-subitem"
-                        data-price="${this.price[1]}" />
+                        name="${this.slug}-subitem"
+                        data-price="${this.variations[1].price}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[1].name}
-                        <span>R$${this.price[1]}</span>
+                        <span>R$${this.variations[1].price}</span>
                     </label>
                 </li>
             </ul>
-            <label class="select-item-label">R$${this.price[0]}</label>
+            <label class="select-item-label">R$${this.price}</label>
             `
         } else {
             li.innerHTML += `
@@ -101,87 +114,3 @@ class Product {
         return li;
     }
 }
-
-const products = [
-    new Product({
-        name: "Agulhinha",
-        basePrice: 80
-    }),
-    new Product({
-        name: "Patinha de Caranguejo",
-        variations: [
-            { name: "Com Casca", price: 105 },
-            { name: "Sem Casca", price: 150 }
-        ]
-    }),
-    new Product({
-        name: "Camarão",
-        variations: [
-            { name: "Com Casca", price: 50 },
-            { name: "Sem Casca", price: 85 }
-        ]
-    }),
-    new Product({
-        name: "Camarão Pistola",
-        variations: [
-            { name: "Com Casca", price: 85 },
-            { name: "Sem Casca", price: 145 }
-        ]
-    }),
-    new Product({
-        name: "Siri",
-        basePrice: 80
-    }),
-    new Product({
-        name: "Aratu",
-        basePrice: 80
-    }),
-    new Product({
-        name: "Mariscada",
-        basePrice: 68
-    }),
-    new Product({
-        name: "Caranguejo",
-        basePrice: 80
-    }),
-    new Product({
-        name: "Polvo",
-        basePrice: 80
-    }),
-    new Product({
-        name: "Cavala",
-        basePrice: 45
-    }),
-    new Product({
-        name: "Badejo",
-        basePrice: 65
-    }),
-    new Product({
-        name: "Vermelho",
-        basePrice: 55
-    }),
-    new Product({
-        name: "Pescada Amarela",
-        basePrice: 45
-    }),
-    new Product({
-        name: "Robalo",
-        basePrice: 65
-    }),
-    new Product({
-        name: "Robalinho",
-        basePrice: 50
-    }),
-    new Product({
-        name: "Arraia",
-        basePrice: 30
-    }),
-    new Product({
-        name: "Filé de Badejo",
-        basePrice: 106
-    }),
-    new Product({
-        name: "Filé de Tilápia",
-        basePrice: 68
-    })
-]

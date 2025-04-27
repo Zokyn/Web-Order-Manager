@@ -1,12 +1,156 @@
+
+const products = [
+    new Product({
+        name: "Agulhinha",
+        basePrice: 80
+    }),
+    new Product({
+        name: "Patinha de Caranguejo",
+        variations: [
+            { name: "Com Casca", price: 105 },
+            { name: "Sem Casca", price: 150 }
+        ]
+    }),
+    new Product({
+        name: "Camarão",
+        variations: [
+            { name: "Com Casca", price: 50 },
+            { name: "Sem Casca", price: 85 }
+        ]
+    }),
+    new Product({
+        name: "Camarão Pistola",
+        variations: [
+            { name: "Com Casca", price: 85 },
+            { name: "Sem Casca", price: 145 }
+        ]
+    }),
+    new Product({
+        name: "Siri",
+        basePrice: 80
+    }),
+    new Product({
+        name: "Aratu",
+        basePrice: 80
+    }),
+    new Product({
+        name: "Mariscada",
+        basePrice: 68
+    }),
+    new Product({
+        name: "Caranguejo",
+        basePrice: 80
+    }),
+    new Product({
+        name: "Polvo",
+        basePrice: 80
+    }),
+    new Product({
+        name: "Cavala",
+        basePrice: 45
+    }),
+    new Product({
+        name: "Badejo",
+        basePrice: 65
+    }),
+    new Product({
+        name: "Vermelho",
+        basePrice: 55
+    }),
+    new Product({
+        name: "Pescada Amarela",
+        basePrice: 45
+    }),
+    new Product({
+        name: "Robalo",
+        basePrice: 65
+    }),
+    new Product({
+        name: "Robalinho",
+        basePrice: 50
+    }),
+    new Product({
+        name: "Arraia",
+        basePrice: 30
+    }),
+    new Product({
+        name: "Filé de Badejo",
+        basePrice: 106
+    }),
+    new Product({
+        name: "Filé de Tilápia",
+        basePrice: 68
+    })
+]
+
+const PAYMENT_TYPE = {
+    CASH: "Dinheiro",
+    CREDIT: "Crédito",
+    DEBIT: "Débito",
+    PIX: "PIX"
+}
+
+class ProductItem {
+    constructor({product, quantity}) {
+        this.product = product;
+        this.quantity = quantity
+    }
+
+    get subTotalPrice() {
+        return this.product.price * this.quantity; 
+    }
+}
+
+class Catalog {
+
+}
+
+class Order {
+    constructor({customer}){
+        this._id = this.id;
+        this.customer = customer;
+        this.products = [];
+        this.paymentType = null;
+    }
+    get id() {
+        return `Pedido ID: ${this._id}`;
+    }
+    set id(number = 0){
+        number != 0 ? this._id = number : this._id = Math.floor(Math.random() * 1000);
+    }
+    addProduct(newProduct, newQuantity = 1) {
+        if (newQuantity < 0) {
+            throw new Error('ERROR: Quantidade do produto deve ser maior que zero');
+        }
+
+        const foundItem = this.products.find(item => {
+            item.product.name === newProduct.name
+        });
+
+        if (foundItem) {
+            foundItem.quantity += newQuantity
+        } else {
+            this.products.push(new ProductItem(newProduct, newQuantity));
+        }
+
+        console.log(`Adicionado ${quantidade}x ${produto.nome} ao pedido`);
+    }
+    removeProduct(productId, quantity = 1) {
+        const itemIndex = this.products.find((item) => {
+            item.product.id === productId
+        })
+    }
+}
+
 function createProductsItems(list) {
-    products.forEach((product, index) => {
+    products.forEach((product) => {
         // Para cada produto, cria-se um elemento HTML
         const item = product.createHTMLElement();
         
         // Atribui valores importantes para o item 
-        item.dataset.id = index;
+        item.dataset.id = product.id;
         item.dataset.name = product.name;
-        item.dataset.price = product.basePrice; 
+        item.dataset.price = product.price; 
 
         // Insere o item na lista de produtos
         list.appendChild(item);
