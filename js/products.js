@@ -62,7 +62,15 @@ class Product {
         li.name = `${this.slug}` 
         li.className = `${Product.CLASSNAME} ${this.slug}-item`;
 
+
         li.innerHTML = `
+        <input 
+            name="${this.slug}-item"
+            class="${Product.CLASSNAME}-check"
+            type="checkbox" />
+        `
+
+        li.innerHTML += `
         <figure>
             <img
                 class="${Product.CLASSNAME}-picture" 
@@ -97,26 +105,29 @@ class Product {
             </ul>
             <label class="select-item-label">R$${this.price}</label>
             ` */
-            li.innerHTML += `
-                <ul class="${Product.CLASSNAME} sub-options-list">
-            `
+            
+            const divOptionList = document.createElement("div");
+            divOptionList.className = `${Product.CLASSNAME} sub-options-list`;
+
             this.variations.forEach((variation, i) => {
-                li.innerHTML += `
-                     <li class="${Product.CLASSNAME} sub-option-item">
-                        <button
-                            type="button"
-                            id="option-${i}"
-                            name="${this.slug}-${variation.name}"
-                            class="${Product.CLASSNAME} sub-option-button">
-                            ${variation.name}
-                            <span>R$${variation.price}</span>
-                        </button>
-                    </li>
+                divOptionList.innerHTML += `
+                    <button
+                        type="button"
+                        id="option-${i}"
+                        name="${this.slug}-${variation.name}"
+                        class="${Product.CLASSNAME} sub-option-button"
+                        value="${variation.price}"
+                        >
+                        ${variation.name}
+                        <span>R$${variation.price}</span>
+                    </button>
                 `
             });
+            
+            li.appendChild(divOptionList)
+
             li.innerHTML += `
-                </u>
-                <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
+            <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
             `
         } else {
             li.innerHTML += `
@@ -124,12 +135,6 @@ class Product {
             `
         }
 
-        li.innerHTML += `
-        <input 
-            name="${this.slug}-item"
-            class="${Product.CLASSNAME}-check"
-            type="checkbox" />
-        `
 
         return li;
     }

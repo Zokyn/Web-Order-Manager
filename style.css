@@ -70,11 +70,12 @@ body {
     --form-input-color: var(--yellow-sand);
     --form-error-color: rgb(165, 43, 43);
 
-    --button-background: var(--yellow-sand);
-    --button-hover-background: var(--chestnut);
-    --button-color: var(--brown);
+    --button-color: var(--white);
     --button-hover-color: var(--yellow-sand);
-    --button-border: solid var(--brown) 3px;
+    --button-background: var(--ochre);
+    --button-hover-background: var(--chestnut);
+    --button-border: solid var(--yellow-sand) 3px;
+    --button-hover-border: solid var(--brown) 3px;
     --button-radius: 24px;
 }
 body.dark {
@@ -257,13 +258,14 @@ ul.products-list {
 /* ------------ Products Item ------------ */
 ul.products-list>li {
     display: grid; 
-    grid-template-columns: auto 1fr 32px;
-    grid-template-rows: 1fr auto auto auto;
+    grid-template-columns: 32px 1fr auto;
+    grid-template-rows: 32px 1fr auto auto ;
     grid-template-areas: 
+        "button . ."
         "image image image"
         "title title title"
         ". option option"
-        ". value button";
+        ". value .";
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
@@ -322,17 +324,20 @@ ul.products-list>li.product-item button {
     color: var(--button-color);
     border: var(--button-border);
     border-radius: var(--button-radius);
+    font-weight: 600;
 }
 ul.products-list>li.product-item button:hover {
-    font-weight: 600;
-    font-size: 1.6em;
     background-color: var(--button-hover-background);
+    border: var(--button-hover-border); 
     color: var(--button-hover-color);
     transition: all ease-in 0.2s;
 }
-ul.products-list>li.product-item.unable button {
-    color: var(--button-color);
+ul.products-list>li.product-item button:disabled {
+    color: grey;
+    background: transparent;
+    border: transparent;
 }
+
 ul.products-list>li.product-item button.selected{
 }
 
@@ -348,25 +353,11 @@ ul.products-list>li.product-item input[type="checkbox"] {
 ul.products-list>li.product-item input[type="checkbox"]::after {
     color: transparent;
 }
-ul.products-list>li .list-sub-options{
+ul.products-list>li .sub-options-list {
+    grid-area: option;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-ul.products-list>li label.sub-option-label{
-    cursor: pointer;
-    background-color: var(--card-label-background);
-    font-weight: 600;
-    font-size: 1.2em;
-    color: var(--txt-color);
-    padding: 0.5em
-}
-
-ul.products-list>li label.sub-option-label:hover{
-    background-color: var(--white);
-    font-weight: 800;
-    font-size: 1.3em;
-
 }
 ul.products-list>li.unable input[type="checkbox"] {
     /* background-color: var(--card-txt-color);

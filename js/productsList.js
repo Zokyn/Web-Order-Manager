@@ -247,11 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const itemContainerElements = document.querySelectorAll('.products-list>li');
 
-    const itemSubOptionElements = document.querySelectorAll('.select-item.list-sub-options')
+    const subOptionButtons = document.querySelectorAll('.sub-option-button')
 
-    // Transforma esse objeto de checkboxes em um array
-    const checkboxesList = Array.from(checkboxesElements);
-    const itemPicturesList = Array.from(itemPicturesElements);
 
 
 
@@ -260,19 +257,50 @@ document.addEventListener('DOMContentLoaded', function() {
         element.classList.add('product-item');
 
         const hasSelectedOption = element.querySelector('.sub-option-item')
-        console.log(hasSelectedOption)
+        
         if (hasSelectedOption && !hasSelectedOption.disabled) {
             element.classList.add('unable');
             element.querySelector(`.${Product.CLASSNAME}-check`).disabled = true;
         }
-        element.addEventListener('click', function () {
-            if (!this.classList.contains("unable"))
-                this.classList.toggle('selected');
+
+        // Visita cada image do item e adiciona um eventlistener da função
+        const picture = element.querySelector(`.${Product.CLASSNAME}-picture`);
+
+        // Adiciona o evento listener para quando clicarem na image
+        picture.addEventListener('click', function () {
+            // Vai até o element ovô (li) e ativa ou desativa class "selected"
+            if (!this.parentElement.parentElement.classList.contains("unable"))
+                this.parentElement.parentElement.classList.toggle('selected');
         })
+
+        const checkbox = element.querySelector(`.${Product.CLASSNAME}-check`)
+        // Adiciona o event listener para quando o checkbox mudar
+        checkbox.addEventListener('change', function () {
+            if (this.checked) // Se ele estiver "marcado"
+                // O elemento pai (li) deverá ser selecionado
+                this.parentElement.classList.add('selected');
+            else 
+                // Caso contrário o elemento pai deverá ser desselecionado
+                this.parentElement.classList.remove('selected');
+        })
+
+        const buttons = element.querySelectorAll('.sub-option-button');
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault()
+
+                buttons.forEach((button) => button.disabled = false);
+                
+                button.disabled = true;
+
+                element.querySelector('.product-item-label').textContent = `R$${button.value}`;
+            })
+        });
 
     })
 
-    // Visita cada image do item e adiciona um eventlistener da função
+/*     // Visita cada image do item e adiciona um eventlistener da função
     itemPicturesList.forEach(picture => {
         // Adiciona o evento listener para quando clicarem na image
         picture.addEventListener('click', function () {
@@ -295,66 +323,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    // Adiciona eventListener para cada subitem(radio)
-    itemSubOptionElements.forEach(subItem => {
-        const radios = subItem.querySelectorAll('input[type="radio"]')
-        const labels = subItem.querySelectorAll('label sub-option-label');
+    subOptionButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault()
 
-        radios.forEach((radio) => {
+            subOptionButtons.forEach((button) => button.disabled = false);
+            
+            button.disabled = true;
 
-            radio.addEventListener('click', function() {
-                console.log('click')
-            });
-            // Caso um dos radio button seja selecionado
-            radio.addEventListener('change', function () {
-                // Busca o item pai do subitem
-                const itemContainer = this.closest(`.${Product.CLASSNAME}`);
-    
-                // Busca o checkbox do item pai
-                const itemCheckbox = itemContainer.querySelector('.select-item-check');
-    
-                // Atribui o preço ao a label do item pai
-                const selectedPrice = this.dataset.price;
-                itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
-    
-                // Permite seleção no checkbox
-                itemCheckbox.disabled = false;
-    
-                // Atribui ele como selecionado
-                itemContainer.classList.add('selected');
-    
-                // Remove class de 'unable'
-                itemContainer.classList.remove('unable');
-            })
-        //    radio.addEventListener('change', selectOption(radio));
+            const priceLabel = button.closest('.product-item-label');
+            priceLabel.textContent = `R$${button.textContent}`;
         })
-        
-        labels.forEach((label, index) => {
-            label.addEventListener('click',  function () {
-                const radio = this.closest('input[type="radio"]');
-
-                const radioClickEvent = new Event('click')
-                radio.dispatchEvent(radioClickEvent)
-                // Busca o item pai do subitem
-                const itemContainer = this.closest(`.${Product.CLASSNAME}`);
-                console.log(this.closest(`.${Product.CLASSNAME}`))
-                // Busca o checkbox do item pai
-                const itemCheckbox = itemContainer.querySelector('.select-item-check');
-    
-                // Atribui o preço ao a label do item pai
-                const selectedPrice = subItem.dataset.price;
-                itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
-    
-               /*  // Permite seleção no checkbox
-                itemCheckbox.disabled = false;
-    
-                // Atribui ele como selecionado
-                itemContainer.classList.add('selected');
-    
-                // Remove class de 'unable'
-                itemContainer.classList.remove('unable'); */
-            });
-            // label.addEventListener('click', selectOption(label))
-        })
-    })
+    }); */
 })
