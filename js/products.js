@@ -1,9 +1,10 @@
 class Product {
-    static index = 0;
+    static INDEX = 0;
+    static CLASSNAME = 'product-item';
 
     constructor({name, basePrice, variations = []}) {
-        Product.index++;
-        this.id = Product.index;
+        Product.INDEX++;
+        this.id = Product.INDEX;
         this.name = name; 
         this.basePrice = basePrice;
         this.variations = variations.map(variation => ({
@@ -51,27 +52,27 @@ class Product {
     }
 
     static get totalCount() {
-        return Product.index;
+        return Product.INDEX;
     }
 
     createHTMLElement() {
         const li = document.createElement('li')
 
-        li.id = `item-${this.id}`
-        li.name = `item-${this.slug}` 
-        li.className = `product-item item-${this.slug}`;
+        li.id = `${this.id}`
+        li.name = `${this.slug}` 
+        li.className = `${Product.CLASSNAME} ${this.slug}-item`;
 
         li.innerHTML = `
         <figure>
             <img
-                class="select-item-picture" 
+                class="${Product.CLASSNAME}-picture" 
                 src="https://placehold.co/240x240"/>
         </figure>
         <h3>${this.name}</h3>
         `
 
         if (this.hasVariations) {
-            li.innerHTML += `
+            /* li.innerHTML += `
             <ul class="select-item list-sub-options">
                 <li>
                     <input 
@@ -95,17 +96,38 @@ class Product {
                 </li>
             </ul>
             <label class="select-item-label">R$${this.price}</label>
+            ` */
+            li.innerHTML += `
+                <ul class="${Product.CLASSNAME} sub-options-list">
+            `
+            this.variations.forEach((variation, i) => {
+                li.innerHTML += `
+                     <li class="${Product.CLASSNAME} sub-option-item">
+                        <button
+                            type="button"
+                            id="option-${i}"
+                            name="${this.slug}-${variation.name}"
+                            class="${Product.CLASSNAME} sub-option-button">
+                            ${variation.name}
+                            <span>R$${variation.price}</span>
+                        </button>
+                    </li>
+                `
+            });
+            li.innerHTML += `
+                </u>
+                <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
             `
         } else {
             li.innerHTML += `
-            <label class="select-item-label">R$${this.price}</label>
+            <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
             `
         }
 
         li.innerHTML += `
         <input 
             name="${this.slug}-item"
-            class="select-item-check"
+            class="${Product.CLASSNAME}-check"
             type="checkbox" />
         `
 

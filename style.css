@@ -48,10 +48,14 @@ body {
     --heading-color: var(--chestnut);
 
     /* CARD */
-    /* CARD - background color - */
-    --card-bg-color: var(--ochre);
+    
+    /* CARD - background colors - */
+    --card-background: var(--white);
+    --card-hover-background: transparent;
+    --card-selected-background: transparent;
+    --card-label-background: var(--card-background);
     /* CARD - text color- */
-    --card-txt-color: var(--white);
+    --card-txt-color: var(--chestnut);
     
     /* PRODUCT - background color */
     --item-bg-color: var(--white);
@@ -65,6 +69,13 @@ body {
     --form-input-background: var(--light-brown);
     --form-input-color: var(--yellow-sand);
     --form-error-color: rgb(165, 43, 43);
+
+    --button-background: var(--yellow-sand);
+    --button-hover-background: var(--chestnut);
+    --button-color: var(--brown);
+    --button-hover-color: var(--yellow-sand);
+    --button-border: solid var(--brown) 3px;
+    --button-radius: 24px;
 }
 body.dark {
 
@@ -88,9 +99,11 @@ body.dark {
     
     /* CARD */
     /* CARD - background color - */
-    --card-bg-color: var(--brown);
+    --card-background: var(--yellow-sand);
     /* CARD - text color- */
-    --card-txt-color: var(--ochre);
+    --card-txt-color: var(--chestnut);
+    
+
     
     /* PRODUCT - background color */
     --item-bg-color: var(--ochre);
@@ -254,12 +267,11 @@ ul.products-list>li {
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
-    background-color: var(--item-bg-color);
+    background-color: var(--card-background);
     flex-grow: 1;
     cursor: pointer;
     row-gap: 1em;
 }
-
 ul.products-list>li>figure {
     grid-area: image;
     justify-self: center;
@@ -289,7 +301,7 @@ ul.products-list>li>label,
 ul.products-list>li>input {
     cursor: pointer;
 }
-ul.products-list>li>label.select-item-label {
+ul.products-list>li>label.product-item-label {
     border-radius: 0.25em;
     color: var(--heading-color); 
     grid-area: value;
@@ -297,10 +309,34 @@ ul.products-list>li>label.select-item-label {
     padding:  0 0.8em 0;
     font-weight: 700;
     font-size: 1.4em;
-    background-color: var(--nav-txt-color);
+    background-color: var(--card-label-background);
     margin-right: 0.3em;
 }
-ul.products-list>li>input[type="checkbox"] {
+ul.products-list>li.product-item button {
+    cursor: pointer;
+    width: 100%;
+    align-self: center;
+    font-size: 1.5em;
+    padding: 0.5em;
+    background: var(--button-background);
+    color: var(--button-color);
+    border: var(--button-border);
+    border-radius: var(--button-radius);
+}
+ul.products-list>li.product-item button:hover {
+    font-weight: 600;
+    font-size: 1.6em;
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-color);
+    transition: all ease-in 0.2s;
+}
+ul.products-list>li.product-item.unable button {
+    color: var(--button-color);
+}
+ul.products-list>li.product-item button.selected{
+}
+
+ul.products-list>li.product-item input[type="checkbox"] {
     grid-area: button;
     appearance: none;
     align-self: center;
@@ -309,18 +345,68 @@ ul.products-list>li>input[type="checkbox"] {
     border-radius: 0.5em;
     position: relative;
 }
+ul.products-list>li.product-item input[type="checkbox"]::after {
+    color: transparent;
+}
 ul.products-list>li .list-sub-options{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 ul.products-list>li label.sub-option-label{
+    cursor: pointer;
+    background-color: var(--card-label-background);
     font-weight: 600;
     font-size: 1.2em;
     color: var(--txt-color);
+    padding: 0.5em
+}
+
+ul.products-list>li label.sub-option-label:hover{
+    background-color: var(--white);
+    font-weight: 800;
+    font-size: 1.3em;
+
+}
+ul.products-list>li.unable input[type="checkbox"] {
+    /* background-color: var(--card-txt-color);
+    border: solid var(--card-txt-color) 3px; */
+    display: none;
+}
+ul.products-list>li.unable input[type="checkbox"]::after {
+    content: "🗙";
+    position: absolute;
+    color :var(--card-txt-color);
+    font-size: 1.2em;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
+    height: 32px;
+    border: solid var(--card-label-background) 3px;
+    background-color:  var(--card-selected-background);
+}
+ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
+    height: 32px;
+    border: solid var(--ochre) 3px;
+    background-color: var(--item-bg-color);
+}
+ul.products-list>li:hover input[type="checkbox"]::after {
+    content: "✓";
+    position: absolute;
+    color: var(--card-background);
+    font-weight: bold;
+    font-size: 1.2em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all ease-in-out 0.5s;
 }
 ul.products-list>li:hover  {
-    background-color: #e9ba63bb;
+    /* background-color: #e9ba63bb; */
+    background: var(--card-hover-background);
     transition: all ease-in-out 0.5s;
 }
 ul.products-list>li>figure>img:hover {
@@ -334,45 +420,14 @@ ul.products-list>li:hover label.select-item-label {
     /* color: #742802be; */
     background-color: var(--card-txt-color);
 }
-ul.products-list>li:hover input[type="checkbox"]::after {
-    content: "✓";
-    position: absolute;
-    color: var(--card-txt-color);
-    font-weight: bold;
-    font-size: 1.2em;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-ul.products-list>li.unable input[type="checkbox"]::after {
-    content: "🗙";
-    position: absolute;
-    color: grey;
-    font-size: 1.2em;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-ul.products-list>li.unable input[type="checkbox"] {
-    background-color: var(--card-txt-color);
-    border: solid grey 3px;
-}
-ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
-    height: 32px;
-    border: solid var(--hover-txt-color) 3px;
-}
-ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
-    height: 32px;
-    border: solid var(--ochre) 3px;
-    background-color: var(--item-bg-color);
-}
 ul.products-list>li.unable label.select-item-label {
     color: white;
     background-color: grey;
 }
 ul.products-list>li.selected {
-    background-color: #e9ba635d;
+    background: var(--card-selected-background);
     box-shadow: 0px 8px 19px 8px #361e18bf;
+    opacity: 0.8;
 }
 ul.products-list>li.selected img {
     z-index: 10;
@@ -387,14 +442,14 @@ ul.products-list>li.selected label.select-item-label {
     color: var(--heading-color);
 }
 ul.products-list>li.selected input[type="checkbox"] {
-    background-color: var(--heading-color);
-    border-color: var(--hover-txt-color);
+    background-color:  var(--card-selected-background);
+    border-color: var(--card-label-background);
     position: relative;
 }
 ul.products-list>li.selected input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
-    color: var(--hover-txt-color);
+    color: var(--card-txt-color);
     font-weight: bold;
     font-size: 1.2em;
     top: 50%;
@@ -439,7 +494,7 @@ ul.carousel-track>.product-item {
     flex-direction: column;
     align-items: center;
     border-radius: 16px;
-    background-color: var(--card-bg-color);
+    background-color: var(--card-hover-background);
     padding-bottom: 1em;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.8s ease-in-out, opacity 0.3s ease;
@@ -528,7 +583,7 @@ div.product-item.unable {
     opacity: 0.7;
 }
 
-div.product-item.unable .select-item-check {
+div.product-item.unable .product-item-check {
     cursor: not-allowed;
 }
 

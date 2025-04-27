@@ -215,6 +215,26 @@ const listContainer = {
         console.log('LOG: Lista de Produtos Gerada com sucesso');
     }
 }
+function selectOption(radio) {
+    // Busca o item pai do subitem
+    const itemContainer = radio.closest('.product-item');
+
+    // Busca o checkbox do item pai
+    const itemCheckbox = itemContainer.querySelector('.select-item-check');
+
+    // Atribui o preço ao a label do item pai
+    const selectedPrice = radio.dataset.price;
+    itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
+
+    // Permite seleção no checkbox
+    itemCheckbox.disabled = false;
+
+    // Atribui ele como selecionado
+    itemContainer.classList.add('selected');
+
+    // Remove class de 'unable'
+    itemContainer.classList.remove('unable');
+}
 document.addEventListener('DOMContentLoaded', function() {
     // Renderiza listContainer no elemento '.product-list'
     listContainer.renderList('.products-list');
@@ -222,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Enable multi-option item */
 
     // Pega todos os checkboxes que pretendo colocar a função
-    const checkboxesElements = document.querySelectorAll('.select-item-check');
-    const itemPicturesElements = document.querySelectorAll('.select-item-picture');
+    const checkboxesElements = document.querySelectorAll(`.${Product.CLASSNAME}-check`);
+    const itemPicturesElements = document.querySelectorAll(`.${Product.CLASSNAME}-picture`);
 
     const itemContainerElements = document.querySelectorAll('.products-list>li');
 
@@ -237,16 +257,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     itemContainerElements.forEach(element => {
 
-        element.classList.add('product-item')
-        const hasSelectedRadio = element.querySelector('.sub-options')
-        if (hasSelectedRadio && !hasSelectedRadio.checked) {
+        element.classList.add('product-item');
+
+        const hasSelectedOption = element.querySelector('.sub-option-item')
+        console.log(hasSelectedOption)
+        if (hasSelectedOption && !hasSelectedOption.disabled) {
             element.classList.add('unable');
-            element.querySelector('.select-item-check').disabled = true;
+            element.querySelector(`.${Product.CLASSNAME}-check`).disabled = true;
         }
         element.addEventListener('click', function () {
             if (!this.classList.contains("unable"))
                 this.classList.toggle('selected');
         })
+
     })
 
     // Visita cada image do item e adiciona um eventlistener da função
@@ -275,12 +298,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adiciona eventListener para cada subitem(radio)
     itemSubOptionElements.forEach(subItem => {
         const radios = subItem.querySelectorAll('input[type="radio"]')
-        console.log(radios)
+        const labels = subItem.querySelectorAll('label sub-option-label');
+
         radios.forEach((radio) => {
+
+            radio.addEventListener('click', function() {
+                console.log('click')
+            });
             // Caso um dos radio button seja selecionado
             radio.addEventListener('change', function () {
                 // Busca o item pai do subitem
-                const itemContainer = this.closest('.product-item');
+                const itemContainer = this.closest(`.${Product.CLASSNAME}`);
     
                 // Busca o checkbox do item pai
                 const itemCheckbox = itemContainer.querySelector('.select-item-check');
@@ -298,6 +326,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove class de 'unable'
                 itemContainer.classList.remove('unable');
             })
+        //    radio.addEventListener('change', selectOption(radio));
+        })
+        
+        labels.forEach((label, index) => {
+            label.addEventListener('click',  function () {
+                const radio = this.closest('input[type="radio"]');
+
+                const radioClickEvent = new Event('click')
+                radio.dispatchEvent(radioClickEvent)
+                // Busca o item pai do subitem
+                const itemContainer = this.closest(`.${Product.CLASSNAME}`);
+                console.log(this.closest(`.${Product.CLASSNAME}`))
+                // Busca o checkbox do item pai
+                const itemCheckbox = itemContainer.querySelector('.select-item-check');
+    
+                // Atribui o preço ao a label do item pai
+                const selectedPrice = subItem.dataset.price;
+                itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
+    
+               /*  // Permite seleção no checkbox
+                itemCheckbox.disabled = false;
+    
+                // Atribui ele como selecionado
+                itemContainer.classList.add('selected');
+    
+                // Remove class de 'unable'
+                itemContainer.classList.remove('unable'); */
+            });
+            // label.addEventListener('click', selectOption(label))
         })
     })
 })
