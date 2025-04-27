@@ -309,6 +309,11 @@ ul.products-list>li>input[type="checkbox"] {
     border-radius: 0.5em;
     position: relative;
 }
+ul.products-list>li .list-sub-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 ul.products-list>li label.sub-option-label{
     font-weight: 600;
     font-size: 1.2em;

@@ -72,11 +72,11 @@ class Product {
 
         if (this.hasVariations) {
             li.innerHTML += `
-            <ul class="select-item sub-options">
+            <ul class="select-item list-sub-options">
                 <li>
                     <input 
                         type="radio"
-                        name="${this.slug}-subitem"
+                        name="${this.slug}-option"
                         data-price="${this.variations[0].price}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[0].name}
@@ -86,7 +86,7 @@ class Product {
                             <li>
                     <input 
                         type="radio"
-                        name="${this.slug}-subitem"
+                        name="${this.slug}-option"
                         data-price="${this.variations[1].price}" />
                     <label class="select-item sub-option-label">
                         ${this.variations[1].name}
