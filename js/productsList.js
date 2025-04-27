@@ -1,6 +1,6 @@
 
 /* CONSTANTES */
-const products = [
+const PRODUCTS = [
     new Product({
         name: "Agulhinha",
         basePrice: 80
@@ -165,7 +165,7 @@ class Order {
 }
 
 function createProductsItems(list) {
-    products.forEach((product) => {
+    PRODUCTS.forEach((product) => {
         // Para cada produto, cria-se um elemento HTML
         const item = product.createHTMLElement();
         
@@ -179,30 +179,20 @@ function createProductsItems(list) {
     });
 }
 
-const listContainer = {
-    element: '',
-    items: [],
+class Catalog {
+    constructor(element) {
+        this.element = element,
+        this.items = []
+
+    }
     
-    renderList(query) { /* String query */
-        /*  FUNÇÃO |renderiza a lista de produtos no documento
-            PARAMETROS
-                query : (busca) de entrada no Query Selector */
-
-        // Associa elemento ao listContainer
-        this.element = document.querySelector(query)
-
-        // Caso não exista
-        if (!this.element) {
-            /* TODO: revisar documente.createElement */
-            this.element = document.createElement('ul')
-            this.element.className = query
+    renderList() {
+        if(!this.element) {
+            this.element = document.createElement('ul');
         }
-        // this.element.className = element
-
-        products.forEach((product) => {
+        PRODUCTS.forEach((product) => {
             // Para cada produto, cria-se um elemento HTML
             const item = product.createHTMLElement();
-            
             // Atribui valores importantes para o item 
             item.dataset.id = product.id;
             item.dataset.name = product.name;
@@ -211,8 +201,7 @@ const listContainer = {
             // Insere o item na lista de produtos
             this.items.push(item);
             this.element.appendChild(item);
-        });
-        console.log('LOG: Lista de Produtos Gerada com sucesso');
+        })
     }
 }
 function selectOption(radio) {
@@ -237,19 +226,13 @@ function selectOption(radio) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     // Renderiza listContainer no elemento '.product-list'
-    listContainer.renderList('.products-list');
+    const list = new Catalog(document.querySelector('.products-list'));
+    list.renderList();
 
     /* Enable multi-option item */
 
     // Pega todos os checkboxes que pretendo colocar a função
-    const checkboxesElements = document.querySelectorAll(`.${Product.CLASSNAME}-check`);
-    const itemPicturesElements = document.querySelectorAll(`.${Product.CLASSNAME}-picture`);
-
     const itemContainerElements = document.querySelectorAll('.products-list>li');
-
-    const subOptionButtons = document.querySelectorAll('.sub-option-button')
-
-
 
 
     itemContainerElements.forEach(element => {
