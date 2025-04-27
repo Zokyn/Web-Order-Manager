@@ -20,8 +20,6 @@ class Product {
         let price;
         if (this.hasVariations) {
             price = [
-                /* this.variations[0].price,
-                this.variations[1].price*/
                 Number(this.variations[0].price).toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits:  2

@@ -1,4 +1,5 @@
 
+/* CONSTANTES */
 const products = [
     new Product({
         name: "Agulhinha",
@@ -90,26 +91,27 @@ const PAYMENT_TYPE = {
     PIX: "PIX"
 }
 
+/* CLASSES */
+
 class ProductItem {
     constructor({product, quantity}) {
         this.product = product;
-        this.quantity = quantity
+        this.quantity = quantity;
     }
 
     get subTotalPrice() {
         return this.product.price * this.quantity; 
     }
 }
+/* TODO: class Catalog {
 
-class Catalog {
-
-}
+} */
 
 class Order {
     constructor({customer}){
         this._id = this.id;
         this.customer = customer;
-        this.products = [];
+        this.productItems = [];
         this.paymentType = null;
     }
     get id() {
@@ -120,25 +122,45 @@ class Order {
     }
     addProduct(newProduct, newQuantity = 1) {
         if (newQuantity < 0) {
-            throw new Error('ERROR: Quantidade do produto deve ser maior que zero');
+            const e = 'ERROR: Quantidade do produto deve ser maior que zero'
+            console.warn(e)
+            throw new Error(e);
+
         }
 
-        const foundItem = this.products.find(item => {
-            item.product.name === newProduct.name
+        const foundItem = this.productItems.find(item => {
+            item.product.id === newProduct.id
         });
 
         if (foundItem) {
             foundItem.quantity += newQuantity
         } else {
-            this.products.push(new ProductItem(newProduct, newQuantity));
+            this.productItems.push(new ProductItem(newProduct, newQuantity));
         }
 
         console.log(`Adicionado ${quantidade}x ${produto.nome} ao pedido`);
     }
     removeProduct(productId, quantity = 1) {
-        const itemIndex = this.products.find((item) => {
-            item.product.id === productId
-        })
+        // Busca o indicador do produto na lista de produtos do Pedido
+        const itemIndex = this.productItems.findIndex(item => item.product.id === productId)
+
+        if (itemIndex > -1) {
+            const foundItem = this.productItems[index];
+
+            if (foundItem.quantity <= quantity) {
+                this.productItems.splice(index, 1)
+                console.log(`Produto ${foundItem.product.name} removido completamente do pedido`);
+            } else {
+                foundItem.quantity -= quantity;
+                console.log(`Produto ${item.product.name} x${foundItem.produto.nome} do pedido`);
+            }
+            
+            return true;
+        } else {
+            const e = 'ERROR: Produto não encontrado no pedido';
+            console.warn(e)
+            return false; 
+        }
     }
 }
 
@@ -157,18 +179,52 @@ function createProductsItems(list) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Busca o elemento de lista de produtos
-    const listContainer = document.querySelector('.products-list');
+const listContainer = {
+    element: '',
+    items: [],
+    
+    renderList(query) { /* String query */
+        /*  FUNÇÃO |renderiza a lista de produtos no documento
+            PARAMETROS
+                query : (busca) de entrada no Query Selector */
 
-    // Gera todos os items dentro da lista de produtos
-    createProductsItems(listContainer);
+        // Associa elemento ao listContainer
+        this.element = document.querySelector(query)
+
+        // Caso não exista
+        if (!this.element) {
+            /* TODO: revisar documente.createElement */
+            this.element = document.createElement('ul')
+            this.element.className = query
+        }
+        // this.element.className = element
+
+        products.forEach((product) => {
+            // Para cada produto, cria-se um elemento HTML
+            const item = product.createHTMLElement();
+            
+            // Atribui valores importantes para o item 
+            item.dataset.id = product.id;
+            item.dataset.name = product.name;
+            item.dataset.price = product.price; 
+    
+            // Insere o item na lista de produtos
+            this.items.push(item);
+            this.element.appendChild(item);
+        });
+        console.log('LOG: Lista de Produtos Gerada com sucesso');
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Renderiza listContainer no elemento '.product-list'
+    listContainer.renderList('.products-list');
 
     /* Enable multi-option item */
 
     // Pega todos os checkboxes que pretendo colocar a função
     const checkboxesElements = document.querySelectorAll('.select-item-check');
     const itemPicturesElements = document.querySelectorAll('.select-item-picture');
+
     const itemContainerElements = document.querySelectorAll('.products-list>li');
 
     const itemSubOptionElements = document.querySelectorAll('.select-item.sub-options input[type="radio"]')
@@ -176,19 +232,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Transforma esse objeto de checkboxes em um array
     const checkboxesList = Array.from(checkboxesElements);
     const itemPicturesList = Array.from(itemPicturesElements);
-    const itemContainerList = Array.from(itemContainerElements);
 
     const itemSubOptionsList = Array.from(itemSubOptionElements);
 
 
-    itemContainerList.forEach(container => {
-        container.classList.add('product-item')
-        const hasSelectedRadio = container.querySelector('.sub-options input[type="radio"]')
+    itemContainerElements.forEach(element => {
+
+        element.classList.add('product-item')
+        const hasSelectedRadio = element.querySelector('.sub-options input[type="radio"]')
         if (hasSelectedRadio && !hasSelectedRadio.checked) {
-            container.classList.add('unable');
-            container.querySelector('.select-item-check').disabled = true;
+            element.classList.add('unable');
+            element.querySelector('.select-item-check').disabled = true;
         }
-        container.addEventListener('click', function () {
+        element.addEventListener('click', function () {
             if (!this.classList.contains("unable"))
                 this.classList.toggle('selected');
         })
