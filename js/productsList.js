@@ -255,36 +255,40 @@ document.addEventListener('DOMContentLoaded', function() {
     itemContainerElements.forEach(element => {
 
         element.classList.add('product-item');
+        
+        const picture = element.querySelector(`.${Product.CLASSNAME}-picture`);
+        const checkbox = element.querySelector(`.${Product.CLASSNAME}-check`)
+        const buttons = element.querySelectorAll('.sub-option-button');
+        const countContainer = element.querySelector('.quant-count-container');
 
-        const hasSelectedOption = element.querySelector('.sub-option-item')
+        const hasSelectedOption = element.querySelector('.sub-option-button')
         
         if (hasSelectedOption && !hasSelectedOption.disabled) {
             element.classList.add('unable');
-            element.querySelector(`.${Product.CLASSNAME}-check`).disabled = true;
         }
-
-        // Visita cada image do item e adiciona um eventlistener da função
-        const picture = element.querySelector(`.${Product.CLASSNAME}-picture`);
 
         // Adiciona o evento listener para quando clicarem na image
         picture.addEventListener('click', function () {
-            // Vai até o element ovô (li) e ativa ou desativa class "selected"
-            if (!this.parentElement.parentElement.classList.contains("unable"))
-                this.parentElement.parentElement.classList.toggle('selected');
+            // Ativa ou desativa class "selected" de li
+            if (!element.classList.contains("unable")) {
+                element.classList.toggle('selected');
+                countContainer.classList.toggle('hidden');
+            }
+
         })
 
-        const checkbox = element.querySelector(`.${Product.CLASSNAME}-check`)
         // Adiciona o event listener para quando o checkbox mudar
         checkbox.addEventListener('change', function () {
-            if (this.checked) // Se ele estiver "marcado"
-                // O elemento pai (li) deverá ser selecionado
-                this.parentElement.classList.add('selected');
-            else 
-                // Caso contrário o elemento pai deverá ser desselecionado
-                this.parentElement.classList.remove('selected');
+            if (!element.classList.contains("unable")) {
+                if (this.checked) // Se ele estiver "marcado"
+                    // O li deverá ser selecionado
+                    element.classList.add('selected');
+                else 
+                    // Caso contrário li deverá ser desselecionado
+                    element.classList.remove('selected');
+                countContainer.classList.toggle('hidden');
+            }
         })
-
-        const buttons = element.querySelectorAll('.sub-option-button');
 
         buttons.forEach((button) => {
             button.addEventListener('click', (e) => {
@@ -294,45 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 button.disabled = true;
 
+                element.classList.remove('unable')
                 element.querySelector('.product-item-label').textContent = `R$${button.value}`;
             })
         });
 
     })
 
-/*     // Visita cada image do item e adiciona um eventlistener da função
-    itemPicturesList.forEach(picture => {
-        // Adiciona o evento listener para quando clicarem na image
-        picture.addEventListener('click', function () {
-            // Vai até o element ovô (li) e ativa ou desativa class "selected"
-            if (!this.parentElement.parentElement.classList.contains("unable"))
-                this.parentElement.parentElement.classList.toggle('selected');
-        })
-    })
-
-    // Visita cada checkbox e adiciona um eventlistener da função
-    checkboxesList.forEach(checkbox => {
-        // Adiciona o event listener para quando o checkbox mudar
-        checkbox.addEventListener('change', function () {
-            if (this.checked) // Se ele estiver "marcado"
-                // O elemento pai (li) deverá ser selecionado
-                this.parentElement.classList.add('selected');
-            else 
-                // Caso contrário o elemento pai deverá ser desselecionado
-                this.parentElement.classList.remove('selected');
-        })
-    })
-
-    subOptionButtons.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault()
-
-            subOptionButtons.forEach((button) => button.disabled = false);
-            
-            button.disabled = true;
-
-            const priceLabel = button.closest('.product-item-label');
-            priceLabel.textContent = `R$${button.textContent}`;
-        })
-    }); */
 })

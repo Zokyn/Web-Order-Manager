@@ -108,12 +108,12 @@ class Product {
             <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
             `
             li.innerHTML += `
-            <div class="quant-count-container">
+            <div class="quant-count-container hidden">
                 <button
-                    id="item-${this.id}-add"
+                    id="item-${this.id}-remove"
                     class="count-button"
                     type="button">
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-minus"></i>
                 </button>
                 <input 
                     id="item-${this.id}-quant"
@@ -121,10 +121,10 @@ class Product {
                     class="count-input"
                     type=["number"] />
                 <button
-                    id="item-${this.id}-remove"
+                    id="item-${this.id}-add"
                     class="count-button"
                     type="button">
-                    <i class="fa-solid fa-minus"></i>
+                    <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
             `

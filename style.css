@@ -267,13 +267,13 @@ ul.products-list {
 ul.products-list>li {
     display: grid; 
     grid-template-columns: 48px 1fr 80px;
-    grid-template-rows: 16px 1fr auto auto ;
+    grid-template-rows: 16px auto 1fr auto;
     grid-template-areas: 
-        "button . ."
-        "image image image"
+        "button . count"
         ". title ."
-        "option option ."
-        "value value count";
+        "image image image"
+        "value value value"
+        "option option .";
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
@@ -327,6 +327,9 @@ li.product-item> .quant-count-container {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+li.product-item> .quant-count-container.hidden {
+    display: none;
 }
 li.product-item button.count-button, input.count-input {
     box-sizing: border-box;
@@ -740,7 +743,7 @@ form .form-frame button[type="reset"]:disabled {
     cursor: default;
 }
 
-.hidden {
+form .form-frame .hidden {
     display: none;
 }
 /* ------------ Size Media Queries ------------ */
