@@ -6,7 +6,8 @@
     --chestnut: #742802;
     --yellow-sand: #e9ba63;
     --white: #f2f2f2;
-
+    --light-blue: #3087fa;
+    --light-red: #a52b2b;
 
     --rgb-brown: rgb(54, 30, 24);
     --rgb-light-brown: rgb(110, 67, 29);
@@ -57,6 +58,13 @@ body {
     /* CARD - text color- */
     --card-txt-color: var(--chestnut);
     
+    --card-check-color: var(--yellow-sand);
+    --card-check-background: transparent;
+    --card-hover-check-color: var(--white);
+    --card-hover-check-background: var(--yellow-sand);
+    --card-selected-check-color: var(--white);
+    --card-selected-check-background: var(--light-blue);
+
     /* PRODUCT - background color */
     --item-bg-color: var(--white);
     /* ABOUT - text color */
@@ -68,7 +76,7 @@ body {
     --form-label-color: var(--chestnut);
     --form-input-background: var(--light-brown);
     --form-input-color: var(--yellow-sand);
-    --form-error-color: rgb(165, 43, 43);
+    --form-error-color: var(--light-red);
 
     --button-color: var(--white);
     --button-hover-color: var(--yellow-sand);
@@ -258,20 +266,19 @@ ul.products-list {
 /* ------------ Products Item ------------ */
 ul.products-list>li {
     display: grid; 
-    grid-template-columns: 32px 1fr auto;
-    grid-template-rows: 32px 1fr auto auto ;
+    grid-template-columns: 48px 1fr 80px;
+    grid-template-rows: 16px 1fr auto auto ;
     grid-template-areas: 
         "button . ."
         "image image image"
-        "title title title"
-        ". option option"
-        ". value .";
+        ". title ."
+        "option option ."
+        "value value count";
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
     background-color: var(--card-background);
     flex-grow: 1;
-    cursor: pointer;
     row-gap: 1em;
 }
 ul.products-list>li>figure {
@@ -314,7 +321,24 @@ ul.products-list>li>label.product-item-label {
     background-color: var(--card-label-background);
     margin-right: 0.3em;
 }
-ul.products-list>li.product-item button {
+li.product-item> .quant-count-container {
+    grid-area: count;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+li.product-item button.count-button, input.count-input {
+    box-sizing: border-box;
+    height: 32px;
+    width: 32px;
+    text-align: center;
+}
+li.product-item button.count-button {
+    padding: 0;
+    width: 24px;
+}
+ul.products-list>li.product-item button.sub-option-button {
     cursor: pointer;
     width: 100%;
     align-self: center;
@@ -326,32 +350,30 @@ ul.products-list>li.product-item button {
     border-radius: var(--button-radius);
     font-weight: 600;
 }
-ul.products-list>li.product-item button:hover {
+ul.products-list>li.product-item button.sub-option-button:hover {
     background-color: var(--button-hover-background);
     border: var(--button-hover-border); 
     color: var(--button-hover-color);
     transition: all ease-in 0.2s;
 }
-ul.products-list>li.product-item button:disabled {
+ul.products-list>li.product-item button.sub-option-button:disabled {
     color: grey;
     background: transparent;
     border: transparent;
 }
-
-ul.products-list>li.product-item button.selected{
-}
-
 ul.products-list>li.product-item input[type="checkbox"] {
+    z-index: 10;
     grid-area: button;
     appearance: none;
-    align-self: center;
-    height: 32px;
-    border: solid var(--nav-txt-color) 3px;
+    font-size: 1.8em;
+    height: 48px;
+    border: solid var(--card-check-color) 3px;
     border-radius: 0.5em;
     position: relative;
+
 }
 ul.products-list>li.product-item input[type="checkbox"]::after {
-    color: transparent;
+    color: var(--card-check-color);
 }
 ul.products-list>li .sub-options-list {
     grid-area: option;
@@ -368,31 +390,30 @@ ul.products-list>li.unable input[type="checkbox"]::after {
     content: "🗙";
     position: absolute;
     color :var(--card-txt-color);
-    font-size: 1.2em;
+    font-size: 1.5em;
     top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
-    height: 32px;
-    border: solid var(--card-label-background) 3px;
-    background-color:  var(--card-selected-background);
-}
-ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
-    height: 32px;
-    border: solid var(--ochre) 3px;
-    background-color: var(--item-bg-color);
 }
 ul.products-list>li:hover input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
     color: var(--card-background);
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.25em;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all ease-in-out 0.5s;
+}
+ul.products-list>li:hover:not(.unable) input[type="checkbox"] {
+    border: solid var(--card-hover-check-color) 3px;
+    background-color:  var(--card-hover-check-background);
+    transition: all ease-in-out 0.5s;
+}
+ul.products-list>li:not(.unable) input[type="checkbox"]:active  {
+    border: solid var(--ochre) 3px;
+    background-color: var(--item-bg-color);
     transition: all ease-in-out 0.5s;
 }
 ul.products-list>li:hover  {
@@ -421,7 +442,7 @@ ul.products-list>li.selected {
     opacity: 0.8;
 }
 ul.products-list>li.selected img {
-    z-index: 10;
+    z-index: 5;
     transform: scale(1.125);
     position: relative;
 }
@@ -433,19 +454,33 @@ ul.products-list>li.selected label.select-item-label {
     color: var(--heading-color);
 }
 ul.products-list>li.selected input[type="checkbox"] {
-    background-color:  var(--card-selected-background);
-    border-color: var(--card-label-background);
+    background-color:  var(--card-selected-check-background);
+    border-color: var(--card-selected-check-color);
     position: relative;
 }
 ul.products-list>li.selected input[type="checkbox"]::after {
     content: "✓";
     position: absolute;
-    color: var(--card-txt-color);
+    color: var(--card-selected-check-color);
     font-weight: bold;
-    font-size: 1.2em;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+ul.products-list>li.selected:hover input[type="checkbox"] {
+    background-color:  var(--card-background);
+    border-color: var(--form-error-color);
+    position: relative;
+}
+ul.products-list>li.selected:hover input[type="checkbox"]::after {
+    content: "×";
+    position: absolute;
+    color: var(--form-error-color);
+    font-weight: bold;
+    top: 42%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    transition: none;
 }
 ul.products-list>li.selected:hover img { 
     transform: scale(1);

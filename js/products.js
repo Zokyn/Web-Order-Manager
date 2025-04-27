@@ -80,32 +80,6 @@ class Product {
         `
 
         if (this.hasVariations) {
-            /* li.innerHTML += `
-            <ul class="select-item list-sub-options">
-                <li>
-                    <input 
-                        type="radio"
-                        name="${this.slug}-option"
-                        data-price="${this.variations[0].price}" />
-                    <label class="select-item sub-option-label">
-                        ${this.variations[0].name}
-                        <span>R$${this.variations[0].price}</span>
-                    </label>
-                </li>
-                            <li>
-                    <input 
-                        type="radio"
-                        name="${this.slug}-option"
-                        data-price="${this.variations[1].price}" />
-                    <label class="select-item sub-option-label">
-                        ${this.variations[1].name}
-                        <span>R$${this.variations[1].price}</span>
-                    </label>
-                </li>
-            </ul>
-            <label class="select-item-label">R$${this.price}</label>
-            ` */
-            
             const divOptionList = document.createElement("div");
             divOptionList.className = `${Product.CLASSNAME} sub-options-list`;
 
@@ -132,6 +106,27 @@ class Product {
         } else {
             li.innerHTML += `
             <label class="${Product.CLASSNAME}-label">R$${this.price}</label>
+            `
+            li.innerHTML += `
+            <div class="quant-count-container">
+                <button
+                    id="item-${this.id}-add"
+                    class="count-button"
+                    type="button">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <input 
+                    id="item-${this.id}-quant"
+                    value="1"
+                    class="count-input"
+                    type=["number"] />
+                <button
+                    id="item-${this.id}-remove"
+                    class="count-button"
+                    type="button">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+            </div>
             `
         }
 
