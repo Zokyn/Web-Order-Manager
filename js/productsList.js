@@ -93,76 +93,7 @@ const PAYMENT_TYPE = {
 
 /* CLASSES */
 
-class ProductItem {
-    constructor({product, quantity}) {
-        this.product = product;
-        this.quantity = quantity;
-    }
 
-    get subTotalPrice() {
-        return this.product.price * this.quantity; 
-    }
-}
-/* TODO: class Catalog {
-
-} */
-
-class Order {
-    constructor({customer}){
-        this._id = this.id;
-        this.customer = customer;
-        this.productItems = [];
-        this.paymentType = null;
-    }
-    get id() {
-        return `Pedido ID: ${this._id}`;
-    }
-    set id(number = 0){
-        number != 0 ? this._id = number : this._id = Math.floor(Math.random() * 1000);
-    }
-    addProduct(newProduct, newQuantity = 1) {
-        if (newQuantity < 0) {
-            const e = 'ERROR: Quantidade do produto deve ser maior que zero'
-            console.warn(e)
-            throw new Error(e);
-
-        }
-
-        const foundItem = this.productItems.find(item => {
-            item.product.id === newProduct.id
-        });
-
-        if (foundItem) {
-            foundItem.quantity += newQuantity
-        } else {
-            this.productItems.push(new ProductItem(newProduct, newQuantity));
-        }
-
-        console.log(`Adicionado ${quantidade}x ${produto.nome} ao pedido`);
-    }
-    removeProduct(productId, quantity = 1) {
-        // Busca o indicador do produto na lista de produtos do Pedido
-        const itemIndex = this.productItems.findIndex(item => item.product.id === productId)
-
-        if (itemIndex > -1) {
-            const foundItem = this.productItems[index];
-
-            if (foundItem.quantity <= quantity) {
-                this.productItems.splice(index, 1)
-                console.log(`Produto ${foundItem.product.name} removido completamente do pedido`);
-            } else {
-                foundItem.quantity -= quantity;
-                console.log(`Produto ${item.product.name} x${foundItem.produto.nome} do pedido`);
-            }
-            
-            return true;
-        } else {
-            const e = 'ERROR: Produto não encontrado no pedido';
-            console.warn(e)
-            return false; 
-        }
-    }
-}
 class Catalog {
     constructor(element) {
         this.element = element,
@@ -174,13 +105,6 @@ class Catalog {
             this.element = document.createElement('ul');
         }
         PRODUCTS.forEach((product) => {
-/*             // Para cada produto, cria-se um elemento HTML
-            const item = product.createHTMLElement();
-            // Atribui valores importantes para o item 
-            item.dataset.id = product.id;
-            item.dataset.name = product.name;
-            item.dataset.price = product.price;  */
-
             // const item = new CatalogItem(product);
             const item = document.createElement('li', { is: 'catalog-item' });
             item.setProduct(product);
@@ -316,8 +240,6 @@ class CatalogItem extends HTMLLIElement {
                 this.querySelector(`.${CatalogItem.CLASSNAME}-label`).textContent = `R$${this.product.getVariationPrice(this.dataset.selected)}`;
             })
         })
-        console.log(this.querySelector(`.${CatalogItem.CLASSNAME}-picture`))
-        console.log("eventos adicionado ao CatalogItem")
     }
 }
 customElements.define("catalog-item", CatalogItem, {extends: "li"});
