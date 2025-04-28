@@ -6,10 +6,10 @@ export class Product {
         Product.INDEX++;
         this.id = Product.INDEX;
         this.name = name; 
-        this.basePrice = basePrice;
+        this.basePrice = parseFloat(basePrice);
         this.variations = variations.map(variation => new Product({
             name: variation.name,
-            basePrice: variation.price
+            basePrice: parseFloat(variation.price)
         }));
     }
 
@@ -37,7 +37,7 @@ export class Product {
                 maximumFractionDigits:  2
             }); 
         }
-        return price;
+        return parseFloat(price);
     }
 
     get slug() {

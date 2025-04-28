@@ -3,14 +3,18 @@
 let isDark = false; 
 import { PAYMENT_TYPE } from './Constants/PAYMENT_TYPES.js'
 import { Product } from './Models/Product.js'
+import { OrderItem } from './Models/OrderItem.js';
 import { Order } from './Models/Order.js'
 import { PRODUCTS } from './Constants/PRODUCTS.js'
 import { HIGHLIGHTS } from './Constants/highlights.js';
 import Catalog from './Catalog.js'
 import Carousel from './Carousel.js';
+import { ConfirmForm } from './ConfirmForm.js';
 
 /* Lista de destaques (fake database) */
 // import { highlights } from "./highlights";
+
+const FORM_PATH = '../form.html'
 
 function changeColorScheme() {
     document.body.classList.toggle('dark');
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const changeColorsButton = document.querySelector('#change-color-button');
     const carouselContainer = document.querySelector('.carousel-container');
     const productsListContainer = document.querySelector('.products-list');
+    const cartForm  = document.querySelector('form.cart-form');
 
     changeColorsButton?.addEventListener('click', () => changeColorScheme());
     
@@ -37,6 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (productsListContainer)
         new Catalog(productsListContainer, PRODUCTS, order);
 
-
-
+    cartForm?.addEventListener('submit', (e) => {
+        e.preventDefault()
+        // Serializa o pedido para JSON
+        const orderJSON = JSON.stringify(order.items);
+        
+        // Armazena no localStorage
+        localStorage.setItem('lastOrder', orderJSON);
+        
+        // Redireciona para a página de formulário
+        window.location.href = FORM_PATH;
+    })
+    
+    new ConfirmForm();
 })

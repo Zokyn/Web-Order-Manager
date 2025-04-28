@@ -5,6 +5,6 @@ export class OrderItem {
     }
 
     get subTotalPrice() {
-        return parseInt(this.product.price) * this.quantity; 
+        return parseFloat(this.product.price) * this.quantity; 
     }
 }
