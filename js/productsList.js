@@ -92,8 +92,6 @@ const PAYMENT_TYPE = {
 }
 
 /* CLASSES */
-
-
 class Catalog {
     constructor(element) {
         this.element = element,
@@ -122,7 +120,9 @@ class CatalogItem extends HTMLLIElement {
     }
     setProduct(product) {
         this.product = product
+        this._setProductInfo();
         this._init();
+        this._cacheElements();
         this._setupEvents();
     }
     get hasVariations() {
@@ -132,12 +132,6 @@ class CatalogItem extends HTMLLIElement {
         this.id =`${this.product.id}`
         this.name = `${this.product.slug}` 
         this.className = `${CatalogItem.CLASSNAME} ${this.product.slug}-item`
-
-        // Atribui Informações do produto 
-        this.dataset.id = this.product.id;
-        this.dataset.name = this.product.name;
-        this.dataset.price = this.product.price; 
-        this.dataset.selected = -1;
 
         if(this.hasVariations)
             this.classList.add('unable');
@@ -151,45 +145,54 @@ class CatalogItem extends HTMLLIElement {
         if(this.hasVariations) {
             this.append(this._renderSubOptions());
         } 
-
-
-
         this._renderQuantContainer();
+    }
+    _setProductInfo() {
+        // Atribui Informações do produto 
+        this.dataset.id = this.product.id;
+        this.dataset.name = this.product.name;
+        this.dataset.price = this.product.price; 
+        this.dataset.selected = -1;
     }
     _cacheElements() {
         this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
         this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
         this.variationsButtons = this.querySelectorAll('.sub-option-button');
         this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-price`);
+
+        this.quantContainer = this.querySelector('.quant-count-container')
+        this.quantAddButton = this.querySelector('.count-button:first-child');
+        this.quantCounter = this.querySelector('input .count-button')
+        this.quantSubButton = this.querySelector('.count-button:last-child');
     }
     _setupEvents() {
-        this.querySelector(`.${CatalogItem.CLASSNAME}-picture`)?.addEventListener('click', () => {
+        this.picture?.addEventListener('click', () => {
             if (!this.classList.contains('unable')) {
                 this.classList.toggle('selected')
-                // this.countContainer?.classList.toggle('hidden');
+                this.quantContainer?.classList.toggle('hidden');
             }
         })
 
-        this.querySelector(`.${CatalogItem.CLASSNAME}-check`)?.addEventListener('change', () => {
+        this.checkbox?.addEventListener('change', () => {
             if(!this.classList.contains('unable')) {
                 this.classList.toggle('selected')
 
-                // this.querySelector(`.count-quant-container`).classList.toggle('hidden');
+                this.quantContainer?.classList.toggle('hidden');
             }
         })
         
-        this.querySelectorAll('.sub-option-button')?.forEach((button) => {
+        this.variationsButtons?.forEach((button) => {
             button.addEventListener('click', (e) => {
                 e.preventDefault()
 
-                this.querySelectorAll('.sub-option-button').forEach((button) => button.disabled = false);
+                this.variationsButtons.forEach((button) => button.disabled = false);
 
                 button.disabled = true;
 
                 this.dataset.selected = button.id.slice(-1);
 
                 this.classList.remove('unable');
-                this.querySelector(`.${CatalogItem.CLASSNAME}-price`).textContent = `R$${button.value}`;
+                this.priceLabel.textContent = `R$${button.value}`;
             })
         })
     }
@@ -266,7 +269,6 @@ class CatalogItem extends HTMLLIElement {
             </button>
         </div>
         `
-        this.quantAddButton = this.querySelector('count-button')
     }
 }
 customElements.define("catalog-item", CatalogItem, {extends: "li"});
