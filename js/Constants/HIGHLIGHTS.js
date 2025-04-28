@@ -1,4 +1,4 @@
-const HIGHLIGHTS = [
+export const HIGHLIGHTS = [
     { 
         name: "Agulhinha", 
         price: "R$80,00", 

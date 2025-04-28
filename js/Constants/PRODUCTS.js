@@ -1,6 +1,6 @@
+import { Product } from "../Models/Product.js"
 
-/* CONSTANTES */
-const PRODUCTS = [
+export const PRODUCTS = [
     new Product({
         name: "Agulhinha",
         basePrice: 80

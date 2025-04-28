@@ -1,4 +1,4 @@
-const PAYMENT_TYPE = {
+export const PAYMENT_TYPE = {
     CASH: "Dinheiro",
     CREDIT: "Crédito",
     DEBIT: "Débito",

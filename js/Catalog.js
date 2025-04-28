@@ -1,5 +1,6 @@
+import { PRODUCTS } from "./Constants/PRODUCTS.js";
 /* CLASSES */
-class Catalog {
+export class Catalog {
     constructor(element) {
         this.element = element,
         this.items = []
@@ -185,8 +186,8 @@ class CatalogItem extends HTMLLIElement {
 }
 customElements.define("catalog-item", CatalogItem, {extends: "li"});
 
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     // Renderiza listContainer no elemento '.product-list'
     const list = new Catalog(document.querySelector('.products-list'));
     list.renderList();
-})
+}) */

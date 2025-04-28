@@ -1,4 +1,4 @@
-class Product {
+export class Product {
     static INDEX = 0;
 
     constructor({name, basePrice, variations = []}) {

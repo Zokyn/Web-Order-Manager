@@ -1,15 +1,4 @@
-class OrderItem {
-    constructor({product, quantity}) {
-        this.product = product;
-        this.quantity = quantity;
-    }
-
-    get subTotalPrice() {
-        return this.product.price * this.quantity; 
-    }
-}
-
-class Order {
+export class Order {
     constructor({customer}){
         this._id = this.id;
         this.customer = customer;
@@ -63,5 +52,15 @@ class Order {
             console.warn(e)
             return false; 
         }
+    }
+}
+class OrderItem {
+    constructor({product, quantity}) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    get subTotalPrice() {
+        return this.product.price * this.quantity; 
     }
 }
