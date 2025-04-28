@@ -139,76 +139,20 @@ class CatalogItem extends HTMLLIElement {
         this.dataset.price = this.product.price; 
         this.dataset.selected = -1;
 
-        if(this._hasVariations)
+        if(this.hasVariations)
             this.classList.add('unable');
         
-        this.innerHTML +=
-        `<input 
-            name="${this.product.slug}-item"
-            class="${CatalogItem.CLASSNAME}-check"
-            type="checkbox" />
-        `
-        this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
+        this.renderCheckbox();
 
-        this.innerHTML += 
-        `
-        <figure>
-            <img
-                class="${CatalogItem.CLASSNAME}-picture" 
-                src="https://placehold.co/240x240"/>
-        </figure>
-        <h3>${this.name}</h3>
-        `
-        this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
+        this.renderPicture();
 
         if(this.hasVariations) {
-            const divOptionList = document.createElement("div");
-            divOptionList.className = `${CatalogItem.CLASSNAME} sub-options-list`;
-
-            this.product.variations.forEach((variation, i) => {
-                divOptionList.innerHTML += `
-                    <button
-                        type="button"
-                        id="option-${i}"
-                        name="${this.product.slug}-${variation.name}"
-                        class="${CatalogItem.CLASSNAME} sub-option-button"
-                        value="${variation.basePrice}"
-                        >
-                        ${variation.name}
-                        <span>R$${variation.basePrice}</span>
-                    </button>
-                `
-            });
-            
-            this.appendChild(divOptionList)
+            this.renderSubOptions();
         } 
-        this.innerHTML += `
-        <label class="${CatalogItem.CLASSNAME}-label">R$${this.product.price}</label>
-        `
-        this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-label`);
 
-        this.innerHTML += `
-        <div class="quant-count-container hidden">
-            <button
-                id="item-${this.product.id}-remove"
-                class="count-button"
-                type="button">
-                <i class="fa-solid fa-minus"></i>
-            </button>
-            <input 
-                id="item-${this.product.id}-quant"
-                value="1"
-                class="count-input"
-                type=["number"] />
-            <button
-                id="item-${this.product.id}-add"
-                class="count-button"
-                type="button">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-        </div>
-        `
-        this.buttons = this.querySelectorAll('.sub-option-button');
+        this.renderPriceLabel();
+
+        this.renderQuantContainer();
     }
     _setupEvents() {
         this.querySelector(`.${CatalogItem.CLASSNAME}-picture`)?.addEventListener('click', () => {
@@ -240,6 +184,78 @@ class CatalogItem extends HTMLLIElement {
                 this.querySelector(`.${CatalogItem.CLASSNAME}-label`).textContent = `R$${this.product.getVariationPrice(this.dataset.selected)}`;
             })
         })
+    }
+    renderCheckbox() {
+        this.innerHTML +=
+        `<input 
+            name="${this.product.slug}-item"
+            class="${CatalogItem.CLASSNAME}-check"
+            type="checkbox" />
+        `
+        this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
+    }
+    renderPicture() {
+        this.innerHTML += 
+        `
+        <figure>
+            <img
+                class="${CatalogItem.CLASSNAME}-picture" 
+                src="https://placehold.co/240x240"/>
+        </figure>
+        <h3>${this.name}</h3>
+        `
+        this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
+    }
+    renderSubOptions() {
+        const divOptionList = document.createElement("div");
+        divOptionList.className = `${CatalogItem.CLASSNAME} sub-options-list`;
+
+        this.product.variations.forEach((variation, i) => {
+            divOptionList.innerHTML += `
+                <button
+                    type="button"
+                    id="option-${i}"
+                    name="${this.product.slug}-${variation.name}"
+                    class="${CatalogItem.CLASSNAME} sub-option-button"
+                    value="${variation.basePrice}"
+                    >
+                    ${variation.name}
+                    <span>R$${variation.basePrice}</span>
+                </button>
+            `
+        });
+        
+        this.appendChild(divOptionList)
+    }
+    renderPriceLabel() {
+        this.innerHTML += `
+        <label class="${CatalogItem.CLASSNAME}-label">R$${this.product.price}</label>
+        `
+        this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-label`);
+    }
+    renderQuantContainer() {
+        this.innerHTML += `
+        <div class="quant-count-container hidden">
+            <button
+                id="item-${this.product.id}-remove"
+                class="count-button"
+                type="button">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <input 
+                id="item-${this.product.id}-quant"
+                value="1"
+                class="count-input"
+                type=["number"] />
+            <button
+                id="item-${this.product.id}-add"
+                class="count-button"
+                type="button">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        `
+        this.buttons = this.querySelectorAll('.sub-option-button');
     }
 }
 customElements.define("catalog-item", CatalogItem, {extends: "li"});
