@@ -145,6 +145,7 @@ class CatalogItem extends HTMLLIElement {
         this.append(
             this._renderCheckbox(),
             this._renderPicture(),
+            this._renderPriceLabel()
         )
         
         if(this.hasVariations) {
@@ -152,7 +153,6 @@ class CatalogItem extends HTMLLIElement {
         } 
 
 
-        this._renderPriceLabel();
 
         this._renderQuantContainer();
     }
@@ -160,6 +160,7 @@ class CatalogItem extends HTMLLIElement {
         this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
         this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
         this.variationsButtons = this.querySelectorAll('.sub-option-button');
+        this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-price`);
     }
     _setupEvents() {
         this.querySelector(`.${CatalogItem.CLASSNAME}-picture`)?.addEventListener('click', () => {
@@ -188,7 +189,7 @@ class CatalogItem extends HTMLLIElement {
                 this.dataset.selected = button.id.slice(-1);
 
                 this.classList.remove('unable');
-                this.querySelector(`.${CatalogItem.CLASSNAME}-label`).textContent = `R$${button.value}`;
+                this.querySelector(`.${CatalogItem.CLASSNAME}-price`).textContent = `R$${button.value}`;
             })
         })
     }
@@ -208,6 +209,7 @@ class CatalogItem extends HTMLLIElement {
             className:`${CatalogItem.CLASSNAME}-picture`,
             src: 'https://placehold.co/240x240'
         }));
+        // Adiciona caption com estilos de titulo
         this.picture.append(Object.assign(document.createElement('figcaption'), {
             className: `${CatalogItem.CLASSNAME}-title`,
             textContent: this.product.name
@@ -215,49 +217,32 @@ class CatalogItem extends HTMLLIElement {
         return this.picture;
     }
     _renderSubOptions() {
-/*         const divOptionList = document.createElement("div");
-        divOptionList.className = `${CatalogItem.CLASSNAME} sub-options-list`;
-        this.product.variations.forEach((variation, i) => {
-            divOptionList.innerHTML += `
-                <button
-                    type="button"
-                    id="option-${i}"
-                    name="${this.product.slug}-${variation.name}"
-                    class="${CatalogItem.CLASSNAME} sub-option-button"
-                    value="${variation.basePrice}"
-                    >
-                    ${variation.name}
-                    <span>R$${variation.basePrice}</span>
-                </button>
-            `
-        });
-         */
         this.variationsButtons = Object.assign(document.createElement('div'), {
             className: `${CatalogItem.CLASSNAME} sub-options-list`
         });
         this.product.variations.forEach((variation, i) => {
             let spanPrice = document.createElement('span')
-            spanPrice.textContent = `R$${variation.price}`
+            spanPrice.textContent = ` R$${variation.price}`
             let button = Object.assign(document.createElement('button'), {
                 id: `option-${i}`,
                 name: `${this.product.slug}-${variation.slug}`,
                 className: `${CatalogItem.CLASSNAME} sub-option-button`,
                 value:`${variation.price}`,
                 type: 'button',
-                innerText: variation.name
+                textContent: variation.name
             });
             button.appendChild(spanPrice);
             this.variationsButtons.append(button)
         })
         return this.variationsButtons;
-        // this.appendChild(divOptionList)
-        // this.buttons = this.querySelectorAll('.sub-option-button');
     }
     _renderPriceLabel() {
-        this.innerHTML += `
-        <label class="${CatalogItem.CLASSNAME}-label">R$${this.product.price}</label>
-        `
-        this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-label`);
+        this.priceLabel = Object.assign(document.createElement('label'), {
+            className: `${CatalogItem.CLASSNAME}-price`,
+            textContent: `R$${this.product.price}`
+        })
+
+        return this.priceLabel;
     }
     _renderQuantContainer() {
         this.innerHTML += `

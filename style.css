@@ -309,7 +309,7 @@ ul.products-list>li>label,
 ul.products-list>li>input {
     cursor: pointer;
 }
-ul.products-list>li>label.product-item-label {
+ul.products-list>li>label.product-item-price {
     border-radius: 0.25em;
     color: var(--heading-color); 
     grid-area: value;
