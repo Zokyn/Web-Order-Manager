@@ -1,17 +1,17 @@
-import { PRODUCTS } from "./Constants/PRODUCTS.js";
+
 /* CLASSES */
 export default class Catalog {
-    constructor(element) {
+    constructor(element, products) {
         this.element = element,
         this.items = []
-        this._renderList();
+        this._renderList(products);
     }
     
-    _renderList() {
+    _renderList(products) {
         if(!this.element) {
             this.element = document.createElement('ul');
         }
-        PRODUCTS.forEach((product) => {
+        products.forEach((product) => {
             // const item = new CatalogItem(product);
             const item = document.createElement('li', { is: 'catalog-item' });
             item.setProduct(product);

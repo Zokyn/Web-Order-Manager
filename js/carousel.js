@@ -1,17 +1,16 @@
-/* Carousel Index */
+/* Carousel */
 export default class Carousel {
-    constructor(products) {
+    constructor(element, products) {
         this.currentIndex = 0; 
-        this.products = products
-        this.container = document.querySelector('.carousel-container');
+        this.container = element;
         this.track = document.querySelector('.carousel-track'); 
         this.dotsContainer = document.querySelector('.dots-container');
-        this._renderCarousel();
+        this._renderCarousel(products);
     }
-    _renderCarousel() {
+    _renderCarousel(products) {
         // Componentes do Carousel 
         // Cria os itens (card) dentro do Carousel a partir dos destaques
-        this._renderProductsCards() 
+        this._renderProductsCards(products) 
     
         // Seleciona todas os cartões do carousel 
         const cards = document.querySelectorAll('.product-item');
@@ -46,8 +45,8 @@ export default class Carousel {
         // Atualiza o Carousel caso a janela mude de tamanho 
         window.addEventListener('resize', () => this._updateCarousel(cards));
     }
-    _renderProductsCards() {
-        this.products.forEach((produto, index) => {
+    _renderProductsCards(products) {
+        products.forEach((produto, index) => {
             const card = document.createElement('li'); 
     
             card.className = 'product-item';

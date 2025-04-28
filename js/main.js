@@ -1,3 +1,4 @@
+//@ts-check
 /* Color Scheme */
 let isDark = false; 
 import { PAYMENT_TYPE } from './Constants/PAYMENT_TYPES.js'
@@ -24,11 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
         changeColorScheme();
 
     const changeColorsButton = document.querySelector('#change-color-button');
+    const carouselContainer = document.querySelector('.carousel-container');
+    const productsListContainer = document.querySelector('.products-list');
 
-    changeColorsButton.addEventListener('click', () => changeColorScheme());
+    changeColorsButton?.addEventListener('click', () => changeColorScheme());
     
     if (document.title.includes('Home'))
-        new Carousel(HIGHLIGHTS)
+        new Carousel(carouselContainer, HIGHLIGHTS)
     else if (document.title.includes('Produtos'))
-        new Catalog(document.querySelector('.products-list'));
+        new Catalog(productsListContainer, PRODUCTS);
 })

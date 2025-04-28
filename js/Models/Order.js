@@ -1,3 +1,4 @@
+/* Order (Model) */
 export class Order {
     constructor({customer}){
         this._id = this.id;

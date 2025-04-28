@@ -1,3 +1,4 @@
+/* Product (Model) */
 export class Product {
     static INDEX = 0;
 
