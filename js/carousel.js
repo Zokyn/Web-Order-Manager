@@ -6,8 +6,6 @@ export default class Carousel {
         this.container = document.querySelector('.carousel-container');
         this.track = document.querySelector('.carousel-track'); 
         this.dotsContainer = document.querySelector('.dots-container');
-        // const carouselTrack = document.querySelector('.carousel-track'); 
-        // const dotsContainer = document.querySelector('.dots-container');
         this._renderCarousel();
     }
     _renderCarousel() {

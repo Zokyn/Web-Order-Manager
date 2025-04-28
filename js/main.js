@@ -4,10 +4,9 @@ import { PAYMENT_TYPE } from './Constants/PAYMENT_TYPES.js'
 import { Product } from './Models/Product.js'
 import { Order } from './Models/Order.js'
 import { PRODUCTS } from './Constants/PRODUCTS.js'
-import { Catalog } from './Catalog.js'
 import { HIGHLIGHTS } from './Constants/highlights.js';
-import Carousel from './carousel.js';
-// import { ConfirmForm } from '../js/ConfirmForm'
+import Catalog from './Catalog.js'
+import Carousel from './Carousel.js';
 
 /* Lista de destaques (fake database) */
 // import { highlights } from "./highlights";
@@ -28,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColorsButton.addEventListener('click', () => changeColorScheme());
     
-    // Renderiza Catalog
-    const list = new Catalog(document.querySelector('.products-list'));
-    list.renderList();
-
-    // Renderiza Carrousel
-    const carousel = new Carousel(HIGHLIGHTS);
+    if (document.title.includes('Home'))
+        new Carousel(HIGHLIGHTS)
+    else if (document.title.includes('Produtos'))
+        new Catalog(document.querySelector('.products-list'));
 })

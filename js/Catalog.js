@@ -1,12 +1,13 @@
 import { PRODUCTS } from "./Constants/PRODUCTS.js";
 /* CLASSES */
-export class Catalog {
+export default class Catalog {
     constructor(element) {
         this.element = element,
         this.items = []
+        this._renderList();
     }
     
-    renderList() {
+    _renderList() {
         if(!this.element) {
             this.element = document.createElement('ul');
         }
