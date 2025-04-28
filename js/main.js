@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColorsButton?.addEventListener('click', () => changeColorScheme());
     
-    if (document.title.includes('Home'))
+    if (carouselContainer)
         new Carousel(carouselContainer, HIGHLIGHTS)
-    else if (document.title.includes('Produtos'))
+    else if (productsListContainer)
         new Catalog(productsListContainer, PRODUCTS);
 })
