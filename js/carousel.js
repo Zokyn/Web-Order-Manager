@@ -6,9 +6,13 @@ export default class Carousel extends HTMLDivElement {
         this.container = element;
         this.track = document.querySelector('.carousel-track'); 
         this.dotsContainer = document.querySelector('.dots-container');
-        this._renderCarousel(products);
+        this._render(products);
     }
-    _renderCarousel(products) {
+    _render(products) {
+        if(!this.container) {
+            this.container = document.createElement('div');
+            this.container.className = '.carousel-container';
+        }
         // Componentes do Carousel 
         // Cria os itens (card) dentro do Carousel a partir dos destaques
         this._renderProductsCards(products) 

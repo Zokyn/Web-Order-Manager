@@ -4,10 +4,10 @@ export default class Catalog {
     constructor(element, products) {
         this.element = element,
         this.items = []
-        this._renderList(products);
+        this._render(products);
     }
     
-    _renderList(products) {
+    _render(products) {
         if(!this.element) {
             this.element = document.createElement('ul');
         }

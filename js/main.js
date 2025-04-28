@@ -34,4 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         new Carousel(carouselContainer, HIGHLIGHTS)
     else if (productsListContainer)
         new Catalog(productsListContainer, PRODUCTS);
+
+    const order = new Order({ customer: "Cliente Anonimo"})
+
+    
 })
