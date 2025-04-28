@@ -266,14 +266,13 @@ ul.products-list {
 /* ------------ Products Item ------------ */
 ul.products-list>li {
     display: grid; 
-    grid-template-columns: 48px 1fr 80px;
+    grid-template-columns: 48px auto 80px;
     grid-template-rows: 16px auto 1fr auto;
     grid-template-areas: 
         "button . count"
-        ". title ."
         "image image image"
-        "value value value"
-        "option option .";
+        ". option ."
+        "value value value";
     padding: 1em;
     border: solid transparent 3px;
     border-radius: 1em;
@@ -284,19 +283,19 @@ ul.products-list>li {
 ul.products-list>li>figure {
     grid-area: image;
     justify-self: center;
-
+    width:320px;
+    justify-items: center;
 }
 ul.products-list>li>figure>img {
     cursor: pointer;
-    height: 240px;
-    width: 240px;
+
     border: solid transparent 0.5em;
     border-radius: 1em;
 }
-ul.products-list>li>h3{
-    grid-area: title;
+ul.products-list>li>figure>figcaption{
     color: var(--heading-color);
     font-size: 2rem;
+    font-weight: 700;
     text-align: center;
     user-select: none;
 }

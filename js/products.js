@@ -16,10 +16,6 @@ class Product {
         return this.variations.length > 0;
     }
 
-    getVariationPrice(index) {
-        return this.variations[index].basePrice;
-    }
-
     get price() {
         let price;
         if (this.hasVariations) {
@@ -53,12 +49,10 @@ class Product {
         */
         return this.name.trim().replace(/\s+/g, "-").toLowerCase();
     }
-
-    static get totalCount() {
-        return Product.INDEX;
-    }
-
     get HTMLElement() {
         return CatalogItem(this);
+    }
+    static get totalCount() {
+        return Product.INDEX;
     }
 }
