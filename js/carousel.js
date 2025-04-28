@@ -1,6 +1,7 @@
 /* Carousel */
-export default class Carousel {
+export default class Carousel extends HTMLDivElement {    
     constructor(element, products) {
+        super();
         this.currentIndex = 0; 
         this.container = element;
         this.track = document.querySelector('.carousel-track'); 
@@ -135,3 +136,4 @@ export default class Carousel {
     }
     
 }
+customElements.define("carousel-container", Carousel, {extends: "div"});
