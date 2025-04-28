@@ -117,7 +117,7 @@ class CatalogItem extends HTMLLIElement {
         this.picture = document.createElement('figure');
         this.picture.append(Object.assign(document.createElement('img'), {
             className:`${CatalogItem.CLASSNAME}-picture`,
-            src: 'https://placehold.co/240x240'
+            src: `../images/${this.product.slug}.jpg`
         }));
         // Adiciona caption com estilos de titulo
         this.picture.append(Object.assign(document.createElement('figcaption'), {

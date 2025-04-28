@@ -288,7 +288,10 @@ ul.products-list>li>figure {
 }
 ul.products-list>li>figure>img {
     cursor: pointer;
-
+    height: 240px;
+    width: 240px;
+    object-fit: contain;
+    background-color: white;
     border: solid transparent 0.5em;
     border-radius: 1em;
 }
