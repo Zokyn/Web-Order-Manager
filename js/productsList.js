@@ -163,27 +163,10 @@ class Order {
         }
     }
 }
-
-function createProductsItems(list) {
-    PRODUCTS.forEach((product) => {
-        // Para cada produto, cria-se um elemento HTML
-        const item = product.createHTMLElement();
-        
-        // Atribui valores importantes para o item 
-        item.dataset.id = product.id;
-        item.dataset.name = product.name;
-        item.dataset.price = product.price; 
-
-        // Insere o item na lista de produtos
-        list.appendChild(item);
-    });
-}
-
 class Catalog {
     constructor(element) {
         this.element = element,
         this.items = []
-
     }
     
     renderList() {
@@ -191,101 +174,156 @@ class Catalog {
             this.element = document.createElement('ul');
         }
         PRODUCTS.forEach((product) => {
-            // Para cada produto, cria-se um elemento HTML
+/*             // Para cada produto, cria-se um elemento HTML
             const item = product.createHTMLElement();
             // Atribui valores importantes para o item 
             item.dataset.id = product.id;
             item.dataset.name = product.name;
-            item.dataset.price = product.price; 
-    
+            item.dataset.price = product.price;  */
+
+            // const item = new CatalogItem(product);
+            const item = document.createElement('li', { is: 'catalog-item' });
+            item.setProduct(product);
             // Insere o item na lista de produtos
             this.items.push(item);
             this.element.appendChild(item);
         })
     }
 }
-function selectOption(radio) {
-    // Busca o item pai do subitem
-    const itemContainer = radio.closest('.product-item');
+class CatalogItem extends HTMLLIElement {
+    static CLASSNAME = 'product-item';
+    constructor(product) {
+        super();
+        this.product = product
+    }
+    setProduct(product) {
+        this.product = product
+        this._init();
+        this._setupEvents();
+    }
+    get hasVariations() {
+        return this.product.hasVariations;
+    }
+    _init() {
+        this.id =`${this.product.id}`
+        this.name = `${this.product.slug}` 
+        this.className = `${CatalogItem.CLASSNAME} ${this.product.slug}-item`
 
-    // Busca o checkbox do item pai
-    const itemCheckbox = itemContainer.querySelector('.select-item-check');
+        // Atribui Informações do produto 
+        this.dataset.id = this.product.id;
+        this.dataset.name = this.product.name;
+        this.dataset.price = this.product.price; 
+        this.dataset.selected = -1;
 
-    // Atribui o preço ao a label do item pai
-    const selectedPrice = radio.dataset.price;
-    itemContainer.querySelector('.select-item-label').textContent = 'R$' + selectedPrice
+        if(this._hasVariations)
+            this.classList.add('unable');
+        
+        this.innerHTML +=
+        `<input 
+            name="${this.product.slug}-item"
+            class="${CatalogItem.CLASSNAME}-check"
+            type="checkbox" />
+        `
+        this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
 
-    // Permite seleção no checkbox
-    itemCheckbox.disabled = false;
+        this.innerHTML += 
+        `
+        <figure>
+            <img
+                class="${CatalogItem.CLASSNAME}-picture" 
+                src="https://placehold.co/240x240"/>
+        </figure>
+        <h3>${this.name}</h3>
+        `
+        this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
 
-    // Atribui ele como selecionado
-    itemContainer.classList.add('selected');
+        if(this.hasVariations) {
+            const divOptionList = document.createElement("div");
+            divOptionList.className = `${CatalogItem.CLASSNAME} sub-options-list`;
 
-    // Remove class de 'unable'
-    itemContainer.classList.remove('unable');
+            this.product.variations.forEach((variation, i) => {
+                divOptionList.innerHTML += `
+                    <button
+                        type="button"
+                        id="option-${i}"
+                        name="${this.product.slug}-${variation.name}"
+                        class="${CatalogItem.CLASSNAME} sub-option-button"
+                        value="${variation.basePrice}"
+                        >
+                        ${variation.name}
+                        <span>R$${variation.basePrice}</span>
+                    </button>
+                `
+            });
+            
+            this.appendChild(divOptionList)
+        } 
+        this.innerHTML += `
+        <label class="${CatalogItem.CLASSNAME}-label">R$${this.product.price}</label>
+        `
+        this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-label`);
+
+        this.innerHTML += `
+        <div class="quant-count-container hidden">
+            <button
+                id="item-${this.product.id}-remove"
+                class="count-button"
+                type="button">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <input 
+                id="item-${this.product.id}-quant"
+                value="1"
+                class="count-input"
+                type=["number"] />
+            <button
+                id="item-${this.product.id}-add"
+                class="count-button"
+                type="button">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        `
+        this.buttons = this.querySelectorAll('.sub-option-button');
+    }
+    _setupEvents() {
+        this.querySelector(`.${CatalogItem.CLASSNAME}-picture`)?.addEventListener('click', () => {
+            if (!this.classList.contains('unable')) {
+                this.classList.toggle('selected')
+                // this.countContainer?.classList.toggle('hidden');
+            }
+        })
+        
+        this.querySelector(`.${CatalogItem.CLASSNAME}-check`)?.addEventListener('change', () => {
+            if(!this.classList.contains('unable')) {
+                this.classList.toggle('selected')
+
+                // this.querySelector(`.count-quant-container`).classList.toggle('hidden');
+            }
+        })
+        
+        this.querySelectorAll('.sub-option-button')?.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault()
+
+                this.buttons.forEach((button) => button.disabled = false);
+
+                button.disabled = true;
+
+                this.dataset.selected = button.id.slice(-1);
+
+                this.classList.remove('unable');
+                this.querySelector(`.${CatalogItem.CLASSNAME}-label`).textContent = `R$${this.product.getVariationPrice(this.dataset.selected)}`;
+            })
+        })
+        console.log(this.querySelector(`.${CatalogItem.CLASSNAME}-picture`))
+        console.log("eventos adicionado ao CatalogItem")
+    }
 }
+customElements.define("catalog-item", CatalogItem, {extends: "li"});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Renderiza listContainer no elemento '.product-list'
     const list = new Catalog(document.querySelector('.products-list'));
     list.renderList();
-
-    /* Enable multi-option item */
-
-    // Pega todos os checkboxes que pretendo colocar a função
-    const itemContainerElements = document.querySelectorAll('.products-list>li');
-
-
-    itemContainerElements.forEach(element => {
-
-        element.classList.add('product-item');
-        
-        const picture = element.querySelector(`.${Product.CLASSNAME}-picture`);
-        const checkbox = element.querySelector(`.${Product.CLASSNAME}-check`)
-        const buttons = element.querySelectorAll('.sub-option-button');
-        const countContainer = element.querySelector('.quant-count-container');
-
-        const hasSelectedOption = element.querySelector('.sub-option-button')
-        
-        if (hasSelectedOption && !hasSelectedOption.disabled) {
-            element.classList.add('unable');
-        }
-
-        // Adiciona o evento listener para quando clicarem na image
-        picture.addEventListener('click', function () {
-            // Ativa ou desativa class "selected" de li
-            if (!element.classList.contains("unable")) {
-                element.classList.toggle('selected');
-                countContainer.classList.toggle('hidden');
-            }
-
-        })
-
-        // Adiciona o event listener para quando o checkbox mudar
-        checkbox.addEventListener('change', function () {
-            if (!element.classList.contains("unable")) {
-                if (this.checked) // Se ele estiver "marcado"
-                    // O li deverá ser selecionado
-                    element.classList.add('selected');
-                else 
-                    // Caso contrário li deverá ser desselecionado
-                    element.classList.remove('selected');
-                countContainer.classList.toggle('hidden');
-            }
-        })
-
-        buttons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault()
-
-                buttons.forEach((button) => button.disabled = false);
-                
-                button.disabled = true;
-
-                element.classList.remove('unable')
-                element.querySelector('.product-item-label').textContent = `R$${button.value}`;
-            })
-        });
-
-    })
-
 })
