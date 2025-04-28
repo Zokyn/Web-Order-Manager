@@ -30,12 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColorsButton?.addEventListener('click', () => changeColorScheme());
     
+    const order = new Order({ customer: "Cliente Anonimo"})
+
     if (carouselContainer)
         new Carousel(carouselContainer, HIGHLIGHTS)
     else if (productsListContainer)
-        new Catalog(productsListContainer, PRODUCTS);
+        new Catalog(productsListContainer, PRODUCTS, order);
 
-    const order = new Order({ customer: "Cliente Anonimo"})
 
-    
+
 })

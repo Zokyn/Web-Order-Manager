@@ -1,9 +1,9 @@
 
 /* CLASSES */
 export default class Catalog {
-    constructor(element, products) {
+    constructor(element, products, order) {
         this.element = element,
-        this.items = []
+        this.order = order;
         this._render(products);
     }
     
@@ -12,11 +12,22 @@ export default class Catalog {
             this.element = document.createElement('ul');
         }
         products.forEach((product) => {
-            // const item = new CatalogItem(product);
             const item = document.createElement('li', { is: 'catalog-item' });
-            item.setProduct(product);
+            item._setProduct(product)
+            
+            item.addEventListener('item-selected', (e) => {
+                this.order.handleItemSelect(e);
+            });
+
+            item.addEventListener('item-unselected', (e) => {
+                this.order.handleItemUnselect(e);
+            });
+
+            item.addEventListener('item-updated', (e) => {
+                this.order.handleItemSelect(e);
+            })
+            
             // Insere o item na lista de produtos
-            this.items.push(item);
             this.element.appendChild(item);
         })
     }
@@ -25,36 +36,44 @@ class CatalogItem extends HTMLLIElement {
     static CLASSNAME = 'product-item';
     constructor(product) {
         super();
-        this.product = product
     }
-    setProduct(product) {
-        this.product = product
-        this._setProductInfo();
-        this._init();
-        this._cacheElements();
-        this._setupEvents();
+    _setProduct(product) {
+        this.product = product;
+        this.selectedVariation = null;
+        this._init()
     }
     get hasVariations() {
         return this.product.hasVariations;
     }
     _init() {
+        this._setProductInfo();
+
         this.id =`${this.product.id}`
         this.name = `${this.product.slug}` 
         this.className = `${CatalogItem.CLASSNAME} ${this.product.slug}-item`
 
-        if(this.hasVariations)
-            this.classList.add('unable');
-        
+        // Adiciona Itens
         this.append(
-            this._renderCheckbox(),
-            this._renderPicture(),
-            this._renderPriceLabel()
+            this._renderCheckbox(), /* Checkbox */
+            this._renderPicture(), /* Picture */
+            this._renderPriceLabel() /* Price Label */
         )
         
+        // Se houver variações
         if(this.hasVariations) {
+            // Desativa seleção do item 
+            this.classList.add('unable');
+            // Adiciona botões de variações
             this.append(this._renderSubOptions());
         } 
+
+        // Adiciona container do contador
         this._renderQuantContainer();
+        
+        // Define elemento e liga eventos
+        this._cacheElements();
+        this._setupEvents();
+
     }
     _setProductInfo() {
         // Atribui Informações do produto 
@@ -122,6 +141,7 @@ class CatalogItem extends HTMLLIElement {
                 type: 'button',
                 textContent: variation.name
             });
+            button.dataset.index = i;
             button.appendChild(spanPrice);
             this.variationsButtons.append(button)
         })
@@ -167,21 +187,56 @@ class CatalogItem extends HTMLLIElement {
     }
     _handleCheckBoxChange() {
         if(!this.classList.contains('unable')) {
-            this.classList.toggle('selected')
 
-            this.quantContainer?.classList.toggle('hidden');
+        }
+        if (this.checkbox.checked) {
+            this.dispatchEvent(new CustomEvent('item-selected', {
+                detail: {
+                    product: this.product,
+                    variationIndex: this.selectedVariation
+                },
+                bubbles: true
+            }));
+            
+            this.classList.add('selected')
+            this.quantContainer?.classList.remove('hidden');
+        } else {
+            this.dispatchEvent(new CustomEvent('item-unselected', {
+                detail: {
+                    productId: this.product.id,
+                    variationIndex: this.selectedVariation
+                },
+                bubbles: true
+            }));
+            
+            this.classList.remove('selected');
+            this.quantContainer?.classList.add('hidden');
         }
     }
     _handleVariationOptionClick(button, event) {
         event.preventDefault()
 
-        this.variationsButtons.forEach((button) => button.disabled = false);
-
+        this.variationsButtons.forEach(button => {
+            // Desativa todas as opções
+            button.disabled = false
+        });
+        // Ativa a opção clicada
         button.disabled = true;
-
-        this.dataset.selected = button.id.slice(-1);
-
+        this.selectedVariation = parseInt(button.dataset.index);
+        
+        //this.dataset.selected = button.id.slice(-1);
+        
         this.classList.remove('unable');
+        
+        if (this.checkbox?.checked) {
+            this.dispatchEvent(customEvent('item-updated', {
+                detail: {
+                    product: this.product,
+                    variationIndex: this.selectedVariation
+                },
+                bubbles: true
+            }))
+        }
         this.priceLabel.textContent = `R$${button.value}`;
     }
 }
