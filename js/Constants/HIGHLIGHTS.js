@@ -1,4 +1,4 @@
-const highlights = [
+const HIGHLIGHTS = [
     { 
         name: "Agulhinha", 
         price: "R$80,00", 

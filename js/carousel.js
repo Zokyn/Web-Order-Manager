@@ -2,7 +2,7 @@
 let currentIndex = 0; 
 
 function createProductsCards(track) {
-    highlights.forEach((produto, index) => {
+    HIGHLIGHTS.forEach((produto, index) => {
         const card = document.createElement('li'); 
 
         card.className = 'product-item';
