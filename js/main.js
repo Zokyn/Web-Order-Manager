@@ -6,13 +6,10 @@ import { Product } from './Models/Product.js'
 import { OrderItem } from './Models/OrderItem.js';
 import { Order } from './Models/Order.js'
 import { PRODUCTS } from './Constants/PRODUCTS.js'
-import { HIGHLIGHTS } from './Constants/highlights.js';
+import { HIGHLIGHTS } from './Constants/HIGHLIGHTS.js';
 import Catalog from './Catalog.js'
 import Carousel from './Carousel.js';
 import { ConfirmForm } from './ConfirmForm.js';
-
-/* Lista de destaques (fake database) */
-// import { highlights } from "./highlights";
 
 const FORM_PATH = '../form.html'
 
