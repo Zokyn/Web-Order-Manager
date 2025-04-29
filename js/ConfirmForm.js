@@ -17,12 +17,13 @@ export class ConfirmForm {
             if(orderListContainer) {                
                 order.forEach((orderItem) => {
                     const li = document.createElement('li');
-                    li.className = 'product-card'
+                    li.className = 'order-item'
                     li.innerHTML = 
                     `
-                        <span>${orderItem.product.name}</span>
-                        <span>x${parseInt(orderItem.quantity)}</span>
-                        <span>: R$ ${parseFloat(orderItem.product.price) * parseInt(orderItem.quantity)}</span>
+                        <div class="order-product">${orderItem.product.name}</div>
+                        <div> R$${(orderItem.product.price).toFixed(2)}</div>
+                        <div class="order-quantity">x${parseInt(orderItem.quantity)}</div>
+                        <div>R$${(parseFloat(orderItem.product.price) * parseInt(orderItem.quantity)).toFixed(2)}</div>
                     `
                     orderListContainer.append(li)
                 })
