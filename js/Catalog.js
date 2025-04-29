@@ -24,7 +24,7 @@ export default class Catalog {
             });
 
             item.addEventListener('item-updated', (e) => {
-                this.order.handleItemSelect(e);
+                this.order.handleItemUpdate(e);
             })
             
             // Insere o item na lista de produtos
@@ -32,9 +32,9 @@ export default class Catalog {
         })
     }
 }
-class CatalogItem extends HTMLLIElement {
-    static CLASSNAME = 'product-item';
-    constructor(product) {
+export class CatalogItem extends HTMLLIElement {
+    static CLASSNAME = 'product-card';
+    constructor() {
         super();
     }
     _setProduct(product) {
@@ -55,8 +55,10 @@ class CatalogItem extends HTMLLIElement {
         // Adiciona Itens
         this.append(
             this._renderCheckbox(), /* Checkbox */
+            this._renderTitle(),
             this._renderPicture(), /* Picture */
-            this._renderPriceLabel() /* Price Label */
+            this._renderPriceLabel(), /* Price Label */
+            this._renderQuantContainer(), /* container do contador */
         )
         
         // Se houver variações
@@ -67,8 +69,7 @@ class CatalogItem extends HTMLLIElement {
             this.append(this._renderSubOptions());
         } 
 
-        // Adiciona container do contador
-        this._renderQuantContainer();
+        
         
         // Define elemento e liga eventos
         this._cacheElements();
@@ -85,12 +86,13 @@ class CatalogItem extends HTMLLIElement {
     _cacheElements() {
         this.checkbox = this.querySelector(`.${CatalogItem.CLASSNAME}-check`);
         this.picture = this.querySelector(`.${CatalogItem.CLASSNAME}-picture`);
+        this.titleName = this.querySelector(`.product-name`);
         this.variationsButtons = this.querySelectorAll('.sub-option-button');
         this.priceLabel = this.querySelector(`.${CatalogItem.CLASSNAME}-price`);
 
         this.quantContainer = this.querySelector('.quant-count-container')
         this.quantAddButton = this.querySelector('.count-button:first-child');
-        this.quantCounter = this.querySelector('input .count-button')
+        this.quantCounter = this.querySelector('input.count-input');
         this.quantSubButton = this.querySelector('.count-button:last-child');
     }
     _setupEvents() {
@@ -101,6 +103,7 @@ class CatalogItem extends HTMLLIElement {
                 this._handleVariationOptionClick(button, e)
             })
         })
+        this.quantCounter?.addEventListener('input', (e) => this._handleQuantChange(e.target));
     }
     /* Componentes */
     _renderCheckbox() {
@@ -119,12 +122,16 @@ class CatalogItem extends HTMLLIElement {
             className:`${CatalogItem.CLASSNAME}-picture`,
             src: `../images/${this.product.slug}.jpg`
         }));
-        // Adiciona caption com estilos de titulo
-        this.picture.append(Object.assign(document.createElement('figcaption'), {
-            className: `${CatalogItem.CLASSNAME}-title`,
-            textContent: this.product.name
-        }));
         return this.picture;
+    }
+    _renderTitle() {
+        // Adiciona caption com estilos de titulo
+        this.titleName = Object.assign(document.createElement('h3'), {
+            className:`product-name`,
+            textContent: this.product.name
+        })
+        // this.title.textContent = this.product.name
+        return this.titleName;
     }
     _renderSubOptions() {
         this.variationsButtons = Object.assign(document.createElement('div'), {
@@ -156,27 +163,20 @@ class CatalogItem extends HTMLLIElement {
         return this.priceLabel;
     }
     _renderQuantContainer() {
-        this.innerHTML += `
-        <div class="quant-count-container hidden">
-            <button
-                id="item-${this.product.id}-remove"
-                class="count-button"
-                type="button">
-                <i class="fa-solid fa-minus"></i>
-            </button>
+        this.quantContainer = document.createElement("div");
+        this.quantContainer.classList = "quant-count-container hidden"
+        this.quantContainer.innerHTML += `
+
             <input 
                 id="item-${this.product.id}-quant"
                 value="1"
                 class="count-input"
-                type=["number"] />
-            <button
-                id="item-${this.product.id}-add"
-                class="count-button"
-                type="button">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-        </div>
+                type="number" 
+                min="0"
+                max="99"                
+                />
         `
+        return this.quantContainer;
     }
     /* Event Handles */
     _handlePictureClick() {
@@ -238,6 +238,17 @@ class CatalogItem extends HTMLLIElement {
             }))
         }
         this.priceLabel.textContent = `R$${button.value}`;
+    }
+    _handleQuantChange(input) {
+        console.log(input.value)
+        this.dispatchEvent(new CustomEvent('item-updated', {
+            detail: {
+                product: this.product,
+                variationIndex: this.selectedVariation,
+                quantity: input.value
+            },
+            bubbles: true
+        }));
     }
 }
 customElements.define("catalog-item", CatalogItem, {extends: "li"});

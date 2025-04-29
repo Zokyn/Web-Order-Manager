@@ -68,6 +68,25 @@ export class Order {
         this._updateUI();
     }
 
+    handleItemUpdate(event) {
+        const product = event.detail.product;
+        const variationIndex = event.detail.variationIndex;
+        const price = variationIndex ? product.variations[variationIndex].price : product.price;
+        const quantity = event.detail.quantity;
+
+        this.items = this.items.filter(item => {
+            !(item.product.id === product.id && item.variationIndex === variationIndex)
+        });
+
+        this.items.push(new OrderItem({
+            product: { ...product, price },
+            variationIndex,
+            quantity: quantity
+        }));
+
+        this._updateUI();
+    }
+
     handleItemUnselect(event) {
         const productId = event.detail.productId;
         const variationIndex = event.detail.variationIndex;

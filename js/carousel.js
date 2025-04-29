@@ -1,3 +1,4 @@
+import CatalogItem from "./Catalog.js";
 /* Carousel */
 export default class Carousel extends HTMLDivElement {    
     constructor(element, products) {
@@ -18,7 +19,7 @@ export default class Carousel extends HTMLDivElement {
         this._renderProductsCards(products) 
     
         // Seleciona todas os cartões do carousel 
-        const cards = document.querySelectorAll('.product-item');
+        const cards = document.querySelectorAll('.product-card');
     
         // Para cada cartão do carousel 
         cards.forEach((_, index) => {
@@ -54,13 +55,13 @@ export default class Carousel extends HTMLDivElement {
         products.forEach((produto, index) => {
             const card = document.createElement('li'); 
     
-            card.className = 'product-item';
+            card.className = 'product-card';
     
             card.innerHTML = `
                 <figure>
                     <img src="${produto.img}" alt="${produto.name}">
                 </figure>
-                <h3>${produto.name}</h3>
+                <h3 class="product-name">${produto.name}</h3>
                 <label class="price">${produto.price}</label>
             `;
     

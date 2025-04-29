@@ -14,25 +14,26 @@ export class ConfirmForm {
             
             // Exibe os itens na página de formulário
             const orderListContainer = document.querySelector('.product-order-list');
-
-            order.forEach((orderItem) => {
-                const li = document.createElement('li');
-                li.className = 'product-item'
-                li.innerHTML = 
-                `
-                    <span>${orderItem.product.name}</span>
-                    <span>x${parseInt(orderItem.quantity)}</span>
-                    <span>: R$ ${parseFloat(orderItem.product.price) * parseInt(orderItem.quantity)}</span>
-                `
-                orderListContainer.append(li)
-            })
-            
-            // Calcula o total
-            const total = order.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-            order.forEach((item) => {
-                console.log(item)
-            })
-            document.getElementById('total-pedido').textContent = `R$ ${total}`;
+            if(orderListContainer) {                
+                order.forEach((orderItem) => {
+                    const li = document.createElement('li');
+                    li.className = 'product-card'
+                    li.innerHTML = 
+                    `
+                        <span>${orderItem.product.name}</span>
+                        <span>x${parseInt(orderItem.quantity)}</span>
+                        <span>: R$ ${parseFloat(orderItem.product.price) * parseInt(orderItem.quantity)}</span>
+                    `
+                    orderListContainer.append(li)
+                })
+                
+                // Calcula o total
+                const total = order.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+                order.forEach((item) => {
+                    console.log(item)
+                })
+                document.getElementById('total-pedido').textContent = `R$ ${total}`;
+            }
         }
     }
 }
