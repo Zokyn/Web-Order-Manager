@@ -6,9 +6,58 @@ export class ConfirmForm {
         this._render();
     }
     _render() {
+        this._getJsonData();
+
+        const resetButton = document.querySelector('button[type="reset"]');
+        resetButton.disabled = true;
+
+        const form = document.querySelector('form');
+
+        const inputsElements = document.querySelectorAll('[name*="-input"');
+        const errorsElements = document.querySelectorAll('[name*="-error"');
+
+        errorsElements.forEach((error) => {
+            error.classList.add('hidden');
+        })
+
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault;
+            inputsElements.forEach((input, index) => {
+                if (!input.checkValidity()) /* Se item nao for valido */
+                    // Mostra o error
+                    errorsElements[index].classList.remove('hidden')  
+                else 
+                    // Esconde o error
+                    errorsElements[index].classList.add('hidden')  
+            })
+        })
+
+        form.addEventListener('input', () => {
+            resetButton.disabled = false;
+        })
+
+        inputsElements.forEach((input, index) => {
+            input.addEventListener('invalid', (e) => {
+                errorsElements[index].classList.remove('hidden')
+            })
+            input.addEventListener('change', () => {
+                inputsElements.forEach((input, index) => {
+                    if (!input.checkValidity()) /* Se item nao for valido */
+                        // Mostra o error
+                        errorsElements[index].classList.remove('hidden')  
+                    else 
+                        // Esconde o error
+                        errorsElements[index].classList.add('hidden')  
+                })
+            })
+        })
+
+    }
+    _getJsonData() {
         // Recupera os dados do pedido
         const orderJSON = localStorage.getItem('lastOrder');
-                    
+                            
         if (orderJSON) {
             let order = JSON.parse(orderJSON);
             
@@ -41,31 +90,5 @@ export class ConfirmForm {
 
 /* document.addEventListener('DOMContentLoaded', function() { 
 
-    const resetButton = document.querySelector('button[type="reset"]');
-    resetButton.disabled = true;
-
-    const form = document.querySelector('form');
-
-    const inputsElements = document.querySelectorAll('[name*="-input"');
-    const errorsElements = document.querySelectorAll('[name*="-error"');
-
-    errorsElements.forEach((error) => {
-        error.classList.add('hidden');
-    })
-
     
-    form.addEventListener('submit', (e) => {
-        e.preventDefault;
-    })
-
-    form.addEventListener('input', () => {
-        resetButton.disabled = false;
-    })
-
-    inputsElements.forEach((input, index) => {
-        input.addEventListener('invalid', (e) => {
-            errorsElements[index].classList.remove('hidden')
-        })
-    })
-
 }); */

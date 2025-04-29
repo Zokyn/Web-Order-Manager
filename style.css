@@ -774,6 +774,8 @@ form main {
 }
 
 form main fieldset {
+    display: flex;
+    flex-flow: column nowrap;
     padding: 0.5em 1em;
     color: var(--form-label-color);
     font-size: 1.3rem;
@@ -803,7 +805,7 @@ form .form-frame button:hover {
 }
 /* Form Reset Button */
 form .form-frame button[type="reset"] {
-    background-color: rgb(184, 52, 52);
+    background-color: var(--form-error-color);
 }
 form .form-frame button[type="reset"]:hover {
     background-color: rgb(212, 117, 117);
@@ -821,8 +823,18 @@ form .form-frame button[type="reset"]:disabled {
     cursor: default;
 }
 
-form .form-frame .hidden {
+/* form .form-frame .hidden {
     display: none;
+} */
+
+form .error {
+    color: var(--txt-color);
+    transition: all ease-in-out 0.5s;
+    font-size: ''
+}
+form .error.hidden {
+    color: var(--white);
+    font-size: 0;
 }
 /* ------------ Size Media Queries ------------ */
 @media (max-width: 467px) {
