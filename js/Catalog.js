@@ -120,7 +120,7 @@ export class CatalogItem extends HTMLLIElement {
         this.picture = document.createElement('figure');
         this.picture.append(Object.assign(document.createElement('img'), {
             className:`${CatalogItem.CLASSNAME}-picture`,
-            src: `../images/${this.product.slug}.jpg`
+            src: `../images/products/${this.product.slug}.jpg`
         }));
         return this.picture;
     }

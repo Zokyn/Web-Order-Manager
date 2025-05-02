@@ -1,6 +1,6 @@
 :root {
     /* Palette Colors */
-    --brown: #361e18;
+    --brown: hsl(12, 38%, 15%);
     --light-brown: #6e431d;
     --ochre: #cc7722;
     --chestnut: #742802;
@@ -35,7 +35,12 @@ body {
     --body-bg-color: var(--yellow-sand);
 
     /* SECTION - background Color - */
-    --section-bg: linear-gradient(to bottom, var(--yellow-sand) 25%, var(--chestnut));
+    --section-bg: linear-gradient(
+        to bottom, 
+        var(--yellow-sand) 75%, 
+        var(--chestnut) 90%,
+        var(--brown) 95%
+    );
     /* NAVBAR */
     /* NAVBAR - background color - */
     --nav-bg-color: var(--brown);
@@ -93,8 +98,14 @@ body.dark {
     --body-bg-color: var(--light-brown);
 
     /* SECTION - background Color - */
-    --section-bg: linear-gradient(to bottom, var(--light-brown),5%, var(--chestnut));
+    /* --section-bg: linear-gradient(to bottom, var(--light-brown),5%, var(--chestnut)); */
     
+    --section-bg: linear-gradient(
+        to bottom,                /* Direção: de cima para baixo */
+        var(--light-brown) 50%,
+        var(--chestnut) 80%,
+        var(--brown) 100%
+    );
     /* NAVBAR */
     /* NAVBAR - background color - */
     --nav-txt-color: var(--yellow-sand);
@@ -136,7 +147,8 @@ body.dark {
     --form-error-color: rgb(165, 43, 43);
 }
 body {
-    background-color: var(--body-bg-color);
+    background:  var(--section-bg); 
+    /* var(--body-bg-color); */
 
 }
 /* ------------ Nav e Footer ------------ */
@@ -190,7 +202,8 @@ h1.brand, .nav-list, .contact-list {
 .contact-list {
     justify-content: center;
 }
-/* Navbar */
+
+/* --------------------------- MENU/NAVBAR */
 nav>.nav-item, li.contact-item {
     padding: 1em 2em;
     font-weight: 600;
@@ -248,7 +261,7 @@ h1,h2,h3 {
 section {
     margin-top: var(--header-nav-height);
     color: var(--txt-color);
-    background: var(--section-bg);
+    /* background: var(--section-bg); */
 }
 #about-text p {
     font-size: 1.5em;
@@ -569,9 +582,56 @@ label#total-pedido {
     border-start-start-radius: 0;
 }
 /* ------------ Carousel ------------ */
+/* section#intro {
+    background-image: url('images/sea-background.jpeg');
+    height: 100vh;
+} */
+main#home::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* TODO: procurar imagem sem marca d'água */
+    background: 
+        url('images/sea-background.jpeg') center/cover no-repeat;
+    opacity: 0.2;
+    min-height: 100vh;
+    z-index: -1;
+}
 section#home {
     padding: 3em 0 0;
 }
+article.intro {
+    height: 80vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    font-size: 20px;
+}
+article.intro h1 { 
+    font-size: 96px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--yellow-sand);
+    text-shadow: 
+        -6px -6px 0 var(--chestnut),
+        0 -6px 0 var(--chestnut),
+        6px -6px 0 var(--chestnut),
+        6px 0 0 var(--chestnut),
+        6px 6px 0 var(--chestnut),
+        0 6px 0 var(--chestnut),
+        -6px 6px 0 var(--chestnut),
+        -6px 0 0 var(--chestnut);
+}
+article.intro h2 {
+    color: var(--white);
+    text-shadow: var(--light-blue) 0px 0px 15px;
+    font-size: 1.8em;
+}
+article.showcase { 
+    background-color: transparent;
+}
+
 #home>.hero-content {
     text-align: center;
 }
@@ -592,7 +652,9 @@ ul.carousel-track {
     transition: transform 0.5 ease;
     padding-inline-start: 0;
     border-radius: 16px;
-    background-color: #74280255 /* chestnut with low opacity */;
+    /* Background color */
+    /* chestnut with low opacity */
+    /* background-color: #74280255; */
 }
 ul.carousel-track>.product-card {
     position: relative;
